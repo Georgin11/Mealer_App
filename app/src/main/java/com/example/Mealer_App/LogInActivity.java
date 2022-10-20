@@ -1,10 +1,12 @@
-package com.example.deliverable1;
+package com.example.Mealer_App;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.Mealer_App.R;
 
 public class LogInActivity extends AppCompatActivity {
 

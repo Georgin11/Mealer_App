@@ -1,4 +1,4 @@
-package com.example.deliverable1.ui.login;
+package com.example.Mealer_App.ui.login;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel;
 
 import android.util.Patterns;
 
-import com.example.deliverable1.data.LoginRepository;
-import com.example.deliverable1.data.Result;
-import com.example.deliverable1.data.model.LoggedInUser;
-import com.example.deliverable1.R;
+import com.example.Mealer_App.data.model.LoggedInUser;
+import com.example.Mealer_App.data.LoginRepository;
+import com.example.Mealer_App.data.Result;
+import com.example.Mealer_App.R;
 
 public class LoginViewModel extends ViewModel {
 

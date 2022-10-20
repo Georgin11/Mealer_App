@@ -1,4 +1,4 @@
-package com.example.deliverable1.ui.login;
+package com.example.Mealer_App.ui.login;
 
 import android.app.Activity;
 
@@ -22,10 +22,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.deliverable1.R;
-import com.example.deliverable1.ui.login.LoginViewModel;
-import com.example.deliverable1.ui.login.LoginViewModelFactory;
-import com.example.deliverable1.databinding.ActivityLoginBinding;
+import com.example.Mealer_App.R;
+import com.example.Mealer_App.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.deliverable1.ui.login;
+package com.example.Mealer_App.ui.login;
 
 /**
  * Class exposing authenticated user details to the UI.

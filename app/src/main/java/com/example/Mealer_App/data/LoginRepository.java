@@ -1,6 +1,6 @@
-package com.example.deliverable1.data;
+package com.example.Mealer_App.data;
 
-import com.example.deliverable1.data.model.LoggedInUser;
+import com.example.Mealer_App.data.model.LoggedInUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and

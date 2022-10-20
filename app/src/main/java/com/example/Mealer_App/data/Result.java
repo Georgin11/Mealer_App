@@ -1,4 +1,4 @@
-package com.example.deliverable1.data;
+package com.example.Mealer_App.data;
 
 /**
  * A generic class that holds a result success w/ data or an error exception.

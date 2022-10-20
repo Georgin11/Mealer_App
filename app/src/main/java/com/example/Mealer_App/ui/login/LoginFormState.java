@@ -1,4 +1,4 @@
-package com.example.deliverable1.ui.login;
+package com.example.Mealer_App.ui.login;
 
 import androidx.annotation.Nullable;
 

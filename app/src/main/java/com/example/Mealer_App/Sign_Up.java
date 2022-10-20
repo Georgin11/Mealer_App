@@ -1,4 +1,4 @@
-package com.example.deliverable1;
+package com.example.Mealer_App;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.example.Mealer_App.R;
 
 public class Sign_Up extends AppCompatActivity {
 

@@ -1,6 +1,6 @@
-package com.example.deliverable1.data;
+package com.example.Mealer_App.data;
 
-import com.example.deliverable1.data.model.LoggedInUser;
+import com.example.Mealer_App.data.model.LoggedInUser;
 
 import java.io.IOException;
 

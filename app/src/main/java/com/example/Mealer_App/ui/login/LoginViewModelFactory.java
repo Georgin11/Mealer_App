@@ -1,11 +1,11 @@
-package com.example.deliverable1.ui.login;
+package com.example.Mealer_App.ui.login;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
 
-import com.example.deliverable1.data.LoginDataSource;
-import com.example.deliverable1.data.LoginRepository;
+import com.example.Mealer_App.data.LoginDataSource;
+import com.example.Mealer_App.data.LoginRepository;
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

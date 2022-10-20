@@ -1,4 +1,4 @@
-package com.example.deliverable1.data.model;
+package com.example.Mealer_App.data.model;
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository
