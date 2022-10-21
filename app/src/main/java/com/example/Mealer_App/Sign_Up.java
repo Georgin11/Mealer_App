@@ -16,6 +16,7 @@ public class Sign_Up extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
     }
+
     public void GoBack(View view) {
         //Creating a Return intent to pass to the Main Activity
         Intent returnIntent = new Intent();
@@ -23,5 +24,9 @@ public class Sign_Up extends AppCompatActivity {
         finish();
     }
 
+    public void onClient(View view){
+        Intent intent = new Intent(getApplicationContext(), ClientRegistration.class);
+        startActivity(intent);
+    }
 
 }
