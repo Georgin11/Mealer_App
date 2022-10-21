@@ -9,4 +9,7 @@ public class Client extends NonAdmin{
         this.paymentInfo = paymentInfo;
     }
 
+    public PaymentInfo getPaymentInfo() {
+        return paymentInfo;
+    }
 }

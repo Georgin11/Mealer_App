@@ -11,4 +11,12 @@ public class Cook extends NonAdmin{
         this.voidCheque = voidCheque;
 
     }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public boolean isVoidCheque() {
+        return voidCheque;
+    }
 }
