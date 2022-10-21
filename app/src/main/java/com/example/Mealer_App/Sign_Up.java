@@ -11,6 +11,8 @@ import com.example.Mealer_App.R;
 
 public class Sign_Up extends AppCompatActivity {
 
+    public static boolean clicked = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +28,14 @@ public class Sign_Up extends AppCompatActivity {
 
     public void onClient(View view){
         Intent intent = new Intent(getApplicationContext(), ClientRegistration.class);
-        startActivity(intent);
+
+        if(clicked == false){
+            startActivity(intent);
+        }
+        clicked = true;
+        finish();
+        clicked = false;
+        // allows user to re-enter
     }
 
 }

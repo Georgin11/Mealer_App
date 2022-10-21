@@ -52,6 +52,8 @@ public class ClientRegistration extends AppCompatActivity {
         }
         payment = true;
         finish();
+        payment = false;
+        // allows user to re-enter the loop from signup to registration to credit card again
 
     }
 
