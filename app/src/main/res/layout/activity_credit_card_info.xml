@@ -87,17 +87,34 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/editTextStreetNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="248dp"
+            android:layout_marginEnd="-100dp"
+            android:layout_marginBottom="435dp"
+            android:layout_toStartOf="@+id/editTextBillingAddress"
+            android:ems="10"
+            android:hint="No."
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
+
+        <EditText
             android:id="@+id/editTextBillingAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView2"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="120dp"
             android:layout_marginTop="-485dp"
             android:layout_marginEnd="25dp"
             android:ems="10"
-            android:hint="Address"
+            android:hint="Street"
             android:inputType="textPersonName"
             android:minHeight="48dp" />
 

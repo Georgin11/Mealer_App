@@ -75,18 +75,37 @@
             android:minHeight="48dp" />
 
         <EditText
-            android:id="@+id/editText_ClientAddress"
+            android:id="@+id/editText_ClientNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="230dp"
+            android:layout_marginEnd="-120dp"
+            android:layout_marginBottom="450dp"
+            android:layout_toStartOf="@+id/editText_ClientStreet"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="No."
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+        <EditText
+            android:id="@+id/editText_ClientStreet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/editText_ClientPassword"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="120dp"
             android:layout_marginEnd="50dp"
             android:layout_marginBottom="-50dp"
             android:ems="10"
             android:gravity="center"
-            android:hint="Address"
+            android:hint="Street                "
             android:inputType="textPersonName"
             android:minHeight="48dp" />
 
@@ -94,7 +113,7 @@
             android:id="@+id/editText_ClientApt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editText_ClientAddress"
+            android:layout_alignBottom="@+id/editText_ClientStreet"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="50dp"
