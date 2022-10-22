@@ -1,22 +1,32 @@
-package com.example.Mealer_App.data;
+package com.example.Mealer_App.structure;
 
+import java.util.Locale;
 import java.util.regex.*;
 
 public abstract class User {
     protected String username;
     protected String password;
 
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public String getUsername() {
-        return this.username;
+        return username;
     }
 
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
 
     public boolean validatePassword(String password) {
+        if (password == null) {
+            return false;
+        }
 
+        password = password.toLowerCase().trim();
         String regex = "^(?=.*[0-9])" //Means that a digit should appear at least once in the String
                 + "(?=.*[a-z])(?=.*[A-Z])" //Means that both a lower case and an upper case letter should appear
                 + "(?=.*[@#$%^&+=])" //Means a special character should appear at least once
@@ -24,18 +34,16 @@ public abstract class User {
                                        // "{8,20}" Means that the String should be at least 8
                                        //characters long and at most 20 characters long
         Pattern p = Pattern.compile(regex);
-
-        if (password == null) {
-            return false;
-        }
-
         Matcher m = p.matcher(password);
 
         return m.matches();
     }
 
     public boolean validateUsername(String username) {
-        // Regex to check valid username.
+        if (username == null) {
+            return false;
+        }
+        username = username.toLowerCase().trim();
         String regex = "^[A-Za-z]\\w{5,29}$"; // "[A-Za-z]" Means that the String must begin with
                                               // either an uppercase or lowercase character
                                               // "\w{5,29}" Means that the String must be between
@@ -43,11 +51,6 @@ public abstract class User {
 
         // Compile the ReGex
         Pattern p = Pattern.compile(regex);
-
-        if (username == null) {
-            return false;
-        }
-
         //Pattern.matcher() method checks for matching between passed in String and the compiled ReGex
         Matcher m = p.matcher(username);
 
