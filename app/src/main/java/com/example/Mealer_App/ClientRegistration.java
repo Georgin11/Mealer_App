@@ -1,5 +1,7 @@
 package com.example.Mealer_App;
 
+import static com.example.Mealer_App.CreditCardInfo.newPaymentInfo;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,10 +9,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.Mealer_App.structure.*;
+
 public class ClientRegistration extends AppCompatActivity {
 
     public static boolean payment = false;
-
+    public static Client[] clients = new Client[10];
+    public static int numClients = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +23,9 @@ public class ClientRegistration extends AppCompatActivity {
     }
 
     public void onContinue(View view){
+
+        EditText textUsername = (EditText)findViewById(R.id.editText_ClientUsername);
+        String username = textUsername.getText().toString();
 
         EditText textFirstName = (EditText)findViewById(R.id.editText_ClientName);
         String firstName = textFirstName.getText().toString();
@@ -32,13 +40,13 @@ public class ClientRegistration extends AppCompatActivity {
         String password = textPassword.getText().toString();
 
         EditText textStreetNum = (EditText)findViewById(R.id.editText_ClientNumber);
-        String streetNum = textStreetNum.getText().toString();
+        int streetNum = Integer.valueOf(textStreetNum.getText().toString());
 
         EditText textAddress = (EditText)findViewById(R.id.editText_ClientStreet);
         String street = textAddress.getText().toString();
 
         EditText textApt = (EditText)findViewById(R.id.editText_ClientApt);
-        String apt = textApt.getText().toString();
+        int apt = Integer.valueOf(textApt.getText().toString());
 
         EditText textCity = (EditText)findViewById(R.id.editText_ClientCity);
         String city = textCity.getText().toString();
@@ -50,6 +58,9 @@ public class ClientRegistration extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), CreditCardInfo.class);
             startActivity(intent);
         }
+        Address address = new Address(street, streetNum, postalCode, city, apt);
+        clients[numClients++] = new Client(newPaymentInfo, firstName, lastName, email, address, username, password);
+
         payment = true;
         finish();
         payment = false;

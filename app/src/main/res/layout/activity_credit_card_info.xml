@@ -53,7 +53,7 @@
             android:layout_marginBottom="-50dp"
             android:ems="10"
             android:hint="Card Number"
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:minHeight="48dp" />
 
         <EditText
@@ -68,7 +68,7 @@
             android:layout_toEndOf="@+id/editTextCardNumber"
             android:ems="10"
             android:hint="CVV"
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:minHeight="48dp" />
 
         <TextView
@@ -100,7 +100,7 @@
             android:layout_toStartOf="@+id/editTextBillingAddress"
             android:ems="10"
             android:hint="No."
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:minHeight="48dp" />
 
         <EditText
@@ -130,7 +130,7 @@
             android:layout_marginBottom="-50dp"
             android:ems="10"
             android:hint="Apt/Suite"
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:minHeight="48dp" />
 
         <EditText

@@ -1,15 +1,26 @@
 package com.example.Mealer_App;
 
+import static com.example.Mealer_App.ClientRegistration.clients;
+import static com.example.Mealer_App.ClientRegistration.numClients;
+import static com.example.Mealer_App.CookRegistration.cooks;
+import static com.example.Mealer_App.CookRegistration.numCooks;
+import static com.example.Mealer_App.structure.userType.ADMIN;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 import com.example.Mealer_App.R;
+import com.example.Mealer_App.structure.Admin;
+import com.example.Mealer_App.structure.userType;
 
 public class LogInActivity extends AppCompatActivity {
 
+    public static Admin administrator = new Admin("wassim", "the-system-must");
+    public static userType typeOfUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +39,27 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     public void LogIn(View View) {
-        //Application Context and Activity
+        EditText textUsername = (EditText)findViewById(R.id.editTextTextPersonName);
+        String username = textUsername.getText().toString();
+
+        EditText textPassword = (EditText)findViewById(R.id.editTextTextPassword);
+        String password = textPassword.getText().toString();
+
+        if(username.equals(administrator.getUsername()) && password.equals(administrator.getPassword())) {
+            typeOfUser = ADMIN;
+        }
+
+        for(int i = 0; i < numClients; i++) {
+            if(username.equals(clients[i].getUsername()) && password.equals(clients[i].getPassword())) {
+                typeOfUser = userType.CLIENT;
+            }
+        }
+
+        for(int i = 0; i < numCooks; i++) {
+            if(username.equals(cooks[i].getUsername()) && password.equals(cooks[i].getPassword())) {
+                typeOfUser = userType.COOK;
+            }
+        }
         Intent intent = new Intent(getApplicationContext(), WelcomePage.class);
         startActivityForResult(intent, 0);
     }

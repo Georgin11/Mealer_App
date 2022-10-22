@@ -35,7 +35,7 @@ public class Address {
      * Description: Constructor for class Address. Sets instance variables and will
      * throw exceptions if variables are invalid.
      */
-    Address(String street, int number, String postal, String city, int suite) {
+    public Address(String street, int number, String postal, String city, int suite) {
         this.street = street;
         this.number = number;
         this.postal = postal;

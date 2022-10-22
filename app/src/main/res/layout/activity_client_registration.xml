@@ -11,6 +11,22 @@
         android:layout_height="match_parent">
 
         <EditText
+            android:id="@+id/editText_ClientUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="49dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="646dp"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Username"
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
+
+        <EditText
             android:id="@+id/editText_ClientName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -18,8 +34,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="650dp"
+            android:layout_marginEnd="49dp"
+            android:layout_marginBottom="597dp"
             android:ems="10"
             android:gravity="center"
             android:hint="First Name"
@@ -89,7 +105,7 @@
             android:ems="10"
             android:gravity="center"
             android:hint="No."
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:minHeight="48dp"
             tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck" />
 
@@ -122,7 +138,7 @@
             android:ems="10"
             android:gravity="center"
             android:hint="Apt/Suite"
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:minHeight="48dp" />
 
         <EditText
@@ -154,7 +170,7 @@
             android:ems="10"
             android:gravity="center"
             android:hint="Postal Code"
-            android:inputType="textPersonName"
+            android:inputType="text"
             android:minHeight="48dp" />
 
         <Button

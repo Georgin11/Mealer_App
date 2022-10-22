@@ -1,14 +1,18 @@
 package com.example.Mealer_App;
 
+import static com.example.Mealer_App.ClientRegistration.clients;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import com.example.Mealer_App.structure.*;
 
 public class CreditCardInfo extends AppCompatActivity {
 
+    public static PaymentInfo newPaymentInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,26 +24,27 @@ public class CreditCardInfo extends AppCompatActivity {
         String cardholder = textCardholder.getText().toString();
 
         EditText textCardNumber = (EditText)findViewById(R.id.editTextCardNumber);
-        String cardNumber = textCardNumber.getText().toString();
+        int cardNumber = Integer.valueOf(textCardNumber.getText().toString());
 
         EditText textCVV = (EditText)findViewById(R.id.editTextCVV);
-        String cvv = textCVV.getText().toString();
+        int cvv = Integer.valueOf(textCVV.getText().toString());
 
         EditText textStreetNumber = (EditText)findViewById(R.id.editTextStreetNumber);
-        String streetNum2 = textStreetNumber.getText().toString();
+        int streetNum2 = Integer.valueOf(textStreetNumber.getText().toString());
 
         EditText textStreetAddress = (EditText)findViewById(R.id.editTextBillingAddress);
         String street2 = textStreetAddress.getText().toString();
 
         EditText textApt2 = (EditText)findViewById(R.id.editTextBillingApt);
-        String apt2 = textApt2.getText().toString();
+        int apt2 = Integer.valueOf(textApt2.getText().toString());
 
         EditText textCity2 = (EditText)findViewById(R.id.editTextCity);
         String city2 = textCity2.getText().toString();
 
         EditText textPostal = (EditText)findViewById(R.id.editTextBillingApt);
         String postal2 = textPostal.getText().toString();
-
+        Address address = new Address(street2, streetNum2, postal2, city2, apt2);
+        newPaymentInfo = new PaymentInfo(cardholder, cardNumber, cvv, address);
         super.finish();
     }
 }
