@@ -58,7 +58,8 @@
         android:contentDescription="@string/sign_in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        android:onClick="onCook"/>
 
     <Button
         android:id="@+id/button"

@@ -27,15 +27,26 @@ public class Sign_Up extends AppCompatActivity {
     }
 
     public void onClient(View view){
-        Intent intent = new Intent(getApplicationContext(), ClientRegistration.class);
+        Intent intentA = new Intent(getApplicationContext(), ClientRegistration.class);
 
         if(clicked == false){
-            startActivity(intent);
+            startActivity(intentA);
         }
         clicked = true;
         finish();
         clicked = false;
         // allows user to re-enter
+    }
+
+    public void onCook(View view){
+        Intent intentB = new Intent(getApplicationContext(), CookRegistration.class);
+
+        if(clicked == false){
+            startActivity(intentB);
+        }
+        clicked = true;
+        finish();
+        clicked = false;
     }
 
 }
