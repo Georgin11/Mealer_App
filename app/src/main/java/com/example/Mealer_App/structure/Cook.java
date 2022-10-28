@@ -19,7 +19,7 @@ public class Cook extends NonAdmin{
         return bio;
     }
 
-    public boolean isVoidCheque() {
+    public boolean hasVoidCheque() {
         return voidCheque;
     }
 }
