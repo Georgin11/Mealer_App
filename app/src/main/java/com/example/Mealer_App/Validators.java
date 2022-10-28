@@ -2,6 +2,7 @@ package com.example.Mealer_App;
 
 import android.widget.EditText;
 
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,8 +38,7 @@ public class Validators {
     public boolean validateName(EditText textName) {
         String name = textName.getText().toString().trim().toLowerCase();
 
-        String regex = "^[a-z'-]" //Allows names to contain ' and -
-                + "{1,15}$"; // Must be 1 to 15 characters long
+        String regex = "^[a-zA-Z0-9_ ]*$"; //Allows names to contain ' and -. Must be 1 to 15 characters long
 
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(name);
@@ -102,5 +102,58 @@ public class Validators {
             textPassword.setError(null);
             return true;
         }
+    }
+
+    public boolean validateNumber(EditText textStreetNum) {
+        String input = textStreetNum.getText().toString();
+        if(input.isEmpty()) {
+            textStreetNum.setError("Number cannot be empty");
+            return false;
+        }
+        int num = Integer.parseInt(input);
+        if(num <= 0) {
+            textStreetNum.setError("Number Invalid");
+            return false;
+        }
+
+        textStreetNum.setError(null);
+        return true;
+    }
+
+    public boolean validateCVV(EditText textCVV) {
+        String input = textCVV.getText().toString();
+        if(input.isEmpty()) {
+            textCVV.setError("Number cannot be empty");
+            return false;
+        }
+        int cvv = Integer.parseInt(input);
+        if(cvv > 999 || cvv < 100) {
+            textCVV.setError("Must be 3 digits");
+            return false;
+        }
+
+        textCVV.setError(null);
+        return true;
+    }
+
+    public boolean validatePostal(EditText textPostal) {
+        String postal = textPostal.getText().toString().trim().toUpperCase();
+
+        String regex = "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$";
+
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(postal);
+
+        if(postal.isEmpty()) {
+            textPostal.setError("Postal code cannot be empty");
+            return false;
+        } else if (!m.matches()) {
+            textPostal.setError("Postal code is invalid");
+            return false;
+        } else {
+            textPostal.setError(null);
+            return true;
+        }
+
     }
 }

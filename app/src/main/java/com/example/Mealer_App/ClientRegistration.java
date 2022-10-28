@@ -8,13 +8,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 import com.example.Mealer_App.structure.*;
 
 
 public class ClientRegistration extends AppCompatActivity {
 
-    EditText textUsername, textFirstName, textLastName, textEmail, textPassword;
+    EditText textUsername, textFirstName, textLastName, textEmail, textPassword, textStreetName, textStreetNum, textPostalCode, textCity, textApt;
 
     public static boolean payment = false;
     public static Client[] clients = new Client[10];
@@ -30,16 +29,25 @@ public class ClientRegistration extends AppCompatActivity {
         textEmail = findViewById(R.id.editTextEmailAddress);
         textPassword = findViewById(R.id.editText_ClientPassword);
 
-
+        textStreetName = findViewById(R.id.editText_ClientStreet);
+        textStreetNum = findViewById(R.id.editText_ClientNumber);
+        textPostalCode = findViewById(R.id.editText_ClientPostal);
+        textCity = findViewById(R.id.editText_ClientCity);
+        textApt = findViewById(R.id.editText_ClientApt);
     }
 
     public void onContinue(View view){
 
         Validators validate = new Validators();
 
-        if(!validate.validateUsername(textUsername) | !validate.validateName(textFirstName) | !validate.validateName(textLastName) | !validate.validateEmail(textEmail) | !validate.validatePassword(textPassword)) {
+        if(!validate.validateUsername(textUsername) | !validate.validateName(textFirstName) |
+                !validate.validateName(textLastName) | !validate.validateEmail(textEmail) |
+                !validate.validatePassword(textPassword) | !validate.validateName(textStreetName) |
+                !validate.validateNumber(textStreetNum) | !validate.validatePostal(textPostalCode) |
+                !validate.validateName(textCity) | !validate.validateNumber(textApt)) {
             return;
         }
+
 
         String username = textUsername.getText().toString();
         String firstName = textFirstName.getText().toString();
@@ -47,36 +55,19 @@ public class ClientRegistration extends AppCompatActivity {
         String email = textEmail.getText().toString();
         String password = textPassword.getText().toString();
 
-        if(!payment){
+        String street = textStreetName.getText().toString();
+        int streetNum = Integer.parseInt(textStreetNum.getText().toString());
+        String postalCode = textPostalCode.getText().toString();
+        String city = textCity.getText().toString();
+        int apt = Integer.parseInt(textApt.getText().toString());
+
+        Address address = new Address(street, streetNum, postalCode, city, apt);
+
+        if(!payment) {
             Intent intent = new Intent(getApplicationContext(), CreditCardInfo.class);
             startActivity(intent);
         }
 
-        Address address = null;
-        boolean addressValid = false;
-        while(!addressValid) {
-            try {
-                EditText textAddress = findViewById(R.id.editText_ClientStreet);
-                String street = textAddress.getText().toString();
-
-                EditText textStreetNum = findViewById(R.id.editText_ClientNumber);
-                int streetNum = Integer.parseInt(textStreetNum.getText().toString());
-
-                EditText textPostalCode = findViewById(R.id.editText_ClientPostal);
-                String postalCode = textPostalCode.getText().toString();
-
-                EditText textCity = findViewById(R.id.editText_ClientCity);
-                String city = textCity.getText().toString();
-
-                EditText textApt = findViewById(R.id.editText_ClientApt);
-                int apt = Integer.parseInt(textApt.getText().toString());
-
-                address = new Address(street, streetNum, postalCode, city, apt);
-                addressValid = true;
-            } catch(Exception e) {
-                Toast.makeText(ClientRegistration.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }
         clients[numClients++] = new Client(newPaymentInfo, firstName, lastName, email, address, username, password);
 
         payment = true;

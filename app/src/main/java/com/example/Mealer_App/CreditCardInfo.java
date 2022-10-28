@@ -1,49 +1,55 @@
 package com.example.Mealer_App;
 
-import static com.example.Mealer_App.ClientRegistration.clients;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
 import com.example.Mealer_App.structure.*;
 
 public class CreditCardInfo extends AppCompatActivity {
+
+    EditText textCardholder, textCardNumber, textCVV, textStreetAddress, textStreetNumber, textPostal, textCity, textApt;
 
     public static PaymentInfo newPaymentInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_credit_card_info);
+
+        textCardholder = findViewById(R.id.editTextCardholder);
+        textCardNumber = findViewById(R.id.editTextCardNumber);
+        textCVV = findViewById(R.id.editTextCVV);
+        textStreetAddress = findViewById(R.id.editTextBillingAddress);
+        textStreetNumber = findViewById(R.id.editTextStreetNumber);
+        textPostal = findViewById(R.id.editTextPostal);
+        textCity = findViewById(R.id.editTextCity);
+        textApt = findViewById(R.id.editTextBillingApt);
     }
 
     public void onSave(View view){
-        EditText textCardholder = (EditText)findViewById(R.id.editTextCardholder);
+
+        Validators validate = new Validators();
+
+        if(!validate.validateName(textCardholder) | !validate.validateNumber(textCardNumber) |
+            !validate.validateCVV(textCVV) | !validate.validateName(textStreetAddress) | !validate.validateNumber(textStreetNumber) |
+                !validate.validatePostal(textPostal) | !validate.validateName(textCity) | !validate.validateNumber(textApt)) {
+            return;
+        }
+
         String cardholder = textCardholder.getText().toString();
+        int cardNumber = Integer.parseInt(textCardNumber.getText().toString());
+        int cvv = Integer.parseInt(textCVV.getText().toString());
 
-        EditText textCardNumber = (EditText)findViewById(R.id.editTextCardNumber);
-        int cardNumber = Integer.valueOf(textCardNumber.getText().toString());
+        String streetName = textStreetAddress.getText().toString();
+        int streetNum = Integer.parseInt(textStreetNumber.getText().toString());
+        String postal = textPostal.getText().toString();
+        String city = textCity.getText().toString();
+        int apt = Integer.parseInt(textApt.getText().toString());
 
-        EditText textCVV = (EditText)findViewById(R.id.editTextCVV);
-        int cvv = Integer.valueOf(textCVV.getText().toString());
+        Address address = new Address(streetName, streetNum, postal, city, apt);
 
-        EditText textStreetNumber = (EditText)findViewById(R.id.editTextStreetNumber);
-        int streetNum2 = Integer.valueOf(textStreetNumber.getText().toString());
-
-        EditText textStreetAddress = (EditText)findViewById(R.id.editTextBillingAddress);
-        String street2 = textStreetAddress.getText().toString();
-
-        EditText textApt2 = (EditText)findViewById(R.id.editTextBillingApt);
-        int apt2 = Integer.valueOf(textApt2.getText().toString());
-
-        EditText textCity2 = (EditText)findViewById(R.id.editTextCity);
-        String city2 = textCity2.getText().toString();
-
-        EditText textPostal = (EditText)findViewById(R.id.editTextBillingApt);
-        String postal2 = textPostal.getText().toString();
-        Address address = new Address(street2, streetNum2, postal2, city2, apt2);
         newPaymentInfo = new PaymentInfo(cardholder, cardNumber, cvv, address);
         super.finish();
     }
