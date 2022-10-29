@@ -28,13 +28,18 @@ public class CreditCardInfo extends AppCompatActivity {
         textApt = findViewById(R.id.editTextBillingApt);
     }
 
+    public void GoBack(View view) {
+        finish();
+    }
+
     public void onSave(View view){
 
         Validators validate = new Validators();
 
-        if(!validate.validateName(textCardholder) | !validate.validateNumber(textCardNumber) |
-            !validate.validateCVV(textCVV) | !validate.validateName(textStreetAddress) | !validate.validateNumber(textStreetNumber) |
-                !validate.validatePostal(textPostal) | !validate.validateName(textCity) | !validate.validateNumber(textApt)) {
+        if(!validate.validateName(textCardholder) | !validate.validateCardNumber(textCardNumber) |
+            !validate.validateCVV(textCVV) | !validate.validateName(textStreetAddress) |
+                !validate.validateNumber(textStreetNumber) | !validate.validatePostal(textPostal) |
+                !validate.validateName(textCity)) {
             return;
         }
 
@@ -46,7 +51,10 @@ public class CreditCardInfo extends AppCompatActivity {
         int streetNum = Integer.parseInt(textStreetNumber.getText().toString());
         String postal = textPostal.getText().toString();
         String city = textCity.getText().toString();
-        int apt = Integer.parseInt(textApt.getText().toString());
+        int apt = 0;
+        if(!textApt.getText().toString().isEmpty()) {
+            apt = Integer.parseInt(textApt.getText().toString());
+        }
 
         Address address = new Address(streetName, streetNum, postal, city, apt);
 

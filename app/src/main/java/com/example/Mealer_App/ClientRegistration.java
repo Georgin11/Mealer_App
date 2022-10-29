@@ -13,7 +13,8 @@ import com.example.Mealer_App.structure.*;
 
 public class ClientRegistration extends AppCompatActivity {
 
-    EditText textUsername, textFirstName, textLastName, textEmail, textPassword, textStreetName, textStreetNum, textPostalCode, textCity, textApt;
+    EditText textUsername, textFirstName, textLastName, textEmail, textPassword, textStreetName,
+            textStreetNum, textPostalCode, textCity, textApt;
 
     public static boolean payment = false;
     public static Client[] clients = new Client[10];
@@ -36,6 +37,10 @@ public class ClientRegistration extends AppCompatActivity {
         textApt = findViewById(R.id.editText_ClientApt);
     }
 
+    public void GoBack(View view) {
+        finish();
+    }
+
     public void onContinue(View view){
 
         Validators validate = new Validators();
@@ -44,7 +49,7 @@ public class ClientRegistration extends AppCompatActivity {
                 !validate.validateName(textLastName) | !validate.validateEmail(textEmail) |
                 !validate.validatePassword(textPassword) | !validate.validateName(textStreetName) |
                 !validate.validateNumber(textStreetNum) | !validate.validatePostal(textPostalCode) |
-                !validate.validateName(textCity) | !validate.validateNumber(textApt)) {
+                !validate.validateName(textCity)) {
             return;
         }
 
@@ -59,7 +64,10 @@ public class ClientRegistration extends AppCompatActivity {
         int streetNum = Integer.parseInt(textStreetNum.getText().toString());
         String postalCode = textPostalCode.getText().toString();
         String city = textCity.getText().toString();
-        int apt = Integer.parseInt(textApt.getText().toString());
+        int apt = 0;
+        if(!textApt.getText().toString().isEmpty()) {
+            apt = Integer.parseInt(textApt.getText().toString());
+        }
 
         Address address = new Address(street, streetNum, postalCode, city, apt);
 

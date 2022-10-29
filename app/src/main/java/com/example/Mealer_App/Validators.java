@@ -2,16 +2,15 @@ package com.example.Mealer_App;
 
 import android.widget.EditText;
 
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validators {
 
-
     public Validators() {
 
     }
+
     public boolean validateUsername(EditText textUsername) {
         String username = textUsername.getText().toString().trim();
 
@@ -87,8 +86,7 @@ public class Validators {
                 + "(?=.*[a-z])(?=.*[A-Z])" //Means that both a lower case and an upper case letter should appear
                 + "(?=.*[@#$%^&+=])" //Means a special character should appear at least once
                 + "(?=\\S+$).{8,20}$"; // "(?=\S+$)" Means that no white spaces can occur in the String
-        // "{8,20}" Means that the String should be at least 8
-        //characters long and at most 20 characters long
+        // "{8,20}" Means that the String should be at least 8 characters long and at most 20 characters long
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(password);
 
@@ -96,7 +94,12 @@ public class Validators {
             textPassword.setError("Password cannot be empty");
             return false;
         } else if(!m.matches()) {
-            textPassword.setError("Password is invalid");
+            textPassword.setError("Password must include at least:" +
+                                    "\n- 1 digit" +
+                                    "\n- 1 lowercase and uppercase letter" +
+                                    "\n- 1 special character" +
+                                    "\n- no white spaces" +
+                                    "\n- 8-20 characters long");
             return false;
         } else {
             textPassword.setError(null);
@@ -136,6 +139,20 @@ public class Validators {
         return true;
     }
 
+    public boolean validateCardNumber(EditText textCardNumber) {
+        char[] input = textCardNumber.getText().toString().toCharArray();
+        if(input.length == 0) {
+            textCardNumber.setError("Number cannot be empty");
+            return false;
+        } else if(input.length > 16 || input.length < 15) {
+            textCardNumber.setError("Card Number must be 15-16 digits");
+            return false;
+        }
+
+        textCardNumber.setError(null);
+        return true;
+    }
+
     public boolean validatePostal(EditText textPostal) {
         String postal = textPostal.getText().toString().trim().toUpperCase();
 
@@ -154,6 +171,18 @@ public class Validators {
             textPostal.setError(null);
             return true;
         }
-
     }
+
+    public boolean validateBio(EditText textBio) {
+        String bio = textBio.getText().toString().trim();
+
+        if(bio.isEmpty()) {
+            textBio.setError("Bio cannot be empty");
+            return false;
+        } else {
+            textBio.setError(null);
+            return true;
+        }
+    }
+
 }
