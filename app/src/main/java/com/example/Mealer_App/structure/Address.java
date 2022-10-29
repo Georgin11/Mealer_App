@@ -19,7 +19,7 @@ public class Address {
      * enters "mark-anthony street", the setter will correct it to "Mark-Anthony Street"
      * since otherwise, it would not find a match if the address existed for the employee.
      */
-    protected Address() {
+    public Address() {
         street = postal = city = "";
         number = suite = 0;
     }
@@ -27,39 +27,21 @@ public class Address {
     /**
      * @param street
      * @param number
-     * @param postal
+     * @param postalCode
      * @param city
      * @param suite
-     * @throws Exception
      *
      * Description: Constructor for class Address. Sets instance variables and will
      * throw exceptions if variables are invalid.
      */
-    public Address(String street, int number, String postal, String city, int suite) {
+
+    public Address(String street, int number, String postalCode, String city, int suite) {
         this.street = street;
         this.number = number;
-        this.postal = postal;
+        this.postal = postalCode;
         this.city = city;
         this.suite = suite;
     }
-
-    //proper constructor requires too much testing for deliverable 1
-//    Address(String street, int number, String postalCode, String city, int suite) throws Exception {
-//        //setters will return false is parameters are invalid, and throw an exception to allow user to retry.
-//
-//        if(!setStreet(street)) {
-//            throw new Exception("Invalid street name");
-//        }
-//        if(!setNumber(number)) {
-//            throw new Exception("Invalid street number");
-//        }
-//        if(!setPostal(postalCode)) {
-//            throw new Exception("Invalid postal code");
-//        }
-//        if(!setCity(city)) {
-//            throw new Exception("Invalid city name");
-//        }
-//    }
 
     /**
      * @return

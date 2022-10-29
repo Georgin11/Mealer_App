@@ -7,24 +7,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.widget.Button;
-import android.widget.ImageView;
-
 import com.example.Mealer_App.structure.Address;
-import com.example.Mealer_App.structure.Client;
 import com.example.Mealer_App.structure.Cook;
 
 public class CookRegistration extends AppCompatActivity {
 
-    //
+    EditText textUsername, textFirstName, textLastName, textEmail, textPassword,
+            textStreetNum, textStreetName, textApt, textCity, textPostalCode, textBio;
+
     int SELECT_PICTURE = 200;
-    //
 
     public static boolean cheque = false;
     public static Cook[] cooks = new Cook[10];
     public static int numCooks = 0;
+
     void imageChooser(){
         Intent i = new Intent();
         i.setType("image/*");
@@ -39,49 +35,61 @@ public class CookRegistration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cook_registration);
 
+        textUsername = findViewById(R.id.editTextCookUsername);
+        textFirstName = findViewById(R.id.editTextCookFirstName);
+        textLastName = findViewById(R.id.editTextCookLastName);
+        textEmail = findViewById(R.id.editTextCookEmailAddress);
+        textPassword = findViewById(R.id.editTextCookPassword);
+        textStreetNum = findViewById(R.id.editTextCookStreetNo);
+        textStreetName = findViewById(R.id.editTextStreetCook);
+        textApt = findViewById(R.id.editTextCookApt);
+        textCity = findViewById(R.id.editTextCookCity);
+        textPostalCode = findViewById(R.id.editTextCookPostal);
+        textBio = findViewById(R.id.editTextCookBio);
+
+    }
+
+    public void GoBack(View view) {
+
+        finish();
     }
 
     public void onAddCheque(View view){
 
-        EditText textUsername = (EditText)findViewById(R.id.editTextCookUsername);
+        Validators validate = new Validators();
+
+        if(!validate.validateUsername(textUsername) | !validate.validateName(textFirstName) |
+                !validate.validateName(textLastName) | !validate.validateEmail(textEmail) |
+                !validate.validatePassword(textPassword) | !validate.validateName(textStreetName) |
+                !validate.validateNumber(textStreetNum) | !validate.validatePostal(textPostalCode) |
+                !validate.validateName(textCity) | !validate.validateBio(textBio)) {
+            return;
+        }
+
         String username = textUsername.getText().toString();
-
-        EditText textFirstName = (EditText)findViewById(R.id.editTextCookFirstName);
         String firstName = textFirstName.getText().toString();
-
-        EditText textLastName = (EditText)findViewById(R.id.editTextCookLastName);
         String lastName = textLastName.getText().toString();
-
-        EditText textEmail = (EditText)findViewById(R.id.editTextCookEmailAddress);
         String email = textEmail.getText().toString();
-
-        EditText textPassword = (EditText)findViewById(R.id.editTextCookPassword);
         String password = textPassword.getText().toString();
 
-        EditText textStreetNum = (EditText)findViewById(R.id.editTextCookStreetNo);
-        int streetNum = Integer.valueOf(textStreetNum.getText().toString());
-
-        EditText textAddress = (EditText)findViewById(R.id.editTextStreetCook);
-        String street = textAddress.getText().toString();
-
-        EditText textApt = (EditText)findViewById(R.id.editTextCookApt);
-        int apt = Integer.valueOf(textApt.getText().toString());
-
-        EditText textCity = (EditText)findViewById(R.id.editTextCookCity);
-        String city = textCity.getText().toString();
-
-        EditText textPostalCode = (EditText)findViewById(R.id.editTextCookPostal);
+        String street = textStreetName.getText().toString();
+        int streetNum = Integer.parseInt(textStreetNum.getText().toString());
         String postalCode = textPostalCode.getText().toString();
+        String city = textCity.getText().toString();
+        int apt = 0;
+        if(!textApt.getText().toString().isEmpty()) {
+            apt = Integer.parseInt(textApt.getText().toString());
+        }
 
-        EditText textBio = (EditText)findViewById(R.id.editTextCookBio);
+        Address address = new Address(street, streetNum, postalCode, city, apt);
+
         String bio = textBio.getText().toString();
 
-        if(cheque == false){
+        if(!cheque){
             // upload cheque
             imageChooser();
         }
 
-        Address address = new Address(street, streetNum, postalCode, city, apt);
         cooks[numCooks++] = new Cook(bio, true, firstName, lastName, email, address, username, password);
         cheque = true;
         finish();

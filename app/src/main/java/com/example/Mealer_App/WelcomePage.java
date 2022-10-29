@@ -9,10 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.Mealer_App.R;
 import com.example.Mealer_App.structure.userType;
-
-import org.w3c.dom.Text;
 
 public class WelcomePage extends AppCompatActivity {
 
