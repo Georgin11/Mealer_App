@@ -66,6 +66,7 @@ public class ClientRegistration extends AppCompatActivity {
         payment = false;
         // allows user to re-enter the loop from signup to registration to credit card again
 
+        Database databaseHelper = new Database(ClientRegistration.this);
     }
 
 

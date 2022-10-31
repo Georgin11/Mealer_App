@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.Mealer_App.R;
 import com.example.Mealer_App.structure.Admin;
 import com.example.Mealer_App.structure.userType;
 
