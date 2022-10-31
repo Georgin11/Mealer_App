@@ -65,7 +65,7 @@ public class LogInActivity extends AppCompatActivity {
         Intent intent;
         if(typeOfUser == null) {
             intent = new Intent(getApplicationContext(), Sign_Up.class);
-            Toast.makeText(LogInActivity.this, "Account does not exist. " + numClients + " " + numCooks, Toast.LENGTH_LONG).show();
+            Toast.makeText(LogInActivity.this, "Account does not exist.", Toast.LENGTH_LONG).show();
         } else {
             intent = new Intent(getApplicationContext(), WelcomePage.class);
         }
