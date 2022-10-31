@@ -13,9 +13,9 @@ import com.example.Mealer_App.structure.*;
 
 public class ClientRegistration extends AppCompatActivity {
 
-    public static boolean payment = false;
-    public static Client[] clients = new Client[10];
-    public static int numClients = 0;
+    private static boolean payment = false;
+    public static Client client;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +59,7 @@ public class ClientRegistration extends AppCompatActivity {
             startActivity(intent);
         }
         Address address = new Address(street, streetNum, postalCode, city, apt);
-        clients[numClients++] = new Client(newPaymentInfo, firstName, lastName, email, address, username, password);
+        client = new Client(newPaymentInfo, firstName, lastName, email, address, username, password);
 
         payment = true;
         finish();
