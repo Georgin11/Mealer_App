@@ -13,12 +13,13 @@ import com.example.Mealer_App.structure.*;
 
 public class ClientRegistration extends AppCompatActivity {
 
+
     EditText textUsername, textFirstName, textLastName, textEmail, textPassword, textStreetName,
             textStreetNum, textPostalCode, textCity, textApt;
+            
+    private static boolean payment = false;
+    public static Client client;
 
-    public static boolean payment = false;
-    public static Client[] clients = new Client[10];
-    public static int numClients = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +77,8 @@ public class ClientRegistration extends AppCompatActivity {
             startActivity(intent);
         }
 
-        clients[numClients++] = new Client(newPaymentInfo, firstName, lastName, email, address, username, password);
+        Address address = new Address(street, streetNum, postalCode, city, apt);
+        client = new Client(newPaymentInfo, firstName, lastName, email, address, username, password);
 
         payment = true;
         finish();
@@ -85,5 +87,7 @@ public class ClientRegistration extends AppCompatActivity {
         payment = false;
         // allows user to re-enter the loop from signup to registration to credit card again
 
+        Database databaseHelper = new Database(ClientRegistration.this);
     }
 }
+
