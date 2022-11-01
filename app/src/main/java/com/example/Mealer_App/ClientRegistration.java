@@ -8,67 +8,86 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-
 import com.example.Mealer_App.structure.*;
+
 
 public class ClientRegistration extends AppCompatActivity {
 
+
+    EditText textUsername, textFirstName, textLastName, textEmail, textPassword, textStreetName,
+            textStreetNum, textPostalCode, textCity, textApt;
+            
     private static boolean payment = false;
     public static Client client;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_registration);
+
+        textUsername = findViewById(R.id.editText_ClientUsername);
+        textFirstName = findViewById(R.id.editText_ClientName);
+        textLastName = findViewById(R.id.editText_ClientLastName);
+        textEmail = findViewById(R.id.editTextEmailAddress);
+        textPassword = findViewById(R.id.editText_ClientPassword);
+
+        textStreetName = findViewById(R.id.editText_ClientStreet);
+        textStreetNum = findViewById(R.id.editText_ClientNumber);
+        textPostalCode = findViewById(R.id.editText_ClientPostal);
+        textCity = findViewById(R.id.editText_ClientCity);
+        textApt = findViewById(R.id.editText_ClientApt);
+    }
+
+    public void GoBack(View view) {
+        finish();
     }
 
     public void onContinue(View view){
 
-        EditText textUsername = (EditText)findViewById(R.id.editText_ClientUsername);
+        Validators validate = new Validators();
+
+        if(!validate.validateUsername(textUsername) | !validate.validateName(textFirstName) |
+                !validate.validateName(textLastName) | !validate.validateEmail(textEmail) |
+                !validate.validatePassword(textPassword) | !validate.validateName(textStreetName) |
+                !validate.validateNumber(textStreetNum) | !validate.validatePostal(textPostalCode) |
+                !validate.validateName(textCity)) {
+            return;
+        }
+
+
         String username = textUsername.getText().toString();
-
-        EditText textFirstName = (EditText)findViewById(R.id.editText_ClientName);
         String firstName = textFirstName.getText().toString();
-
-        EditText textLastName = (EditText)findViewById(R.id.editText_ClientLastName);
         String lastName = textLastName.getText().toString();
-
-        EditText textEmail = (EditText)findViewById(R.id.editTextEmailAddress);
         String email = textEmail.getText().toString();
-
-        EditText textPassword = (EditText)findViewById(R.id.editText_ClientPassword);
         String password = textPassword.getText().toString();
 
-        EditText textStreetNum = (EditText)findViewById(R.id.editText_ClientNumber);
-        int streetNum = Integer.valueOf(textStreetNum.getText().toString());
-
-        EditText textAddress = (EditText)findViewById(R.id.editText_ClientStreet);
-        String street = textAddress.getText().toString();
-
-        EditText textApt = (EditText)findViewById(R.id.editText_ClientApt);
-        int apt = Integer.valueOf(textApt.getText().toString());
-
-        EditText textCity = (EditText)findViewById(R.id.editText_ClientCity);
-        String city = textCity.getText().toString();
-
-        EditText textPostalCode = (EditText)findViewById(R.id.editText_ClientPostal);
+        String street = textStreetName.getText().toString();
+        int streetNum = Integer.parseInt(textStreetNum.getText().toString());
         String postalCode = textPostalCode.getText().toString();
+        String city = textCity.getText().toString();
+        int apt = 0;
+        if(!textApt.getText().toString().isEmpty()) {
+            apt = Integer.parseInt(textApt.getText().toString());
+        }
 
-        if(payment == false){
+        Address address = new Address(street, streetNum, postalCode, city, apt);
+
+        if(!payment) {
             Intent intent = new Intent(getApplicationContext(), CreditCardInfo.class);
             startActivity(intent);
         }
+
         Address address = new Address(street, streetNum, postalCode, city, apt);
         client = new Client(newPaymentInfo, firstName, lastName, email, address, username, password);
 
         payment = true;
         finish();
+
+
         payment = false;
         // allows user to re-enter the loop from signup to registration to credit card again
 
         Database databaseHelper = new Database(ClientRegistration.this);
     }
-
-
-
 }
+

@@ -10,6 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <Button
+            android:id="@+id/btn_GoBack"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="-3dp"
+            android:layout_marginEnd="146dp"
+            android:layout_marginBottom="686dp"
+            android:onClick="GoBack"
+            android:text="GO BACK" />
+
         <EditText
             android:id="@+id/editTextCookUsername"
             android:layout_width="wrap_content"
@@ -19,7 +34,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="49dp"
-            android:layout_marginBottom="677dp"
+            android:layout_marginBottom="644dp"
             android:ems="10"
             android:gravity="center"
             android:hint="Username"
@@ -33,9 +48,9 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="49dp"
-            android:layout_marginBottom="625dp"
+            android:layout_marginStart="51dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="601dp"
             android:ems="10"
             android:gravity="center"
             android:hint="First Name"
@@ -50,8 +65,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="-50dp"
+            android:layout_marginEnd="49dp"
+            android:layout_marginBottom="-47dp"
             android:ems="10"
             android:gravity="center"
             android:hint="Last Name"
@@ -133,7 +148,7 @@
             android:layout_marginBottom="-50dp"
             android:ems="10"
             android:gravity="center"
-            android:hint="Apt/Suite"
+            android:hint="Apt/Suite (Optional)"
             android:inputType="number"
             android:minHeight="48dp" />
 
