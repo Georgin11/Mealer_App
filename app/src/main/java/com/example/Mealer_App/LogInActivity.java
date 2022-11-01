@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.Mealer_App.structure.Admin;
 import com.example.Mealer_App.structure.userType;
@@ -59,7 +60,13 @@ public class LogInActivity extends AppCompatActivity {
                 typeOfUser = userType.COOK;
             }
         }
-        Intent intent = new Intent(getApplicationContext(), WelcomePage.class);
+        Intent intent;
+        if(typeOfUser == null) {
+            intent = new Intent(getApplicationContext(), Sign_Up.class);
+            Toast.makeText(LogInActivity.this, "Account does not exist.", Toast.LENGTH_LONG).show();
+        } else {
+            intent = new Intent(getApplicationContext(), WelcomePage.class);
+        }
         startActivityForResult(intent, 0);
     }
 }

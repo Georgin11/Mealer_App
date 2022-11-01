@@ -6,7 +6,6 @@ public class Address {
     private int number;
     private String postal;
     private String city;
-    public int suite;
     /**
      * Description: Empty private constructor that does not take any parameters.
      * The purpose is to allow specific methods to test if Address is valid
@@ -21,7 +20,7 @@ public class Address {
      */
     protected Address() {
         street = postal = city = "";
-        number = suite = 0;
+        number = 0;
     }
 
     /**
@@ -35,31 +34,12 @@ public class Address {
      * Description: Constructor for class Address. Sets instance variables and will
      * throw exceptions if variables are invalid.
      */
-    public Address(String street, int number, String postal, String city, int suite) {
+    public Address(String street, int number, String postal, String city) {
         this.street = street;
         this.number = number;
         this.postal = postal;
         this.city = city;
-        this.suite = suite;
     }
-
-    //proper constructor requires too much testing for deliverable 1
-//    Address(String street, int number, String postalCode, String city, int suite) throws Exception {
-//        //setters will return false is parameters are invalid, and throw an exception to allow user to retry.
-//
-//        if(!setStreet(street)) {
-//            throw new Exception("Invalid street name");
-//        }
-//        if(!setNumber(number)) {
-//            throw new Exception("Invalid street number");
-//        }
-//        if(!setPostal(postalCode)) {
-//            throw new Exception("Invalid postal code");
-//        }
-//        if(!setCity(city)) {
-//            throw new Exception("Invalid city name");
-//        }
-//    }
 
     /**
      * @return
@@ -90,10 +70,6 @@ public class Address {
 
     public String getCity() {
         return this.city;
-    }
-
-    public int getSuite() {
-        return this.suite;
     }
 
     /**
@@ -149,15 +125,6 @@ public class Address {
             this.number = num;
             return true;
         }
-        return false;
-    }
-
-    public boolean setSuite(int suite) {
-        if(suite > 0) {
-            this.suite = suite;
-            return true;
-        }
-
         return false;
     }
 
