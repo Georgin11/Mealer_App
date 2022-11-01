@@ -8,7 +8,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <EditText
             android:id="@+id/editText_ClientUsername"
@@ -28,7 +34,7 @@
 
         <EditText
             android:id="@+id/editText_ClientName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
@@ -40,7 +46,9 @@
             android:gravity="center"
             android:hint="First Name"
             android:inputType="textPersonName"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            app:hintAnimationEnabled="false"
+            app:hintEnabled="true" />
 
         <EditText
             android:id="@+id/editText_ClientLastName"
@@ -137,7 +145,7 @@
             android:layout_marginBottom="-50dp"
             android:ems="10"
             android:gravity="center"
-            android:hint="Apt/Suite"
+            android:hint="Apt/Suite (Optional)"
             android:inputType="number"
             android:minHeight="48dp" />
 
@@ -174,7 +182,7 @@
             android:minHeight="48dp" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/btn_Continue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/editText_ClientPostal"
@@ -184,8 +192,23 @@
             android:layout_marginEnd="100dp"
             android:layout_marginBottom="-60dp"
             android:gravity="center"
-            android:text="Continue"
-            android:onClick="onContinue"/>
+            android:onClick="onContinue"
+            android:text="Continue" />
+
+        <Button
+            android:id="@+id/btn_GoBack"
+            android:layout_width="146dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="133dp"
+            android:layout_marginTop="633dp"
+            android:layout_marginEnd="132dp"
+            android:layout_marginBottom="50dp"
+            android:onClick="GoBack"
+            android:text="GO BACK" />
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

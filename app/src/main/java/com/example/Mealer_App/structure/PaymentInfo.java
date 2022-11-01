@@ -1,13 +1,15 @@
 package com.example.Mealer_App.structure;
 
+import java.math.BigInteger;
+
 public class PaymentInfo {
 
     private String cardHolderName;
-    private int cardNumber;
+    private BigInteger cardNumber;
     private int cvv;
     private Address billingAddress;
 
-    public PaymentInfo(String cardHolderName, int cardNumber, int cvv, Address billingAddress) {
+    public PaymentInfo(String cardHolderName, BigInteger cardNumber, int cvv, Address billingAddress) {
         this.cardHolderName = cardHolderName;
         this.cardNumber = cardNumber;
         this.cvv = cvv;
@@ -18,7 +20,7 @@ public class PaymentInfo {
         return cardHolderName;
     }
 
-    public int getCardNumber() {
+    public BigInteger getCardNumber() {
         return cardNumber;
     }
 

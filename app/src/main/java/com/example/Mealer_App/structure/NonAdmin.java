@@ -29,40 +29,7 @@ public class NonAdmin extends User{
 
     public Address getAddress() { return address; }
 
-    public boolean validateName(String name) {
-        if (name == null) {
-            return false;
-        }
 
-        name = name.toLowerCase().trim();
-        String regex = "^[a-z,.'-]" //Allows names to contain , . ' and -
-                        + "{1,15}$"; // Must be 1 to 15 characters long
-
-        Pattern p = Pattern.compile(regex);
-        Matcher m = p.matcher(name);
-
-        return m.matches();
-    }
-
-    public boolean validateEmail(String emailAddress) {
-        if (emailAddress == null) {
-            return false;
-        }
-
-        emailAddress = emailAddress.toLowerCase();
-        String regex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" // For the part before the '@' symbol, it allows numbers
-                                                                          // 0-9, upper/lowercase letters, no more than 64 characters,
-                                                                          // periods are not allowed at the start, end or consecutively.
-                                                                          // Hyphens and apostraphes are allowed as well
-                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$"; //For the domain, numerical values of 0-9 are allowed,
-                                                                            // as well as any upper/lowercase letters, and hyphens/dots
-                                                                            // are not allowed at the end or start
-
-        Pattern p = Pattern.compile(regex);
-        Matcher m = p.matcher(emailAddress);
-
-        return m.matches();
-    }
 
 
 

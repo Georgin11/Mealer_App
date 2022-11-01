@@ -1,50 +1,86 @@
 package com.example.Mealer_App;
 
-import static com.example.Mealer_App.ClientRegistration.clients;
+import static com.example.Mealer_App.ClientRegistration.currentClient;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import com.example.Mealer_App.structure.*;
+
+import java.math.BigInteger;
 
 public class CreditCardInfo extends AppCompatActivity {
 
+    EditText textCardholder, textCardNumber, textCVV, textStreetAddress, textStreetNumber, textPostal, textCity;
+
     public static PaymentInfo newPaymentInfo;
+    public Client client;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_credit_card_info);
+
+        textCardholder = findViewById(R.id.editTextCardholder);
+        textCardNumber = findViewById(R.id.editTextCardNumber);
+        textCVV = findViewById(R.id.editTextCVV);
+        textStreetAddress = findViewById(R.id.editTextBillingAddress);
+        textStreetNumber = findViewById(R.id.editTextStreetNumber);
+        textPostal = findViewById(R.id.editTextPostal);
+        textCity = findViewById(R.id.editTextCity);
+    }
+
+    public void GoBack(View view) {
+        finish();
     }
 
     public void onSave(View view){
-        EditText textCardholder = (EditText)findViewById(R.id.editTextCardholder);
+
+
+
+        Validators validate = new Validators();
+        Database dbHelper = new Database(CreditCardInfo.this);
+
+        if(!validate.validateName(textCardholder) | !validate.validateCardNumber(textCardNumber) |
+            !validate.validateCVV(textCVV) | !validate.validateAddress(textStreetAddress, textStreetNumber, textPostal, textCity)) {
+            return;
+        }
+
         String cardholder = textCardholder.getText().toString();
+        BigInteger cardNumber = new BigInteger(textCardNumber.getText().toString());
+        int cvv = Integer.parseInt(textCVV.getText().toString());
 
-        EditText textCardNumber = (EditText)findViewById(R.id.editTextCardNumber);
-        int cardNumber = Integer.valueOf(textCardNumber.getText().toString());
+        String streetName = textStreetAddress.getText().toString();
+        int streetNum = Integer.parseInt(textStreetNumber.getText().toString());
+        String postal = textPostal.getText().toString();
+        String city = textCity.getText().toString();
 
-        EditText textCVV = (EditText)findViewById(R.id.editTextCVV);
-        int cvv = Integer.valueOf(textCVV.getText().toString());
+        Address address = new Address(streetName, streetNum, postal, city);
 
-        EditText textStreetNumber = (EditText)findViewById(R.id.editTextStreetNumber);
-        int streetNum2 = Integer.valueOf(textStreetNumber.getText().toString());
-
-        EditText textStreetAddress = (EditText)findViewById(R.id.editTextBillingAddress);
-        String street2 = textStreetAddress.getText().toString();
-
-        EditText textApt2 = (EditText)findViewById(R.id.editTextBillingApt);
-        int apt2 = Integer.valueOf(textApt2.getText().toString());
-
-        EditText textCity2 = (EditText)findViewById(R.id.editTextCity);
-        String city2 = textCity2.getText().toString();
-
-        EditText textPostal = (EditText)findViewById(R.id.editTextBillingApt);
-        String postal2 = textPostal.getText().toString();
-        Address address = new Address(street2, streetNum2, postal2, city2, apt2);
         newPaymentInfo = new PaymentInfo(cardholder, cardNumber, cvv, address);
-        super.finish();
+        client = currentClient;
+        client.setPaymentInfo(newPaymentInfo);
+
+        boolean paymentInfoCheck = (newPaymentInfo != null);
+
+        if(paymentInfoCheck) {
+            Toast.makeText(CreditCardInfo.this, "Payment info is not null", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(CreditCardInfo.this, "payment info is null", Toast.LENGTH_LONG).show();
+        }
+
+        boolean success =  dbHelper.addOne(CreditCardInfo.this);
+
+        if(success) {
+            Toast.makeText(CreditCardInfo.this, "Successfully inserted into DB", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(CreditCardInfo.this, "Error inserting into DB", Toast.LENGTH_LONG).show();
+        }
+
+
+        return;
     }
 }
