@@ -64,23 +64,15 @@ public class CreditCardInfo extends AppCompatActivity {
         client = currentClient;
         client.setPaymentInfo(newPaymentInfo);
 
-        boolean paymentInfoCheck = (newPaymentInfo != null);
-
-        if(paymentInfoCheck) {
-            Toast.makeText(CreditCardInfo.this, "Payment info is not null", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(CreditCardInfo.this, "payment info is null", Toast.LENGTH_LONG).show();
-        }
-
         boolean success =  dbHelper.addOne(CreditCardInfo.this);
 
         if(success) {
-            Toast.makeText(CreditCardInfo.this, "Successfully inserted into DB", Toast.LENGTH_LONG).show();
+            Toast.makeText(CreditCardInfo.this, "Successfully registered!", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(CreditCardInfo.this, "Error inserting into DB", Toast.LENGTH_LONG).show();
+            Toast.makeText(CreditCardInfo.this, "Error during registration", Toast.LENGTH_LONG).show();
         }
 
 
-        return;
+        super.finish();
     }
 }

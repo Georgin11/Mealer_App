@@ -14,19 +14,12 @@ import com.example.Mealer_App.structure.*;
 public class ClientRegistration extends AppCompatActivity {
 
 
-    EditText textUsername, textFirstName, textLastName, textEmail, textPassword, textStreetName,
-<<<<<<< HEAD
-            textStreetNum, textPostalCode, textCity;
+    EditText textUsername, textFirstName, textLastName, textEmail, textPassword,
+            textStreetName, textStreetNum, textPostalCode, textCity;
 
     public Complaint[] complaints;
     public static Client currentClient;
-=======
-            textStreetNum, textPostalCode, textCity, textApt;
-            
-    private static boolean payment = false;
-    public static Client client;
 
->>>>>>> 79fe98bda7f048955545fcced6d47393d3aa6ef7
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,18 +69,6 @@ public class ClientRegistration extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), CreditCardInfo.class);
         startActivity(intent);
 
-<<<<<<< HEAD
-=======
-        if(!payment) {
-            Intent intent = new Intent(getApplicationContext(), CreditCardInfo.class);
-            startActivity(intent);
-        }
-
-        Address address = new Address(street, streetNum, postalCode, city, apt);
-        client = new Client(newPaymentInfo, firstName, lastName, email, address, username, password);
-
-        payment = true;
->>>>>>> 79fe98bda7f048955545fcced6d47393d3aa6ef7
         finish();
 
     }

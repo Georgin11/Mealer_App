@@ -18,6 +18,6 @@ public class Client extends NonAdmin{
     }
 
     public void setPaymentInfo(PaymentInfo newInfo) {
-        this.paymentInfo = paymentInfo;
+        this.paymentInfo = newInfo;
     }
 }

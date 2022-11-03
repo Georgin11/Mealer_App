@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.Mealer_App.structure.Address;
 import com.example.Mealer_App.structure.Cook;
@@ -18,7 +19,7 @@ public class CookRegistration extends AppCompatActivity {
     int SELECT_PICTURE = 200;
 
     public static boolean cheque = false;
-    public Cook cook;
+    public static Cook cook;
 
     void imageChooser(){
         Intent i = new Intent();
@@ -48,7 +49,6 @@ public class CookRegistration extends AppCompatActivity {
     }
 
     public void GoBack(View view) {
-
         finish();
     }
 
@@ -86,7 +86,14 @@ public class CookRegistration extends AppCompatActivity {
         }
 
         cook = new Cook(bio, true, firstName, lastName, email, address, username, password);
-        databaseHelper.addOne(CookRegistration.this);
+
+        boolean success =  databaseHelper.addOne(CookRegistration.this);
+
+        if(success) {
+            Toast.makeText(CookRegistration.this, "Successfully registered!", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(CookRegistration.this, "Error during registration", Toast.LENGTH_LONG).show();
+        }
 
         cheque = true;
         finish();

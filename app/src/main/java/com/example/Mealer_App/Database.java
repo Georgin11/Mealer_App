@@ -54,6 +54,7 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_COMPLAINT_CLIENT = "COLUMN_COMPLAINT_CLIENT";
     public static final String COLUMN_COMPLAINT_COOK = "COLUMN_COMPLAINT_COOK";
     public static final String COLUMN_ADMIN_USERNAME = "COLUMN_ADMIN_USERNAME";
+
     public static final String ADMIN_TABLE = "ADMIN_TABLE";
     public static final String COLUMN_ADMIN_PASSWORD = "COLUMN_ADMIN_PASSWORD";
 
@@ -65,42 +66,42 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTableStatement;
-        db.execSQL("PRAGMA foreign_keys = ON");
+//        db.execSQL("PRAGMA foreign_keys = ON");
 
         createTableStatement  = "CREATE TABLE " + ADMIN_TABLE + " ( " +
-                COLUMN_ADMIN_USERNAME + " TEXT PRIMARY KEY NOT NULL, " +
-                COLUMN_ADMIN_PASSWORD + " TEXT NOT NULL)";
+                COLUMN_ADMIN_USERNAME + " TEXT PRIMARY KEY, " +
+                COLUMN_ADMIN_PASSWORD + " TEXT)";
 
         db.execSQL(createTableStatement);
 
         createTableStatement = "CREATE TABLE " + ADDRESS_TABLE + "( " +
                 COLUMN_ADDRESS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_ADDRESS_STREET + " TEXT NOT NULL, " +
-                COLUMN_ADDRESS_STREET_NUMBER + " INTEGER NOT NULL, " +
-                COLUMN_ADDRESS_POSTAL_CODE + " TEXT NOT NULL, " +
-                COLUMN_ADDRESS_CITY + " TEXT NOT NULL)";
+                COLUMN_ADDRESS_STREET + " TEXT, " +
+                COLUMN_ADDRESS_STREET_NUMBER + " INTEGER, " +
+                COLUMN_ADDRESS_POSTAL_CODE + " TEXT, " +
+                COLUMN_ADDRESS_CITY + " TEXT)";
 
         db.execSQL(createTableStatement);
 
         createTableStatement = "CREATE TABLE " + PAYMENT_INFO_TABLE + "(" +
                 COLUMN_PAYMENT_INFO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_PAYMENT_INFO_CARDHOLDER_NAME + " TEXT NOT NULL, " +
-                COLUMN_PAYMENT_INFO_CARD_NUMBER + " BIGINT NOT NULL, " +
-                COLUMN_PAYMENT_INFO_CVV + " INTEGER NOT NULL," +
-                COLUMN_PAYMENT_INFO_ADDRESS_ID + " INTEGER NOT NULL, " +
+                COLUMN_PAYMENT_INFO_CARDHOLDER_NAME + " TEXT, " +
+                COLUMN_PAYMENT_INFO_CARD_NUMBER + " BIGINT, " +
+                COLUMN_PAYMENT_INFO_CVV + " INTEGER," +
+                COLUMN_PAYMENT_INFO_ADDRESS_ID + " INTEGER, " +
                 "FOREIGN KEY (" + COLUMN_PAYMENT_INFO_ADDRESS_ID + ") " +
                     "REFERENCES " + ADDRESS_TABLE + "( " + COLUMN_ADDRESS_ID + "))";
 
         db.execSQL(createTableStatement);
 
         createTableStatement = "CREATE TABLE " + CLIENT_TABLE + "(" +
-                COLUMN_CLIENT_USERNAME + " TEXT PRIMARY KEY NOT NULL, " +
-                COLUMN_CLIENT_PASSWORD + " TEXT NOT NULL, " +
-                COLUMN_CLIENT_FIRSTNAME + " TEXT NOT NULL, " +
-                COLUMN_CLIENT_LASTNAME + " TEXT NOT NULL, " +
-                COLUMN_CLIENT_EMAIL + " TEXT NOT NULL, " +
-                COLUMN_CLIENT_ADDRESS_ID + " INTEGER NOT NULL, " +
-                COLUMN_CLIENT_PAYMENT_INFO_ID + " INTEGER NOT NULL, " +
+                COLUMN_CLIENT_USERNAME + " TEXT PRIMARY KEY, " +
+                COLUMN_CLIENT_PASSWORD + " TEXT, " +
+                COLUMN_CLIENT_FIRSTNAME + " TEXT, " +
+                COLUMN_CLIENT_LASTNAME + " TEXT, " +
+                COLUMN_CLIENT_EMAIL + " TEXT, " +
+                COLUMN_CLIENT_ADDRESS_ID + " INTEGER, " +
+                COLUMN_CLIENT_PAYMENT_INFO_ID + " INTEGER, " +
                 "FOREIGN KEY (" + COLUMN_CLIENT_ADDRESS_ID + ") " +
                     "REFERENCES " + ADDRESS_TABLE + " (" + COLUMN_ADDRESS_ID + "), " +
                 "FOREIGN KEY ( " + COLUMN_CLIENT_PAYMENT_INFO_ID + " ) " +
@@ -109,15 +110,15 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(createTableStatement);
 
         createTableStatement = "CREATE TABLE " + COOK_TABLE + " (" +
-                COLUMN_COOK_USERNAME + " TEXT PRIMARY KEY NOT NULL, " +
-                COLUMN_COOK_PASSWORD + " TEXT NOT NULL, " +
-                COLUMN_COOK_FIRSTNAME + " TEXT NOT NULL, " +
-                COLUMN_COOK_LASTNAME + " TEXT NOT NULL, " +
-                COLUMN_COOK_EMAIL + " TEXT NOT NULL, " +
-                COLUMN_COOK_BIO + " TEXT NOT NULL, " +
-                COLUMN_COOK_CHEQUE + " BOOL NOT NULL, " +
-                COLUMN_COOK_SUSPENSION_LENGTH + " INTEGER NOT NULL, " +
-                COLUMN_COOK_ADDRESS_ID + " INTEGER NOT NULL, " +
+                COLUMN_COOK_USERNAME + " TEXT PRIMARY KEY, " +
+                COLUMN_COOK_PASSWORD + " TEXT, " +
+                COLUMN_COOK_FIRSTNAME + " TEXT, " +
+                COLUMN_COOK_LASTNAME + " TEXT, " +
+                COLUMN_COOK_EMAIL + " TEXT, " +
+                COLUMN_COOK_BIO + " TEXT, " +
+                COLUMN_COOK_CHEQUE + " BOOL, " +
+                COLUMN_COOK_SUSPENSION_LENGTH + " INTEGER, " +
+                COLUMN_COOK_ADDRESS_ID + " INTEGER, " +
                 "FOREIGN KEY (" + COLUMN_COOK_ADDRESS_ID + ") " +
                     "REFERENCES " + ADDRESS_TABLE + " (" + COLUMN_ADDRESS_ID + "))";
 
@@ -125,11 +126,11 @@ public class Database extends SQLiteOpenHelper {
 
         createTableStatement = "CREATE TABLE " + COMPLAINT_TABLE + " (" +
                 COLUMN_COMPLAINT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_COMPLAINT_TEXT + " TEXT NOT NULL, " +
-                COLUMN_COMPLAINT_RATING + " INTEGER NOT NULL, " +
-                COLUMN_COMPLAINT_DAYS_SUSPENDED + " INTEGER NOT NULL, " +
-                COLUMN_COMPLAINT_CLIENT + " TEXT NOT NULL, " +
-                COLUMN_COMPLAINT_COOK + " TEXT NOT NULL, " +
+                COLUMN_COMPLAINT_TEXT + " TEXT, " +
+                COLUMN_COMPLAINT_RATING + " INTEGER, " +
+                COLUMN_COMPLAINT_DAYS_SUSPENDED + " INTEGER, " +
+                COLUMN_COMPLAINT_CLIENT + " TEXT, " +
+                COLUMN_COMPLAINT_COOK + " TEXT, " +
                 "FOREIGN KEY (" + COLUMN_COMPLAINT_CLIENT + ") " +
                     "REFERENCES " + CLIENT_TABLE + " (" + COLUMN_CLIENT_USERNAME + "), " +
                 "FOREIGN KEY (" + COLUMN_COMPLAINT_COOK + ")" +
@@ -143,16 +144,16 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
-    public boolean addOne(CreditCardInfo clientRegistration) {
+    public boolean addOne(CreditCardInfo creditCardInfo) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues cv = new ContentValues();
         // getting client address information
-        cv.put(COLUMN_ADDRESS_STREET, clientRegistration.client.getPaymentInfo().getBillingAddress().getStreet());
-        cv.put(COLUMN_ADDRESS_STREET_NUMBER, clientRegistration.client.getPaymentInfo().getBillingAddress().getNumber());
-        cv.put(COLUMN_ADDRESS_POSTAL_CODE, clientRegistration.client.getPaymentInfo().getBillingAddress().getPostal());
-        cv.put(COLUMN_ADDRESS_CITY, clientRegistration.client.getPaymentInfo().getBillingAddress().getCity());
+        cv.put(COLUMN_ADDRESS_STREET, creditCardInfo.client.getPaymentInfo().getBillingAddress().getStreet());
+        cv.put(COLUMN_ADDRESS_STREET_NUMBER, creditCardInfo.client.getPaymentInfo().getBillingAddress().getNumber());
+        cv.put(COLUMN_ADDRESS_POSTAL_CODE, creditCardInfo.client.getPaymentInfo().getBillingAddress().getPostal());
+        cv.put(COLUMN_ADDRESS_CITY, creditCardInfo.client.getPaymentInfo().getBillingAddress().getCity());
 
         // inserting into the database
         long insert = db.insert(ADDRESS_TABLE, null, cv);
@@ -164,9 +165,9 @@ public class Database extends SQLiteOpenHelper {
         cv.clear();
 
         //getting payment info address
-        cv.put(COLUMN_PAYMENT_INFO_CARDHOLDER_NAME, clientRegistration.client.getPaymentInfo().getCardHolderName());
-        cv.put(COLUMN_PAYMENT_INFO_CARD_NUMBER, clientRegistration.client.getPaymentInfo().getCardNumber().longValue());
-        cv.put(COLUMN_PAYMENT_INFO_CVV, clientRegistration.client.getPaymentInfo().getCvv());
+        cv.put(COLUMN_PAYMENT_INFO_CARDHOLDER_NAME, creditCardInfo.client.getPaymentInfo().getCardHolderName());
+        cv.put(COLUMN_PAYMENT_INFO_CARD_NUMBER, creditCardInfo.client.getPaymentInfo().getCardNumber().longValue());
+        cv.put(COLUMN_PAYMENT_INFO_CVV, creditCardInfo.client.getPaymentInfo().getCvv());
         cv.put(COLUMN_PAYMENT_INFO_ADDRESS_ID, getAddressCount());
 
         insert = db.insert(PAYMENT_INFO_TABLE, null, cv);
@@ -176,10 +177,10 @@ public class Database extends SQLiteOpenHelper {
 
         cv.clear();
 
-        cv.put(COLUMN_ADDRESS_STREET, clientRegistration.client.getAddress().getStreet());
-        cv.put(COLUMN_ADDRESS_STREET_NUMBER, clientRegistration.client.getAddress().getNumber());
-        cv.put(COLUMN_ADDRESS_POSTAL_CODE, clientRegistration.client.getAddress().getPostal());
-        cv.put(COLUMN_ADDRESS_CITY, clientRegistration.client.getAddress().getCity());
+        cv.put(COLUMN_ADDRESS_STREET, creditCardInfo.client.getAddress().getStreet());
+        cv.put(COLUMN_ADDRESS_STREET_NUMBER, creditCardInfo.client.getAddress().getNumber());
+        cv.put(COLUMN_ADDRESS_POSTAL_CODE, creditCardInfo.client.getAddress().getPostal());
+        cv.put(COLUMN_ADDRESS_CITY, creditCardInfo.client.getAddress().getCity());
 
         insert = db.insert(ADDRESS_TABLE, null, cv);
         if(insert == -1) {
@@ -188,11 +189,11 @@ public class Database extends SQLiteOpenHelper {
 
         cv.clear();
 
-        cv.put(COLUMN_CLIENT_USERNAME, clientRegistration.client.getUsername());
-        cv.put(COLUMN_CLIENT_PASSWORD, clientRegistration.client.getPassword());
-        cv.put(COLUMN_CLIENT_FIRSTNAME, clientRegistration.client.getfName());
-        cv.put(COLUMN_CLIENT_LASTNAME, clientRegistration.client.getlName());
-        cv.put(COLUMN_CLIENT_EMAIL, clientRegistration.client.getEmail());
+        cv.put(COLUMN_CLIENT_USERNAME, creditCardInfo.client.getUsername());
+        cv.put(COLUMN_CLIENT_PASSWORD, creditCardInfo.client.getPassword());
+        cv.put(COLUMN_CLIENT_FIRSTNAME, creditCardInfo.client.getfName());
+        cv.put(COLUMN_CLIENT_LASTNAME, creditCardInfo.client.getlName());
+        cv.put(COLUMN_CLIENT_EMAIL, creditCardInfo.client.getEmail());
         cv.put(COLUMN_CLIENT_ADDRESS_ID, getAddressCount());
         cv.put(COLUMN_CLIENT_PAYMENT_INFO_ID, getPaymentInfoCount());
 
@@ -201,7 +202,6 @@ public class Database extends SQLiteOpenHelper {
             return false;
         }
         cv.clear();
-        db.close();
         return true;
     }
 
@@ -210,10 +210,10 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COLUMN_ADDRESS_STREET, cookRegistration.cook.getAddress().getStreet());
-        cv.put(COLUMN_ADDRESS_STREET_NUMBER, cookRegistration.cook.getAddress().getNumber());
-        cv.put(COLUMN_ADDRESS_POSTAL_CODE, cookRegistration.cook.getAddress().getPostal());
-        cv.put(COLUMN_ADDRESS_CITY, cookRegistration.cook.getAddress().getCity());
+        cv.put(COLUMN_ADDRESS_STREET, CookRegistration.cook.getAddress().getStreet());
+        cv.put(COLUMN_ADDRESS_STREET_NUMBER, CookRegistration.cook.getAddress().getNumber());
+        cv.put(COLUMN_ADDRESS_POSTAL_CODE, CookRegistration.cook.getAddress().getPostal());
+        cv.put(COLUMN_ADDRESS_CITY, CookRegistration.cook.getAddress().getCity());
 
         long insert = db.insert(ADDRESS_TABLE, null, cv);
         if(insert == -1) {
@@ -222,13 +222,14 @@ public class Database extends SQLiteOpenHelper {
 
         cv.clear();
 
-        cv.put(COLUMN_COOK_USERNAME, cookRegistration.cook.getUsername());
-        cv.put(COLUMN_COOK_FIRSTNAME, cookRegistration.cook.getfName());
-        cv.put(COLUMN_COOK_LASTNAME, cookRegistration.cook.getlName());
-        cv.put(COLUMN_COOK_EMAIL, cookRegistration.cook.getEmail());
-        cv.put(COLUMN_COOK_BIO, cookRegistration.cook.getBio());
-        cv.put(COLUMN_COOK_CHEQUE, cookRegistration.cook.hasVoidCheque());
-        cv.put(COLUMN_COOK_SUSPENSION_LENGTH, cookRegistration.cook.getSuspensionLength());
+        cv.put(COLUMN_COOK_USERNAME, CookRegistration.cook.getUsername());
+        cv.put(COLUMN_COOK_PASSWORD, CookRegistration.cook.getPassword());
+        cv.put(COLUMN_COOK_FIRSTNAME, CookRegistration.cook.getfName());
+        cv.put(COLUMN_COOK_LASTNAME, CookRegistration.cook.getlName());
+        cv.put(COLUMN_COOK_EMAIL, CookRegistration.cook.getEmail());
+        cv.put(COLUMN_COOK_BIO, CookRegistration.cook.getBio());
+        cv.put(COLUMN_COOK_CHEQUE, CookRegistration.cook.hasVoidCheque());
+        cv.put(COLUMN_COOK_SUSPENSION_LENGTH, CookRegistration.cook.getSuspensionLength());
         cv.put(COLUMN_COOK_ADDRESS_ID, getAddressCount());
 
         insert = db.insert(COOK_TABLE, null, cv);
@@ -237,11 +238,6 @@ public class Database extends SQLiteOpenHelper {
         }
 
         cv.clear();
-        db.close();
-        return true;
-    }
-
-    public boolean addOne() {
         return true;
     }
 
@@ -256,7 +252,7 @@ public class Database extends SQLiteOpenHelper {
         }
         exists = (cursor.getCount() > 0);
 
-        db.close();
+
         cursor.close();
         return exists;
     }
@@ -270,7 +266,7 @@ public class Database extends SQLiteOpenHelper {
         } else if(checkCookExists(username)) {
             Query = " Select * from " + COOK_TABLE + " where " + COLUMN_COOK_PASSWORD + " = " + "'" + password + "'";
         } else {
-            db.close();
+
             return false;
         }
 
@@ -278,27 +274,22 @@ public class Database extends SQLiteOpenHelper {
 
         if(cursor.getCount() <=0) {
             cursor.close();
-            db.close();
+
             return false;
         }
 
         cursor.close();
-        db.close();
         return true;
     }
 
     public long getAddressCount() {
         SQLiteDatabase db = this.getReadableDatabase();
-        long count = DatabaseUtils.queryNumEntries(db, ADDRESS_TABLE);
-        db.close();
-        return count;
+        return DatabaseUtils.queryNumEntries(db, ADDRESS_TABLE);
     }
 
     public long getPaymentInfoCount() {
         SQLiteDatabase db = this.getReadableDatabase();
-        long count = DatabaseUtils.queryNumEntries(db, PAYMENT_INFO_TABLE);
-        db.close();
-        return count;
+        return DatabaseUtils.queryNumEntries(db, PAYMENT_INFO_TABLE);
     }
 
     public boolean checkCookExists(String username) {
@@ -307,13 +298,12 @@ public class Database extends SQLiteOpenHelper {
         }
 
         SQLiteDatabase db = this.getReadableDatabase();
-        String Query = " Select * from " + COOK_TABLE + " where " + COLUMN_CLIENT_USERNAME + " = " + "'" + username + "'";
+        String Query = " Select * from " + COOK_TABLE + " where " + COLUMN_COOK_USERNAME + " = " + "'" + username + "'";
         boolean exists;
         Cursor cursor = db.rawQuery(Query, null);
 
         exists = (cursor.getCount() > 0);
 
-        db.close();
         cursor.close();
         return exists;
     }
@@ -330,7 +320,6 @@ public class Database extends SQLiteOpenHelper {
 
         exists = (cursor.getCount() > 0);
 
-        db.close();
         cursor.close();
         return exists;
     }
