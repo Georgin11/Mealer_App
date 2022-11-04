@@ -46,7 +46,7 @@ public class LogInActivity extends AppCompatActivity {
         EditText textPassword = (EditText)findViewById(R.id.editTextTextPassword);
         String password = textPassword.getText().toString();
 
-        if(username.equals(administrator.getUsername()) && password.equals(administrator.getPassword())) {
+        if(dbHelper.checkAdminExists(username) && dbHelper.matchPassword(username, password)) {
             typeOfUser = ADMIN;
         }
 

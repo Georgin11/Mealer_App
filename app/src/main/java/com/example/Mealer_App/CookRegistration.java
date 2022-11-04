@@ -18,8 +18,8 @@ public class CookRegistration extends AppCompatActivity {
 
     int SELECT_PICTURE = 200;
 
-    public static boolean cheque = false;
-    public static Cook cook;
+    public boolean cheque = false;
+    public Cook cook;
 
     void imageChooser(){
         Intent i = new Intent();
@@ -87,7 +87,7 @@ public class CookRegistration extends AppCompatActivity {
 
         cook = new Cook(bio, true, firstName, lastName, email, address, username, password);
 
-        boolean success =  databaseHelper.addOne(CookRegistration.this);
+        boolean success =  databaseHelper.addOne(cook);
 
         if(success) {
             Toast.makeText(CookRegistration.this, "Successfully registered!", Toast.LENGTH_LONG).show();

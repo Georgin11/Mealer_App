@@ -1,12 +1,15 @@
 package com.example.Mealer_App;
 
 
+import static com.example.Mealer_App.CreditCardInfo.newPaymentInfo;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.Mealer_App.structure.*;
 
@@ -17,8 +20,9 @@ public class ClientRegistration extends AppCompatActivity {
     EditText textUsername, textFirstName, textLastName, textEmail, textPassword,
             textStreetName, textStreetNum, textPostalCode, textCity;
 
+    public boolean payment = false;
     public Complaint[] complaints;
-    public static Client currentClient;
+    public static Client client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +69,24 @@ public class ClientRegistration extends AppCompatActivity {
         String password = textPassword.getText().toString().trim();
 
         Address address = new Address(street, streetNum, postalCode, city);
-        currentClient = new Client(null, firstName, lastName, email, address, username, password);
-        Intent intent = new Intent(getApplicationContext(), CreditCardInfo.class);
+        Intent intent = null;
+        if(!payment) {
+            intent = new Intent(getApplicationContext(), CreditCardInfo.class);
+            startActivity(intent);
+            payment = true;
+        }
+
+        client = new Client(newPaymentInfo, firstName, lastName, email, address, username, password);
+
+        boolean success =  databaseHelper.addOne(client);
+
+        if(success) {
+            Toast.makeText(this, "Successfully registered!", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Error during registration", Toast.LENGTH_LONG).show();
+        }
+
+
         startActivity(intent);
 
         finish();

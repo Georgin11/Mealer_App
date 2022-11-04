@@ -1,7 +1,5 @@
 package com.example.Mealer_App;
 
-import static com.example.Mealer_App.ClientRegistration.currentClient;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -18,7 +16,6 @@ public class CreditCardInfo extends AppCompatActivity {
     EditText textCardholder, textCardNumber, textCVV, textStreetAddress, textStreetNumber, textPostal, textCity;
 
     public static PaymentInfo newPaymentInfo;
-    public Client client;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +39,6 @@ public class CreditCardInfo extends AppCompatActivity {
 
 
         Validators validate = new Validators();
-        Database dbHelper = new Database(CreditCardInfo.this);
 
         if(!validate.validateName(textCardholder) | !validate.validateCardNumber(textCardNumber) |
             !validate.validateCVV(textCVV) | !validate.validateAddress(textStreetAddress, textStreetNumber, textPostal, textCity)) {
@@ -61,16 +57,6 @@ public class CreditCardInfo extends AppCompatActivity {
         Address address = new Address(streetName, streetNum, postal, city);
 
         newPaymentInfo = new PaymentInfo(cardholder, cardNumber, cvv, address);
-        client = currentClient;
-        client.setPaymentInfo(newPaymentInfo);
-
-        boolean success =  dbHelper.addOne(CreditCardInfo.this);
-
-        if(success) {
-            Toast.makeText(CreditCardInfo.this, "Successfully registered!", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(CreditCardInfo.this, "Error during registration", Toast.LENGTH_LONG).show();
-        }
 
 
         super.finish();
