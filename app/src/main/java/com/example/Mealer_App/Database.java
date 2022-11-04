@@ -9,6 +9,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.Mealer_App.structure.Admin;
+import com.example.Mealer_App.structure.Client;
+import com.example.Mealer_App.structure.Complaint;
+import com.example.Mealer_App.structure.Cook;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Database extends SQLiteOpenHelper {
 
     public static final String ADMIN_TABLE = "ADMIN_TABLE";
@@ -143,16 +151,34 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
-    public boolean addOne(CreditCardInfo creditCardInfo) {
+    public boolean addOne(Admin admin) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_ADMIN_USERNAME, admin.getUsername());
+        cv.put(COLUMN_ADMIN_PASSWORD, admin.getPassword());
+
+        long insert = db.insert(ADMIN_TABLE, null, cv);
+        if(insert == -1) {
+            return false;
+        }
+
+        cv.clear();
+        return true;
+    }
+
+    public boolean addOne(Client client) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues cv = new ContentValues();
         // getting client address information
-        cv.put(COLUMN_ADDRESS_STREET, creditCardInfo.client.getPaymentInfo().getBillingAddress().getStreet());
-        cv.put(COLUMN_ADDRESS_STREET_NUMBER, creditCardInfo.client.getPaymentInfo().getBillingAddress().getNumber());
-        cv.put(COLUMN_ADDRESS_POSTAL_CODE, creditCardInfo.client.getPaymentInfo().getBillingAddress().getPostal());
-        cv.put(COLUMN_ADDRESS_CITY, creditCardInfo.client.getPaymentInfo().getBillingAddress().getCity());
+        cv.put(COLUMN_ADDRESS_STREET, client.getPaymentInfo().getBillingAddress().getStreet());
+        cv.put(COLUMN_ADDRESS_STREET_NUMBER, client.getPaymentInfo().getBillingAddress().getNumber());
+        cv.put(COLUMN_ADDRESS_POSTAL_CODE, client.getPaymentInfo().getBillingAddress().getPostal());
+        cv.put(COLUMN_ADDRESS_CITY, client.getPaymentInfo().getBillingAddress().getCity());
 
         // inserting into the database
         long insert = db.insert(ADDRESS_TABLE, null, cv);
@@ -164,9 +190,9 @@ public class Database extends SQLiteOpenHelper {
         cv.clear();
 
         //getting payment info address
-        cv.put(COLUMN_PAYMENT_INFO_CARDHOLDER_NAME, creditCardInfo.client.getPaymentInfo().getCardHolderName());
-        cv.put(COLUMN_PAYMENT_INFO_CARD_NUMBER, creditCardInfo.client.getPaymentInfo().getCardNumber().longValue());
-        cv.put(COLUMN_PAYMENT_INFO_CVV, creditCardInfo.client.getPaymentInfo().getCvv());
+        cv.put(COLUMN_PAYMENT_INFO_CARDHOLDER_NAME, client.getPaymentInfo().getCardHolderName());
+        cv.put(COLUMN_PAYMENT_INFO_CARD_NUMBER, client.getPaymentInfo().getCardNumber().longValue());
+        cv.put(COLUMN_PAYMENT_INFO_CVV, client.getPaymentInfo().getCvv());
         cv.put(COLUMN_PAYMENT_INFO_ADDRESS_ID, getAddressCount());
 
         insert = db.insert(PAYMENT_INFO_TABLE, null, cv);
@@ -176,10 +202,10 @@ public class Database extends SQLiteOpenHelper {
 
         cv.clear();
 
-        cv.put(COLUMN_ADDRESS_STREET, creditCardInfo.client.getAddress().getStreet());
-        cv.put(COLUMN_ADDRESS_STREET_NUMBER, creditCardInfo.client.getAddress().getNumber());
-        cv.put(COLUMN_ADDRESS_POSTAL_CODE, creditCardInfo.client.getAddress().getPostal());
-        cv.put(COLUMN_ADDRESS_CITY, creditCardInfo.client.getAddress().getCity());
+        cv.put(COLUMN_ADDRESS_STREET, client.getAddress().getStreet());
+        cv.put(COLUMN_ADDRESS_STREET_NUMBER, client.getAddress().getNumber());
+        cv.put(COLUMN_ADDRESS_POSTAL_CODE, client.getAddress().getPostal());
+        cv.put(COLUMN_ADDRESS_CITY, client.getAddress().getCity());
 
         insert = db.insert(ADDRESS_TABLE, null, cv);
         if(insert == -1) {
@@ -188,11 +214,11 @@ public class Database extends SQLiteOpenHelper {
 
         cv.clear();
 
-        cv.put(COLUMN_CLIENT_USERNAME, creditCardInfo.client.getUsername());
-        cv.put(COLUMN_CLIENT_PASSWORD, creditCardInfo.client.getPassword());
-        cv.put(COLUMN_CLIENT_FIRSTNAME, creditCardInfo.client.getfName());
-        cv.put(COLUMN_CLIENT_LASTNAME, creditCardInfo.client.getlName());
-        cv.put(COLUMN_CLIENT_EMAIL, creditCardInfo.client.getEmail());
+        cv.put(COLUMN_CLIENT_USERNAME, client.getUsername());
+        cv.put(COLUMN_CLIENT_PASSWORD, client.getPassword());
+        cv.put(COLUMN_CLIENT_FIRSTNAME, client.getfName());
+        cv.put(COLUMN_CLIENT_LASTNAME, client.getlName());
+        cv.put(COLUMN_CLIENT_EMAIL, client.getEmail());
         cv.put(COLUMN_CLIENT_ADDRESS_ID, getAddressCount());
         cv.put(COLUMN_CLIENT_PAYMENT_INFO_ID, getPaymentInfoCount());
 
@@ -204,15 +230,15 @@ public class Database extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean addOne(CookRegistration cookRegistration) {
+    public boolean addOne(Cook cook) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COLUMN_ADDRESS_STREET, CookRegistration.cook.getAddress().getStreet());
-        cv.put(COLUMN_ADDRESS_STREET_NUMBER, CookRegistration.cook.getAddress().getNumber());
-        cv.put(COLUMN_ADDRESS_POSTAL_CODE, CookRegistration.cook.getAddress().getPostal());
-        cv.put(COLUMN_ADDRESS_CITY, CookRegistration.cook.getAddress().getCity());
+        cv.put(COLUMN_ADDRESS_STREET, cook.getAddress().getStreet());
+        cv.put(COLUMN_ADDRESS_STREET_NUMBER, cook.getAddress().getNumber());
+        cv.put(COLUMN_ADDRESS_POSTAL_CODE, cook.getAddress().getPostal());
+        cv.put(COLUMN_ADDRESS_CITY, cook.getAddress().getCity());
 
         long insert = db.insert(ADDRESS_TABLE, null, cv);
         if(insert == -1) {
@@ -221,14 +247,14 @@ public class Database extends SQLiteOpenHelper {
 
         cv.clear();
 
-        cv.put(COLUMN_COOK_USERNAME, CookRegistration.cook.getUsername());
-        cv.put(COLUMN_COOK_PASSWORD, CookRegistration.cook.getPassword());
-        cv.put(COLUMN_COOK_FIRSTNAME, CookRegistration.cook.getfName());
-        cv.put(COLUMN_COOK_LASTNAME, CookRegistration.cook.getlName());
-        cv.put(COLUMN_COOK_EMAIL, CookRegistration.cook.getEmail());
-        cv.put(COLUMN_COOK_BIO, CookRegistration.cook.getBio());
-        cv.put(COLUMN_COOK_CHEQUE, CookRegistration.cook.hasVoidCheque());
-        cv.put(COLUMN_COOK_SUSPENSION_LENGTH, CookRegistration.cook.getSuspensionLength());
+        cv.put(COLUMN_COOK_USERNAME, cook.getUsername());
+        cv.put(COLUMN_COOK_PASSWORD, cook.getPassword());
+        cv.put(COLUMN_COOK_FIRSTNAME, cook.getfName());
+        cv.put(COLUMN_COOK_LASTNAME, cook.getlName());
+        cv.put(COLUMN_COOK_EMAIL, cook.getEmail());
+        cv.put(COLUMN_COOK_BIO, cook.getBio());
+        cv.put(COLUMN_COOK_CHEQUE, cook.hasVoidCheque());
+        cv.put(COLUMN_COOK_SUSPENSION_LENGTH, cook.getSuspensionLength());
         cv.put(COLUMN_COOK_ADDRESS_ID, getAddressCount());
 
         insert = db.insert(COOK_TABLE, null, cv);
@@ -240,26 +266,23 @@ public class Database extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean presetComplaints(MainActivity presetComplaint) {
+    public boolean addOne(Complaint complaint) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        for(int i = 0; i < 3; i++) {
-            cv.put(COLUMN_COMPLAINT_TITLE, presetComplaint.complaints[i].getTitle());
-            cv.put(COLUMN_COMPLAINT_TEXT, presetComplaint.complaints[i].getMessage());
-            cv.put(COLUMN_COMPLAINT_RATING, presetComplaint.complaints[i].getRating());
-            cv.put(COLUMN_COMPLAINT_DAYS_SUSPENDED, presetComplaint.complaints[i].getDaysSuspended());
-            cv.put(COLUMN_COMPLAINT_CLIENT, presetComplaint.complaints[i].getClientUsername());
-            cv.put(COLUMN_COMPLAINT_COOK, presetComplaint.complaints[i].getCookUsername());
-        }
-
+        cv.put(COLUMN_COMPLAINT_TITLE, complaint.getTitle());
+        cv.put(COLUMN_COMPLAINT_TEXT, complaint.getMessage());
+        cv.put(COLUMN_COMPLAINT_RATING, complaint.getRating());
+        cv.put(COLUMN_COMPLAINT_DAYS_SUSPENDED, complaint.getDaysSuspended());
+        cv.put(COLUMN_COMPLAINT_CLIENT, complaint.getClientUsername());
+        cv.put(COLUMN_COMPLAINT_COOK, complaint.getCookUsername());
         long insert = db.insert(COMPLAINT_TABLE, null, cv);
         if(insert == -1) {
             return false;
         }
-
         cv.clear();
+
         return true;
     }
 
@@ -270,6 +293,11 @@ public class Database extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(Query, null);
         if(cursor.getCount() <= 0) {
             Query = " Select * from " + COOK_TABLE + " where " + COLUMN_COOK_USERNAME + " = " + "'" + username + "'";
+            cursor = db.rawQuery(Query, null);
+        }
+
+        if(cursor.getCount() <= 0) {
+            Query = " Select * from " + ADMIN_TABLE + " where " + COLUMN_ADMIN_USERNAME + " = " + "'" + username + "'";
             cursor = db.rawQuery(Query, null);
         }
         exists = (cursor.getCount() > 0);
@@ -287,8 +315,9 @@ public class Database extends SQLiteOpenHelper {
             Query = " Select * from " + CLIENT_TABLE + " where " + COLUMN_CLIENT_PASSWORD + " = " + "'" + password + "'";
         } else if(checkCookExists(username)) {
             Query = " Select * from " + COOK_TABLE + " where " + COLUMN_COOK_PASSWORD + " = " + "'" + password + "'";
+        } else if(checkAdminExists(username)) {
+            Query = " Select * from " + ADMIN_TABLE + " where " + COLUMN_ADMIN_PASSWORD + " = " + "'" + password + "'";
         } else {
-
             return false;
         }
 
@@ -314,6 +343,22 @@ public class Database extends SQLiteOpenHelper {
         return DatabaseUtils.queryNumEntries(db, PAYMENT_INFO_TABLE);
     }
 
+    public boolean checkAdminExists(String username) {
+        if(!(checkUsernameExists(username))) {
+            return false;
+        }
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String Query = " Select * from " + ADMIN_TABLE + " where " + COLUMN_ADMIN_USERNAME + " = " + "'" + username + "'";
+        boolean exists;
+        Cursor cursor = db.rawQuery(Query, null);
+
+        exists = (cursor.getCount() > 0);
+
+        cursor.close();
+        return exists;
+    }
+
     public boolean checkCookExists(String username) {
         if(!(checkUsernameExists(username))) {
             return false;
@@ -336,7 +381,7 @@ public class Database extends SQLiteOpenHelper {
         }
 
         SQLiteDatabase db = this.getReadableDatabase();
-        String Query = " Select * from " + CLIENT_TABLE + " where " + COLUMN_CLIENT_USERNAME + " = " + "'" + username + "'";
+        String Query = " Select * from " + CLIENT_TABLE + " where " + COLUMN_CLIENT_USERNAME + " = " + "\"" + username + "\"";
         boolean exists;
         Cursor cursor = db.rawQuery(Query, null);
 
@@ -344,5 +389,50 @@ public class Database extends SQLiteOpenHelper {
 
         cursor.close();
         return exists;
+    }
+
+    public void setSuspension(Complaint complaint) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = " Select * from " + COMPLAINT_TABLE + " where " + COLUMN_COMPLAINT_TITLE + " = \"" + complaint.getMessage() + "\"";
+
+    }
+
+    public int getNumComplaints() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = " Select * from " + COMPLAINT_TABLE;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        return cursor.getCount();
+    }
+
+    public List<Complaint> getComplaints() {
+
+        List<Complaint> complaintList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = " Select * from " + COMPLAINT_TABLE;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                String complaintTitle = cursor.getString(0);
+                String complaintText = cursor.getString(1);
+                String complaintClient = cursor.getString(4);
+                String complaintCook = cursor.getString(5);
+                int complaintRating = cursor.getInt(2);
+                int complaintSuspension = cursor.getInt(3);
+
+                Complaint complaint = new Complaint(complaintTitle, complaintText, complaintClient, complaintCook, complaintRating, complaintSuspension);
+                complaintList.add(complaint);
+
+            } while (cursor.moveToFirst());
+        }
+
+        cursor.close();
+        return complaintList;
     }
 }

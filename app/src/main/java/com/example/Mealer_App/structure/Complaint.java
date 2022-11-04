@@ -1,5 +1,7 @@
 package com.example.Mealer_App.structure;
 
+import com.example.Mealer_App.Database;
+
 public class Complaint {
 
     private String title;
@@ -9,12 +11,12 @@ public class Complaint {
     private int daysSuspended;
     private int rating;
 
-    public Complaint(String title, String message, String clientUsername, String cookUsername, int rating) {
+    public Complaint(String title, String message, String clientUsername, String cookUsername, int daysSuspended, int rating) {
         this.title = title;
         this.message = message;
         this.clientUsername = clientUsername;
         this.cookUsername = cookUsername;
-        daysSuspended = 0;
+        this.daysSuspended = daysSuspended;
         this.rating = rating;
 
     }
@@ -37,8 +39,6 @@ public class Complaint {
         return rating;
     }
 
-    public void setDaysSuspended(int numDays) {
-        daysSuspended = numDays;
-    }
+    public void setDaysSuspended(int numDays) { daysSuspended = numDays; }
 
 }

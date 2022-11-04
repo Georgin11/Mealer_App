@@ -29,7 +29,7 @@ public class Sign_Up extends AppCompatActivity {
     public void onClient(View view){
         Intent intentA = new Intent(getApplicationContext(), ClientRegistration.class);
 
-        if(clicked == false){
+        if(!clicked){
             startActivity(intentA);
         }
         clicked = true;
@@ -41,7 +41,7 @@ public class Sign_Up extends AppCompatActivity {
     public void onCook(View view){
         Intent intentB = new Intent(getApplicationContext(), CookRegistration.class);
 
-        if(clicked == false){
+        if(!clicked){
             startActivity(intentB);
         }
         clicked = true;
