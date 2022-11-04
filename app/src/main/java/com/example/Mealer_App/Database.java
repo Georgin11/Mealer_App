@@ -11,6 +11,9 @@ import androidx.annotation.Nullable;
 
 public class Database extends SQLiteOpenHelper {
 
+    public static final String ADMIN_TABLE = "ADMIN_TABLE";
+    public static final String COLUMN_ADMIN_USERNAME = "COLUMN_ADMIN_USERNAME";
+    public static final String COLUMN_ADMIN_PASSWORD = "COLUMN_ADMIN_PASSWORD";
 
     public static final String ADDRESS_TABLE = "ADDRESS_TABLE";
     public static final String COLUMN_ADDRESS_ID = "COLUMN_CLIENT_ADDRESS";
@@ -48,16 +51,12 @@ public class Database extends SQLiteOpenHelper {
 
     public static final String COMPLAINT_TABLE = "COMPLAINT_TABLE";
     public static final String COLUMN_COMPLAINT_ID = "COLUMN_COMPLAINT_ID";
+    public static final String COLUMN_COMPLAINT_TITLE = "COLUMN_COMPLAINT_TITLE";
     public static final String COLUMN_COMPLAINT_TEXT = "COLUMN_COMPLAINT_TEXT";
     public static final String COLUMN_COMPLAINT_RATING = "COLUMN_COMPLAINT_RATING";
     public static final String COLUMN_COMPLAINT_DAYS_SUSPENDED = "COLUMN_COMPLAINT_DAYS_SUSPENDED";
     public static final String COLUMN_COMPLAINT_CLIENT = "COLUMN_COMPLAINT_CLIENT";
     public static final String COLUMN_COMPLAINT_COOK = "COLUMN_COMPLAINT_COOK";
-    public static final String COLUMN_ADMIN_USERNAME = "COLUMN_ADMIN_USERNAME";
-
-    public static final String ADMIN_TABLE = "ADMIN_TABLE";
-    public static final String COLUMN_ADMIN_PASSWORD = "COLUMN_ADMIN_PASSWORD";
-
 
     public Database(@Nullable Context context) {
         super(context, "mealer.db", null, 1);
@@ -66,7 +65,6 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTableStatement;
-//        db.execSQL("PRAGMA foreign_keys = ON");
 
         createTableStatement  = "CREATE TABLE " + ADMIN_TABLE + " ( " +
                 COLUMN_ADMIN_USERNAME + " TEXT PRIMARY KEY, " +
@@ -126,6 +124,7 @@ public class Database extends SQLiteOpenHelper {
 
         createTableStatement = "CREATE TABLE " + COMPLAINT_TABLE + " (" +
                 COLUMN_COMPLAINT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_COMPLAINT_TITLE + " TEXT, " +
                 COLUMN_COMPLAINT_TEXT + " TEXT, " +
                 COLUMN_COMPLAINT_RATING + " INTEGER, " +
                 COLUMN_COMPLAINT_DAYS_SUSPENDED + " INTEGER, " +
@@ -233,6 +232,29 @@ public class Database extends SQLiteOpenHelper {
         cv.put(COLUMN_COOK_ADDRESS_ID, getAddressCount());
 
         insert = db.insert(COOK_TABLE, null, cv);
+        if(insert == -1) {
+            return false;
+        }
+
+        cv.clear();
+        return true;
+    }
+
+    public boolean presetComplaints(MainActivity presetComplaint) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        for(int i = 0; i < 3; i++) {
+            cv.put(COLUMN_COMPLAINT_TITLE, presetComplaint.complaints[i].getTitle());
+            cv.put(COLUMN_COMPLAINT_TEXT, presetComplaint.complaints[i].getMessage());
+            cv.put(COLUMN_COMPLAINT_RATING, presetComplaint.complaints[i].getRating());
+            cv.put(COLUMN_COMPLAINT_DAYS_SUSPENDED, presetComplaint.complaints[i].getDaysSuspended());
+            cv.put(COLUMN_COMPLAINT_CLIENT, presetComplaint.complaints[i].getClientUsername());
+            cv.put(COLUMN_COMPLAINT_COOK, presetComplaint.complaints[i].getCookUsername());
+        }
+
+        long insert = db.insert(COMPLAINT_TABLE, null, cv);
         if(insert == -1) {
             return false;
         }

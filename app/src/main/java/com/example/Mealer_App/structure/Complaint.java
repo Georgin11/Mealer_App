@@ -2,21 +2,26 @@ package com.example.Mealer_App.structure;
 
 public class Complaint {
 
+    private String title;
     private String message;
     private String clientUsername;
     private String cookUsername;
+    private int daysSuspended;
     private int rating;
 
-    public Complaint(String message, String clientUsername, String cookUsername, int rating) {
+    public Complaint(String title, String message, String clientUsername, String cookUsername, int rating) {
+        this.title = title;
         this.message = message;
         this.clientUsername = clientUsername;
         this.cookUsername = cookUsername;
+        daysSuspended = 0;
         this.rating = rating;
+
     }
 
-    public String getMessage() {
-        return message;
-    }
+    public String getTitle() { return  title; }
+
+    public String getMessage() { return message; }
 
     public String getClientUsername() {
         return clientUsername;
@@ -26,7 +31,14 @@ public class Complaint {
         return cookUsername;
     }
 
+    public int getDaysSuspended() { return daysSuspended; }
+
     public int getRating() {
         return rating;
     }
+
+    public void setDaysSuspended(int numDays) {
+        daysSuspended = numDays;
+    }
+
 }
