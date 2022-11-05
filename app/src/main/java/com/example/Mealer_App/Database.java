@@ -408,17 +408,18 @@ public class Database extends SQLiteOpenHelper {
         return cursor.getCount();
     }
 
-    public List<Complaint> getComplaints() {
+    public Complaint[] getComplaints() {
 
-        List<Complaint> complaintList = new ArrayList<>();
+
         SQLiteDatabase db = this.getReadableDatabase();
 
         String query = " Select * from " + COMPLAINT_TABLE;
 
         Cursor cursor = db.rawQuery(query, null);
-
+        Complaint[] complaintList = new Complaint[cursor.getCount()];
+        int i = 0;
         if(cursor.moveToFirst()) {
-            do {
+            while (cursor.moveToFirst()) {
                 String complaintTitle = cursor.getString(0);
                 String complaintText = cursor.getString(1);
                 String complaintClient = cursor.getString(4);
@@ -427,9 +428,9 @@ public class Database extends SQLiteOpenHelper {
                 int complaintSuspension = cursor.getInt(3);
 
                 Complaint complaint = new Complaint(complaintTitle, complaintText, complaintClient, complaintCook, complaintRating, complaintSuspension);
-                complaintList.add(complaint);
-
-            } while (cursor.moveToFirst());
+                complaintList[i] = complaint;
+                i++;
+            }
         }
 
         cursor.close();

@@ -103,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
             complaints[0] = complaint1;
             complaints[1] = complaint2;
             complaints[2] = complaint3;
-            for (int i = 0; i < complaints.length; i++) {
-                db.addOne(complaints[i]);
+            for (Complaint complaint : complaints) {
+                db.addOne(complaint);
             }
         }
 

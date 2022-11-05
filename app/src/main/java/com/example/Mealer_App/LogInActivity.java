@@ -1,8 +1,6 @@
 package com.example.Mealer_App;
 
-import static com.example.Mealer_App.structure.userType.ADMIN;
-import static com.example.Mealer_App.structure.userType.CLIENT;
-import static com.example.Mealer_App.structure.userType.COOK;
+import static com.example.Mealer_App.structure.userType.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,18 +10,22 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.Mealer_App.structure.Admin;
 import com.example.Mealer_App.structure.userType;
 
 public class LogInActivity extends AppCompatActivity {
 
-    public static Admin administrator = new Admin("wassim", "the-system-must");
     public static userType typeOfUser = null;
+
+    EditText textUsername, textPassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_in);
+        textUsername = findViewById(R.id.editTextTextPersonName);
+        textPassword = findViewById(R.id.editTextTextPassword);
     }
+
     public void GoBack(View view) {
 
         finish();
@@ -40,14 +42,13 @@ public class LogInActivity extends AppCompatActivity {
 
         Database dbHelper = new Database(LogInActivity.this);
 
-        EditText textUsername = (EditText)findViewById(R.id.editTextTextPersonName);
         String username = textUsername.getText().toString();
-
-        EditText textPassword = (EditText)findViewById(R.id.editTextTextPassword);
         String password = textPassword.getText().toString();
+        Intent intent = null;
 
         if(dbHelper.checkAdminExists(username) && dbHelper.matchPassword(username, password)) {
             typeOfUser = ADMIN;
+            intent = new Intent(getApplicationContext(), AdminLandingPage.class);
         }
 
         if(dbHelper.checkCookExists(username) && dbHelper.matchPassword(username, password)) {
@@ -58,11 +59,13 @@ public class LogInActivity extends AppCompatActivity {
             typeOfUser = CLIENT;
         }
 
-        Intent intent;
+
         if(typeOfUser == null) {
-            intent = new Intent(getApplicationContext(), Sign_Up.class);
-            Toast.makeText(LogInActivity.this, "Account does not exist.", Toast.LENGTH_LONG).show();
-        } else {
+            textUsername.setText("");
+            textPassword.setText("");
+            Toast.makeText(this, "Username and/or password are not valid", Toast.LENGTH_SHORT).show();
+            return;
+        } else if(typeOfUser != ADMIN){
             intent = new Intent(getApplicationContext(), WelcomePage.class);
         }
         startActivityForResult(intent, 0);
