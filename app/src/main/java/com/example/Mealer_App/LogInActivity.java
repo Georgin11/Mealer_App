@@ -46,22 +46,19 @@ public class LogInActivity extends AppCompatActivity {
 
         if(dbHelper.checkAdminExists(username) && dbHelper.matchPassword(username, password)) {
             intent = new Intent(getApplicationContext(), AdminLandingPage.class);
-        }
-
-        if(dbHelper.checkCookExists(username) && dbHelper.matchPassword(username, password)) {
+            startActivityForResult(intent, 0);
+        } else if(dbHelper.checkCookExists(username) && dbHelper.matchPassword(username, password)) {
             intent = new Intent(getApplicationContext(), CookLandingPage.class);
-        }
-
-        if(dbHelper.checkClientExists(username) && dbHelper.matchPassword(username, password)) {
+            startActivityForResult(intent, 0);
+        } else if(dbHelper.checkClientExists(username) && dbHelper.matchPassword(username, password)) {
             intent = new Intent(getApplicationContext(), ClientLandingPage.class);
-        }
-
-        if(intent == null) {
+            startActivityForResult(intent, 0);
+        } else {
             textUsername.setText("");
             textPassword.setText("");
             Toast.makeText(this, "Username and/or password are not valid", Toast.LENGTH_SHORT).show();
             return;
         }
-        startActivityForResult(intent, 0);
+
     }
 }
