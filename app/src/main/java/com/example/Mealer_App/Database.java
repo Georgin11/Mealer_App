@@ -7,6 +7,7 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.Mealer_App.structure.Admin;
@@ -15,7 +16,10 @@ import com.example.Mealer_App.structure.Complaint;
 import com.example.Mealer_App.structure.Cook;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class Database extends SQLiteOpenHelper {
 
@@ -408,32 +412,34 @@ public class Database extends SQLiteOpenHelper {
         return cursor.getCount();
     }
 
-    public Complaint[] getComplaints() {
+    public List<Complaint> getComplaints() {
 
-
+        List<Complaint> complaints = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String query = " Select * from " + COMPLAINT_TABLE;
+        String query = "SELECT * FROM " + COMPLAINT_TABLE;
 
         Cursor cursor = db.rawQuery(query, null);
-        Complaint[] complaintList = new Complaint[cursor.getCount()];
-        int i = 0;
-        if(cursor.moveToFirst()) {
-            while (cursor.moveToFirst()) {
-                String complaintTitle = cursor.getString(0);
-                String complaintText = cursor.getString(1);
-                String complaintClient = cursor.getString(4);
-                String complaintCook = cursor.getString(5);
-                int complaintRating = cursor.getInt(2);
-                int complaintSuspension = cursor.getInt(3);
 
-                Complaint complaint = new Complaint(complaintTitle, complaintText, complaintClient, complaintCook, complaintRating, complaintSuspension);
-                complaintList[i] = complaint;
-                i++;
-            }
+        if(cursor.moveToFirst()) {
+             do {
+                String complaintTitle = cursor.getString(1);
+                String complaintText = cursor.getString(2);
+                int complaintRating = cursor.getInt(3);
+                int complaintSuspension = cursor.getInt(4);
+                String complaintClient = cursor.getString(5);
+                String complaintCook = cursor.getString(6);
+
+                Complaint complaint = new Complaint(complaintTitle, complaintText, complaintClient, complaintCook, complaintRating);
+                if(complaintSuspension != -1) {
+                    complaint.setDaysSuspended(complaintSuspension);
+                }
+                complaints.add(complaint);
+
+            } while (cursor.moveToNext());
         }
 
         cursor.close();
-        return complaintList;
+        return complaints;
     }
 }

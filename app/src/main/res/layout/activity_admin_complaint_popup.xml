@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConstraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/text_complaintTitle"
+        android:layout_width="267dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="72dp"
+        android:text="Complaint Title"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_associatedClient" />
+
+    <TextView
+        android:id="@+id/text_associatedClient"
+        android:layout_width="275dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="56dp"
+        android:text="Associated Client"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_associatedCook"
+        android:layout_width="275dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="12dp"
+        android:text="Associated Cook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_associatedClient" />
+
+    <TextView
+        android:id="@+id/text_suspensionLengthSetter"
+        android:layout_width="172dp"
+        android:layout_height="21dp"
+        android:text="Set Suspension (Days)"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/editText_suspensionLength"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:layout_constraintVertical_bias="0.74" />
+
+    <EditText
+        android:id="@+id/editText_suspensionLength"
+        android:layout_width="157dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:hint="Number of days"
+        android:inputType="number"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:layout_constraintVertical_bias="0.155" />
+
+    <Button
+        android:id="@+id/btn_actionComplaint"
+        android:layout_width="166dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="16dp"
+        android:text="Action Complaint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_suspensionLength"
+        app:layout_constraintVertical_bias="0.171" />
+
+    <Button
+        android:id="@+id/btn_dismissComplaint"
+        android:layout_width="166dp"
+        android:layout_height="43dp"
+        android:text="Dismiss Complaint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_actionComplaint"
+        app:layout_constraintHorizontal_bias="0.355"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_suspensionLength"
+        app:layout_constraintVertical_bias="0.171" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="271dp"
+        android:layout_height="217dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_complaintTitle"
+        app:layout_constraintVertical_bias="0.059">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/text_complaintMessage"
+                android:layout_width="266dp"
+                android:layout_height="207dp"
+                android:layout_marginTop="4dp"
+                android:text="Complaint Message"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

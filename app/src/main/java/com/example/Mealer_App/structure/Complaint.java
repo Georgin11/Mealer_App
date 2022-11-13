@@ -11,12 +11,12 @@ public class Complaint {
     private int daysSuspended;
     private int rating;
 
-    public Complaint(String title, String message, String clientUsername, String cookUsername, int daysSuspended, int rating) {
+    public Complaint(String title, String message, String clientUsername, String cookUsername, int rating) {
         this.title = title;
         this.message = message;
         this.clientUsername = clientUsername;
         this.cookUsername = cookUsername;
-        this.daysSuspended = daysSuspended;
+        this.daysSuspended = -1;
         this.rating = rating;
 
     }
@@ -40,5 +40,12 @@ public class Complaint {
     }
 
     public void setDaysSuspended(int numDays) { daysSuspended = numDays; }
+
+    public String toString() {
+        String text = "";
+        text += clientUsername + " left a complaint about " + cookUsername + ".\n\n";
+        text += "\"" + title + "\"\n";
+        return text;
+    }
 
 }

@@ -4,6 +4,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import android.widget.EditText;
+
+import java.text.BreakIterator;
+
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
