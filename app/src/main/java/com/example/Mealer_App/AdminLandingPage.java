@@ -1,5 +1,6 @@
 package com.example.Mealer_App;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,7 +21,7 @@ public class AdminLandingPage extends AppCompatActivity {
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-    private TextView viewMessage, viewTitle;
+    private TextView viewMessage, viewTitle, viewCook, viewClient;
     private ListView lv_Complaints;
     private EditText suspensionLength;
     private Button dismissComplaint, actionComplaint;
@@ -43,6 +44,7 @@ public class AdminLandingPage extends AppCompatActivity {
 
         lv_Complaints.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+            @SuppressLint("SetTextI18n")
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //add code for popup for complaint
                 complaintPosition = position;
@@ -56,12 +58,18 @@ public class AdminLandingPage extends AppCompatActivity {
 
                 viewTitle = complaintPopupView.findViewById(R.id.text_complaintTitle);
                 viewMessage = complaintPopupView.findViewById(R.id.text_complaintMessage);
+                viewClient = complaintPopupView.findViewById(R.id.text_associatedClient);
+                viewCook = complaintPopupView.findViewById(R.id.text_associatedCook);
                 dismissComplaint = complaintPopupView.findViewById(R.id.btn_dismissComplaint);
                 actionComplaint = complaintPopupView.findViewById(R.id.btn_actionComplaint);
                 suspensionLength = complaintPopupView.findViewById(R.id.editText_suspensionLength);
 
+                String clientUsername = "Client: " + selectedComplaint.getClientUsername();
+                String cookUsername = "Cook: " + selectedComplaint.getCookUsername();
                 viewTitle.setText(selectedComplaint.getTitle());
                 viewMessage.setText(selectedComplaint.getMessage());
+                viewClient.setText(clientUsername);
+                viewCook.setText(cookUsername);
 
 
                 dialogBuilder.setView(complaintPopupView);

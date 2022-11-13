@@ -1,6 +1,5 @@
 package com.example.Mealer_App;
 
-import static com.example.Mealer_App.structure.userType.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,11 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.Mealer_App.structure.userType;
-
 public class LogInActivity extends AppCompatActivity {
 
-    public static userType typeOfUser = null;
 
     EditText textUsername, textPassword;
 
@@ -24,10 +20,12 @@ public class LogInActivity extends AppCompatActivity {
         setContentView(R.layout.log_in);
         textUsername = findViewById(R.id.editTextTextPersonName);
         textPassword = findViewById(R.id.editTextTextPassword);
+
+        textUsername.setText("");
+        textPassword.setText("");
     }
 
     public void GoBack(View view) {
-
         finish();
     }
 
@@ -47,26 +45,22 @@ public class LogInActivity extends AppCompatActivity {
         Intent intent = null;
 
         if(dbHelper.checkAdminExists(username) && dbHelper.matchPassword(username, password)) {
-            typeOfUser = ADMIN;
             intent = new Intent(getApplicationContext(), AdminLandingPage.class);
         }
 
         if(dbHelper.checkCookExists(username) && dbHelper.matchPassword(username, password)) {
-            typeOfUser = COOK;
+            intent = new Intent(getApplicationContext(), CookLandingPage.class);
         }
 
         if(dbHelper.checkClientExists(username) && dbHelper.matchPassword(username, password)) {
-            typeOfUser = CLIENT;
+            intent = new Intent(getApplicationContext(), ClientLandingPage.class);
         }
 
-
-        if(typeOfUser == null) {
+        if(intent == null) {
             textUsername.setText("");
             textPassword.setText("");
             Toast.makeText(this, "Username and/or password are not valid", Toast.LENGTH_SHORT).show();
             return;
-        } else if(typeOfUser != ADMIN){
-            intent = new Intent(getApplicationContext(), WelcomePage.class);
         }
         startActivityForResult(intent, 0);
     }
