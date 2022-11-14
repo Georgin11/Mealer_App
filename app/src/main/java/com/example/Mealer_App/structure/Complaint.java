@@ -1,7 +1,5 @@
 package com.example.Mealer_App.structure;
 
-import com.example.Mealer_App.Database;
-
 public class Complaint {
 
     private String title;
@@ -10,6 +8,7 @@ public class Complaint {
     private String cookUsername;
     private int daysSuspended;
     private int rating;
+    private int DB_id;
 
     public Complaint(String title, String message, String clientUsername, String cookUsername, int rating) {
         this.title = title;
@@ -39,7 +38,11 @@ public class Complaint {
         return rating;
     }
 
+    public int getDB_id() { return DB_id; }
+
     public void setDaysSuspended(int numDays) { daysSuspended = numDays; }
+
+    public void setDB_id(int complaintId) { DB_id = complaintId; }
 
     public String toString() {
         String text = "";

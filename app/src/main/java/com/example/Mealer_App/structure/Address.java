@@ -6,6 +6,7 @@ public class Address {
     private int number;
     private String postal;
     private String city;
+    private int DB_id;
 
     public Address(String street, int number, String postalCode, String city) {
 
@@ -31,6 +32,10 @@ public class Address {
         return this.city;
     }
 
+    public int getDB_id() {
+        return DB_id;
+    }
+
     public void setStreet(String newStreet) {
         this.street = newStreet;
     }
@@ -44,8 +49,11 @@ public class Address {
     }
 
     public void setPostal(String postalCode) {
-
         this.postal = postalCode;
+    }
+
+    public void setDB_id(int DB_id) {
+        this.DB_id = DB_id;
     }
 
     public boolean addressEquals(Address second) {

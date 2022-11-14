@@ -33,7 +33,7 @@
         android:id="@+id/txt_ComplaintList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Active Complaints"
+        android:text="New Complaints"
         android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -13,6 +13,7 @@ public class LogInActivity extends AppCompatActivity {
 
 
     EditText textUsername, textPassword;
+    public static String username, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +41,8 @@ public class LogInActivity extends AppCompatActivity {
 
         Database dbHelper = new Database(LogInActivity.this);
 
-        String username = textUsername.getText().toString();
-        String password = textPassword.getText().toString();
+        username = textUsername.getText().toString();
+        password = textPassword.getText().toString();
         Intent intent = null;
 
         if(dbHelper.checkAdminExists(username) && dbHelper.matchPassword(username, password)) {

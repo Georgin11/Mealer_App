@@ -66,13 +66,13 @@ public class MainActivity extends AppCompatActivity {
     public Complaint complaint1 = new Complaint("Worst Meal I've had in a long time",
             "I found tons of hair in my ravioli and it is completely unacceptable. The chef simply called me a moron",
             "fuadthabet",
-            "gordonramsay1",
+            "GordonRamsay1",
             2);
 
     public Complaint complaint2 = new Complaint("I could not recommend this any less",
             "We received our food cold and raw. The chef accused us of lying for a free meal",
             "fuadthabet",
-            "MacSajder",
+            "Mac-n-Cheese",
             1);
 
     public Complaint complaint3 = new Complaint("Nothing to complain about here!",

@@ -6,20 +6,18 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.Mealer_App.structure.Address;
 import com.example.Mealer_App.structure.Admin;
 import com.example.Mealer_App.structure.Client;
 import com.example.Mealer_App.structure.Complaint;
 import com.example.Mealer_App.structure.Cook;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class Database extends SQLiteOpenHelper {
 
@@ -57,7 +55,7 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_COOK_PASSWORD = "COLUMN_COOK_PASSWORD";
     public static final String COLUMN_COOK_BIO = "COLUMN_COOK_BIO";
     public static final String COLUMN_COOK_CHEQUE = "COLUMN_COOK_CHEQUE";
-    public static final String COLUMN_COOK_SUSPENSION_LENGTH = "COLUMN_IS_SUSPENDED";
+    public static final String COLUMN_COOK_SUSPENSION_LENGTH = "COLUMN_COOK_SUSPENSION_LENGTH";
     public static final String COLUMN_COOK_USERNAME = "COLUMN_COOK_USERNAME";
     public static final String COLUMN_COOK_ADDRESS_ID = "COLUMN_COOK_ADDRESS";
 
@@ -395,13 +393,6 @@ public class Database extends SQLiteOpenHelper {
         return exists;
     }
 
-    public void setSuspension(Complaint complaint) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String query = " Select * from " + COMPLAINT_TABLE + " where " + COLUMN_COMPLAINT_TITLE + " = \"" + complaint.getMessage() + "\"";
-
-    }
-
     public int getNumComplaints() {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -423,23 +414,129 @@ public class Database extends SQLiteOpenHelper {
 
         if(cursor.moveToFirst()) {
              do {
-                String complaintTitle = cursor.getString(1);
-                String complaintText = cursor.getString(2);
-                int complaintRating = cursor.getInt(3);
-                int complaintSuspension = cursor.getInt(4);
-                String complaintClient = cursor.getString(5);
-                String complaintCook = cursor.getString(6);
+                 int complaintId = cursor.getInt(0);
+                 String complaintTitle = cursor.getString(1);
+                 String complaintText = cursor.getString(2);
+                 int complaintRating = cursor.getInt(3);
+                 int complaintSuspension = cursor.getInt(4);
+                 String complaintClient = cursor.getString(5);
+                 String complaintCook = cursor.getString(6);
 
-                Complaint complaint = new Complaint(complaintTitle, complaintText, complaintClient, complaintCook, complaintRating);
-                if(complaintSuspension != -1) {
-                    complaint.setDaysSuspended(complaintSuspension);
-                }
-                complaints.add(complaint);
+                 Complaint complaint = new Complaint(complaintTitle, complaintText, complaintClient, complaintCook, complaintRating);
+                 if(complaintSuspension != -1) {
+                     complaint.setDaysSuspended(complaintSuspension);
+                 }
+                 complaint.setDB_id(complaintId);
+                 complaints.add(complaint);
 
             } while (cursor.moveToNext());
         }
 
         cursor.close();
         return complaints;
+    }
+
+    public List<Address> getAddresses() {
+        List<Address> addresses = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + ADDRESS_TABLE;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                int addressId = cursor.getInt(0);
+                String addressStreet = cursor.getString(1);
+                int addressNumber = cursor.getInt(2);
+                String addressPostal = cursor.getString(3);
+                String addressCity = cursor.getString(4);
+
+                Address address = new Address(addressStreet, addressNumber, addressPostal, addressCity);
+                address.setDB_id(addressId);
+                addresses.add(address);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return addresses;
+    }
+
+    public List<Cook> getCooks() {
+
+        List<Cook> cooks = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + COOK_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        List<Address> addresses = getAddresses();
+
+        if(cursor.moveToFirst()) {
+            do {
+                String cookUsername = cursor.getString(0);
+                String cookPassword = cursor.getString(1);
+                String cookFname = cursor.getString(2);
+                String cookLname = cursor.getString(3);
+                String cookEmail = cursor.getString(4);
+                String cookBio = cursor.getString(5);
+                int cookSuspension = cursor.getInt(7);
+                Address cookAddress = addresses.get(cursor.getInt(8)-1);
+
+                Cook cook = new Cook(cookBio, true, cookFname, cookLname, cookEmail, cookAddress, cookUsername, cookPassword);
+                cook.setSuspension(cookSuspension);
+                cooks.add(cook);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return cooks;
+    }
+
+    public boolean updateSuspension(Complaint complaint, int id) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_COMPLAINT_TITLE, complaint.getTitle());
+        cv.put(COLUMN_COMPLAINT_TEXT, complaint.getMessage());
+        cv.put(COLUMN_COMPLAINT_RATING, complaint.getRating());
+        cv.put(COLUMN_COMPLAINT_DAYS_SUSPENDED, complaint.getDaysSuspended());
+        cv.put(COLUMN_COMPLAINT_CLIENT, complaint.getClientUsername());
+        cv.put(COLUMN_COMPLAINT_COOK, complaint.getCookUsername());
+
+        long insert = db.update(COMPLAINT_TABLE, cv, COLUMN_COMPLAINT_ID + "=" + id, null);
+        if(insert == -1) {
+            return false;
+        }
+
+        cv.clear();
+
+        List<Cook> cooks = getCooks();
+        boolean found = false;
+        for(Cook cook : cooks) {
+            if(cook.getUsername().equals(complaint.getCookUsername())) {
+                found = true;
+                cv.put(COLUMN_COOK_USERNAME, cook.getUsername());
+                cv.put(COLUMN_COOK_PASSWORD, cook.getPassword());
+                cv.put(COLUMN_COOK_FIRSTNAME, cook.getfName());
+                cv.put(COLUMN_COOK_LASTNAME, cook.getlName());
+                cv.put(COLUMN_COOK_EMAIL, cook.getEmail());
+                cv.put(COLUMN_COOK_BIO, cook.getBio());
+                cv.put(COLUMN_COOK_CHEQUE, true);
+                cv.put(COLUMN_COOK_SUSPENSION_LENGTH, complaint.getDaysSuspended());
+                cv.put(COLUMN_COOK_ADDRESS_ID, cook.getAddress().getDB_id());
+
+                insert = db.update(COOK_TABLE, cv, COLUMN_COOK_USERNAME + "='" + cook.getUsername() + "'", null);
+                if(insert == -1) {
+                    return false;
+                }
+                cv.clear();
+                break;
+            }
+        }
+        return found;
     }
 }
