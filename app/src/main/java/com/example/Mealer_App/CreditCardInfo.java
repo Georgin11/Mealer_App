@@ -1,3 +1,4 @@
+/*
 package com.example.Mealer_App;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +14,7 @@ import java.math.BigInteger;
 
 public class CreditCardInfo extends AppCompatActivity {
 
-    EditText textCardholder, textCardNumber, textCVV, textStreetAddress, textStreetNumber, textPostal, textCity;
+    private EditText textCardholder, textCardNumber, textCVV, textStreetAddress, textStreetNumber, textPostal, textCity;
 
     public static PaymentInfo newPaymentInfo;
     @Override
@@ -30,11 +31,11 @@ public class CreditCardInfo extends AppCompatActivity {
         textCity = findViewById(R.id.editTextCity);
     }
 
-    public void GoBack(View view) {
+    public void Goback(View view) {
         finish();
     }
 
-    public void onSave(View view){
+    public void onSae(View view){
 
 
 
@@ -61,4 +62,4 @@ public class CreditCardInfo extends AppCompatActivity {
 
         super.finish();
     }
-}
+}*/
