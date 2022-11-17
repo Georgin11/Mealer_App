@@ -2,6 +2,7 @@ package com.example.Mealer_App;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -121,6 +122,14 @@ public class AdminLandingPage extends AppCompatActivity {
         int selectedSuspension = 0;
         Database db = new Database(this);
         selectedComplaint.setDaysSuspended(selectedSuspension);
+        db.updateSuspension(selectedComplaint, selectedComplaint.getDB_id());
+        dialog.dismiss();
+        recreate();
+    }
+
+    public void permanentBan(View view) {
+        selectedComplaint.setDaysSuspended(-5);
+        Database db = new Database(this);
         db.updateSuspension(selectedComplaint, selectedComplaint.getDB_id());
         dialog.dismiss();
         recreate();

@@ -1,12 +1,12 @@
 package com.example.Mealer_App.structure;
 
-import static com.example.Mealer_App.structure.userType.COOK;
+import static com.example.Mealer_App.structure.UserType.COOK;
 
 public class Cook extends NonAdmin{
 
     private String bio;
     private boolean voidCheque;
-    private userType typeOfUser = COOK;
+    private UserType typeOfUser = COOK;
     private int suspensionLength;
 
     public Cook(String bio, boolean voidCheque, String fName, String lName, String email, Address address, String username, String password) {
@@ -33,7 +33,7 @@ public class Cook extends NonAdmin{
         return suspensionLength;
     }
 
-    public userType getTypeOfUser() {
+    public UserType getTypeOfUser() {
         return typeOfUser;
     }
 }

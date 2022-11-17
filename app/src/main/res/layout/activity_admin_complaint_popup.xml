@@ -10,7 +10,7 @@
         android:id="@+id/text_complaintTitle"
         android:layout_width="267dp"
         android:layout_height="50dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="40dp"
         android:text="Complaint Title"
         android:textAlignment="center"
         android:textColor="#000000"
@@ -45,12 +45,8 @@
         android:layout_height="21dp"
         android:text="Set Suspension (Days)"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/editText_suspensionLength"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:layout_constraintVertical_bias="0.74" />
+        tools:layout_editor_absoluteX="118dp"
+        tools:layout_editor_absoluteY="367dp" />
 
     <EditText
         android:id="@+id/editText_suspensionLength"
@@ -78,7 +74,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_suspensionLength"
-        app:layout_constraintVertical_bias="0.132" />
+        app:layout_constraintVertical_bias="0.078" />
 
     <Button
         android:id="@+id/btn_dismissComplaint"
@@ -89,15 +85,29 @@
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_actionComplaint"
-        app:layout_constraintHorizontal_bias="0.783"
+        app:layout_constraintHorizontal_bias="0.79"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_suspensionLength"
-        app:layout_constraintVertical_bias="0.127" />
+        app:layout_constraintVertical_bias="0.078" />
+
+    <Button
+        android:id="@+id/btn_permaBan"
+        android:layout_width="124dp"
+        android:layout_height="48dp"
+        android:onClick="permanentBan"
+        android:text="Permanent Ban"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_actionComplaint"
+        app:layout_constraintVertical_bias="0.054" />
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="271dp"
-        android:layout_height="217dp"
+        android:layout_width="266dp"
+        android:layout_height="155dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -110,14 +120,15 @@
 
             <TextView
                 android:id="@+id/text_complaintMessage"
-                android:layout_width="266dp"
-                android:layout_height="207dp"
+                android:layout_width="265dp"
+                android:layout_height="248dp"
                 android:layout_marginTop="4dp"
                 android:text="Complaint Message"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintHorizontal_bias="0.333"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
