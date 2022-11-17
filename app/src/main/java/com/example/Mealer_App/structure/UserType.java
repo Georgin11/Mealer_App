@@ -1,6 +1,6 @@
 package com.example.Mealer_App.structure;
 
-public enum userType {
+public enum UserType {
     ADMIN,
     CLIENT,
     COOK

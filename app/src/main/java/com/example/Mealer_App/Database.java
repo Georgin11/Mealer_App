@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -15,6 +14,7 @@ import com.example.Mealer_App.structure.Admin;
 import com.example.Mealer_App.structure.Client;
 import com.example.Mealer_App.structure.Complaint;
 import com.example.Mealer_App.structure.Cook;
+import com.example.Mealer_App.structure.Meal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +48,8 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_CLIENT_ADDRESS_ID = "COLUMN_CLIENT_ADDRESS";
     public static final String COLUMN_CLIENT_PAYMENT_INFO_ID = "COLUMN_CLIENT_PAYMENT_INFO";
 
-    public static final String COOK_TABLE = "COOK_TABLE";
+    public static final String COOK_TABLE1 = "COOK_TABLE";
+    public static final String COOK_TABLE = COOK_TABLE1;
     public static final String COLUMN_COOK_FIRSTNAME = "COLUMN_COOK_FIRSTNAME";
     public static final String COLUMN_COOK_LASTNAME = "COLUMN_COOK_LASTNAME";
     public static final String COLUMN_COOK_EMAIL = "COLUMN_COOK_EMAIL";
@@ -56,7 +57,8 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_COOK_BIO = "COLUMN_COOK_BIO";
     public static final String COLUMN_COOK_CHEQUE = "COLUMN_COOK_CHEQUE";
     public static final String COLUMN_COOK_SUSPENSION_LENGTH = "COLUMN_COOK_SUSPENSION_LENGTH";
-    public static final String COLUMN_COOK_USERNAME = "COLUMN_COOK_USERNAME";
+    public static final String COLUMN_COOK_USERNAME1 = "COLUMN_COOK_USERNAME";
+    public static final String COLUMN_COOK_USERNAME = COLUMN_COOK_USERNAME1;
     public static final String COLUMN_COOK_ADDRESS_ID = "COLUMN_COOK_ADDRESS";
 
     public static final String COMPLAINT_TABLE = "COMPLAINT_TABLE";
@@ -67,6 +69,19 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_COMPLAINT_DAYS_SUSPENDED = "COLUMN_COMPLAINT_DAYS_SUSPENDED";
     public static final String COLUMN_COMPLAINT_CLIENT = "COLUMN_COMPLAINT_CLIENT";
     public static final String COLUMN_COMPLAINT_COOK = "COLUMN_COMPLAINT_COOK";
+
+    public static final String MEAL_TABLE = "MEAL_TABLE";
+    public static final String COLUMN_MEAL_ID = "COLUMN_MEAL_ID";
+    public static final String COLUMN_MEAL_NAME = "COLUMN_MEAL_NAME";
+    public static final String COLUMN_MEAL_COURSE = "COLUMN_MEAL_TYPE";
+    public static final String COLUMN_MEAL_CUISINE = "COLUMN_MEAL_CUISINE";
+    public static final String COLUMN_MEAL_INGREDIENTS = "COLUMN_MEAL_INGREDIENTS";
+    public static final String COLUMN_MEAL_ALLERGENS = "COLUMN_MEAL_ALLERGENS";
+    public static final String COLUMN_MEAL_PRICE = "COLUMN_MEAL_PRICE";
+    public static final String COLUMN_MEAL_DESCRIPTION = "COLUMN_MEAL_DESCRIPTION";
+    public static final String COLUMN_MEAL_IS_FEATURED = "COLUMN_MEAL_IS_FEATURED";
+    public static final String COLUMN_MEAL_COOK = "COLUMN_MEAL_COOK";
+
 
     public Database(@Nullable Context context) {
         super(context, "mealer.db", null, 1);
@@ -146,12 +161,30 @@ public class Database extends SQLiteOpenHelper {
                     "REFERENCES " + COOK_TABLE + "(" + COLUMN_COOK_USERNAME + "))";
 
         db.execSQL(createTableStatement);
+
+        createTableStatement = "CREATE TABLE " + MEAL_TABLE + " ( " +
+                COLUMN_MEAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_MEAL_NAME + " TEXT, " +
+                COLUMN_MEAL_COURSE + " TEXT, " +
+                COLUMN_MEAL_CUISINE + " TEXT, " +
+                COLUMN_MEAL_INGREDIENTS + " TEXT, " +
+                COLUMN_MEAL_ALLERGENS + " TEXT, " +
+                COLUMN_MEAL_PRICE + " FLOAT, " +
+                COLUMN_MEAL_DESCRIPTION + " TEXT, " +
+                COLUMN_MEAL_IS_FEATURED + " BOOL," +
+                COLUMN_MEAL_COOK + " TEXT, " +
+                "FOREIGN KEY (" + COLUMN_MEAL_COOK + ") " +
+                "REFERENCES " + COOK_TABLE + " (" + COLUMN_COOK_USERNAME + "))";
+
+        db.execSQL(createTableStatement);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
+
 
     public boolean addOne(Admin admin) {
 
@@ -286,6 +319,108 @@ public class Database extends SQLiteOpenHelper {
         cv.clear();
 
         return true;
+    }
+
+    public boolean addOne(Meal meal) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_MEAL_NAME, meal.getMealName());
+        cv.put(COLUMN_MEAL_COURSE, meal.getMealCourse().toString());
+        cv.put(COLUMN_MEAL_CUISINE, meal.getMealCuisine().toString());
+        cv.put(COLUMN_MEAL_INGREDIENTS, meal.getListOfIngredients());
+        cv.put(COLUMN_MEAL_ALLERGENS, meal.getListOfAllergens());
+        cv.put(COLUMN_MEAL_PRICE, meal.getMealPrice());
+        cv.put(COLUMN_MEAL_DESCRIPTION, meal.getMealDescription());
+        cv.put(COLUMN_MEAL_IS_FEATURED, meal.isFeatured());
+        cv.put(COLUMN_MEAL_COOK, meal.getAssociatedCook());
+
+        long insert = db.insert(MEAL_TABLE, null, cv);
+        if(insert == -1) {
+            return false;
+        }
+
+        cv.clear();
+        return true;
+    }
+
+    public List<Meal> getMealsOfCook(String cookUsername) {
+        List<Meal> meals = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + MEAL_TABLE;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                if(cursor.getString(9).equals(cookUsername)) {
+                    int mealID = cursor.getInt(0);
+                    String mealName = cursor.getString(1);
+                    String mealCourse = cursor.getString(2);
+                    String mealCuisine = cursor.getString(3);
+                    String mealIngredients = cursor.getString(4);
+                    String mealAllergens = cursor.getString(5);
+                    float mealPrice = cursor.getFloat(6);
+                    String mealDescription = cursor.getString(7);
+                    boolean isFeatured = (cursor.getInt(8) == 1);
+
+                    Meal meal = new Meal(mealName, mealCourse, mealCuisine, mealIngredients, mealAllergens, mealPrice, mealDescription, cookUsername);
+
+                    meal.setFeatured(isFeatured);
+                    meal.setDB_id(mealID);
+                    meals.add(meal);
+                }
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return meals;
+    }
+
+    public boolean featureMeal(Meal meal, boolean featured) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_MEAL_NAME, meal.getMealName());
+        cv.put(COLUMN_MEAL_COURSE, meal.getMealCourse().toString());
+        cv.put(COLUMN_MEAL_CUISINE, meal.getMealCuisine().toString());
+        cv.put(COLUMN_MEAL_INGREDIENTS, meal.getListOfIngredients());
+        cv.put(COLUMN_MEAL_ALLERGENS, meal.getListOfAllergens());
+        cv.put(COLUMN_MEAL_PRICE, meal.getMealPrice());
+        cv.put(COLUMN_MEAL_DESCRIPTION, meal.getMealDescription());
+        cv.put(COLUMN_MEAL_IS_FEATURED, featured);
+        cv.put(COLUMN_MEAL_COOK, meal.getAssociatedCook());
+
+        long insert = db.update(MEAL_TABLE, cv, COLUMN_MEAL_ID + "=" + meal.getDB_id(), null);
+        if(insert == -1) {
+            return false;
+        }
+
+        cv.clear();
+        return true;
+    }
+
+    public boolean deleteMeal(Meal meal) {
+        if(meal.isFeatured()) {
+            return false;
+        }
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        List<Meal> meals = getMealsOfCook(meal.getAssociatedCook());
+        int id = -1;
+        for(int i = 0; i < meals.toArray().length; i++) {
+            if(meal.equals(meals.get(i))) {
+                id = i + 1;
+            }
+        }
+
+        long delete = db.delete(MEAL_TABLE, COLUMN_MEAL_ID + "=" + id, null);
+        return delete != -1;
     }
 
     public boolean checkUsernameExists(String username) {
