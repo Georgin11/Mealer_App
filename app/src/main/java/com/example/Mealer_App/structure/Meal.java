@@ -1,6 +1,10 @@
 package com.example.Mealer_App.structure;
 
 
+import com.example.Mealer_App.CookLandingPage;
+import com.example.Mealer_App.Database;
+
+import java.util.List;
 
 public class Meal {
 
@@ -110,5 +114,24 @@ public class Meal {
                 mealPrice == meal.getMealPrice() &&
                 mealDescription.equals(meal.getMealDescription()) &&
                 associatedCook.equals(meal.getAssociatedCook()));
+    }
+
+    public String toString(Database db) {
+        String s = "";
+        List<Cook> cooks = db.getCooks();
+        Cook currentCook = null;
+        for(Cook cook: cooks) {
+            if(cook.getUsername().equals(associatedCook)) {
+                currentCook = cook;
+            }
+        }
+        if(!isFeatured) {
+            s += "**" + mealName + "**\t" + mealPrice;
+        } else {
+            s += mealName;
+        }
+        s += "\n\t" + mealDescription + "\nBy: " + currentCook.getfName() + " " + currentCook.getlName();
+
+        return s;
     }
 }

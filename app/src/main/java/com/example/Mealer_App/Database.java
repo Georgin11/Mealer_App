@@ -2,6 +2,7 @@ package com.example.Mealer_App;
 
 import android.content.ContentValues;
 import android.content.Context;
+
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
@@ -48,8 +49,7 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_CLIENT_ADDRESS_ID = "COLUMN_CLIENT_ADDRESS";
     public static final String COLUMN_CLIENT_PAYMENT_INFO_ID = "COLUMN_CLIENT_PAYMENT_INFO";
 
-    public static final String COOK_TABLE1 = "COOK_TABLE";
-    public static final String COOK_TABLE = COOK_TABLE1;
+    public static final String COOK_TABLE = "COOK_TABLE";
     public static final String COLUMN_COOK_FIRSTNAME = "COLUMN_COOK_FIRSTNAME";
     public static final String COLUMN_COOK_LASTNAME = "COLUMN_COOK_LASTNAME";
     public static final String COLUMN_COOK_EMAIL = "COLUMN_COOK_EMAIL";
@@ -57,8 +57,7 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_COOK_BIO = "COLUMN_COOK_BIO";
     public static final String COLUMN_COOK_CHEQUE = "COLUMN_COOK_CHEQUE";
     public static final String COLUMN_COOK_SUSPENSION_LENGTH = "COLUMN_COOK_SUSPENSION_LENGTH";
-    public static final String COLUMN_COOK_USERNAME1 = "COLUMN_COOK_USERNAME";
-    public static final String COLUMN_COOK_USERNAME = COLUMN_COOK_USERNAME1;
+    public static final String COLUMN_COOK_USERNAME = "COLUMN_COOK_USERNAME";
     public static final String COLUMN_COOK_ADDRESS_ID = "COLUMN_COOK_ADDRESS";
 
     public static final String COMPLAINT_TABLE = "COMPLAINT_TABLE";
@@ -81,7 +80,6 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_MEAL_DESCRIPTION = "COLUMN_MEAL_DESCRIPTION";
     public static final String COLUMN_MEAL_IS_FEATURED = "COLUMN_MEAL_IS_FEATURED";
     public static final String COLUMN_MEAL_COOK = "COLUMN_MEAL_COOK";
-
 
     public Database(@Nullable Context context) {
         super(context, "mealer.db", null, 1);
@@ -183,8 +181,6 @@ public class Database extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-
-
 
     public boolean addOne(Admin admin) {
 
@@ -385,8 +381,8 @@ public class Database extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
 
         cv.put(COLUMN_MEAL_NAME, meal.getMealName());
-        cv.put(COLUMN_MEAL_COURSE, meal.getMealCourse().toString());
-        cv.put(COLUMN_MEAL_CUISINE, meal.getMealCuisine().toString());
+        cv.put(COLUMN_MEAL_COURSE, meal.getMealCourse());
+        cv.put(COLUMN_MEAL_CUISINE, meal.getMealCuisine());
         cv.put(COLUMN_MEAL_INGREDIENTS, meal.getListOfIngredients());
         cv.put(COLUMN_MEAL_ALLERGENS, meal.getListOfAllergens());
         cv.put(COLUMN_MEAL_PRICE, meal.getMealPrice());
@@ -674,4 +670,5 @@ public class Database extends SQLiteOpenHelper {
         }
         return found;
     }
+
 }
