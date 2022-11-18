@@ -125,7 +125,7 @@ public class ClientRegistration extends AppCompatActivity {
     }
 
     public void GoBack() {
-        return;
+        finish();
     }
 }
 

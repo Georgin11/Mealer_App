@@ -9,206 +9,212 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-        <EditText
-            android:id="@+id/editText_ClientUsername"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="49dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="646dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Username"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
-
-        <EditText
-            android:id="@+id/editText_ClientName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="49dp"
-            android:layout_marginBottom="597dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="First Name"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            app:hintAnimationEnabled="false"
-            app:hintEnabled="true" />
-
-        <EditText
-            android:id="@+id/editText_ClientLastName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editText_ClientName"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="-50dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Last Name"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
-
-        <EditText
-            android:id="@+id/editTextEmailAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editText_ClientLastName"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="-50dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Email Address"
-            android:inputType="textEmailAddress"
-            android:minHeight="48dp" />
-
-        <EditText
-            android:id="@+id/editText_ClientPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextEmailAddress"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="-50dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:minHeight="48dp" />
-
-        <EditText
-            android:id="@+id/editText_ClientNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="230dp"
-            android:layout_marginEnd="-120dp"
-            android:layout_marginBottom="450dp"
-            android:layout_toStartOf="@+id/editText_ClientStreet"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="No."
-            android:inputType="number"
-            android:minHeight="48dp"
-            tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck" />
-
-        <EditText
-            android:id="@+id/editText_ClientStreet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editText_ClientPassword"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="120dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="-50dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Street                "
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
-
-        <EditText
-            android:id="@+id/editText_ClientApt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editText_ClientStreet"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="-50dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Apt/Suite (Optional)"
-            android:inputType="number"
-            android:minHeight="48dp" />
-
-        <EditText
-            android:id="@+id/editText_ClientCity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editText_ClientApt"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="-50dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="City"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
-
-        <EditText
-            android:id="@+id/editText_ClientPostal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editText_ClientCity"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="-50dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Postal Code"
-            android:inputType="text"
-            android:minHeight="48dp" />
-
-        <Button
-            android:id="@+id/btn_Continue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editText_ClientPostal"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="100dp"
-            android:layout_marginBottom="-60dp"
-            android:gravity="center"
-            android:onClick="onContinue"
-            android:text="Continue" />
+        android:background="#82CD96">
 
         <Button
             android:id="@+id/btn_GoBack"
-            android:layout_width="146dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="133dp"
-            android:layout_marginTop="633dp"
-            android:layout_marginEnd="132dp"
-            android:layout_marginBottom="50dp"
+            android:layout_width="65dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="320dp"
+            android:background="@null"
+            android:fontFamily="sans-serif-smallcaps"
             android:onClick="GoBack"
-            android:text="GO BACK" />
+            android:text="Back"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="675dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/half_white_background"
+            android:orientation="vertical"
+            android:padding="32sp">
+
+            <EditText
+                android:id="@+id/editText_ClientUsername"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:hint="Username"
+                android:inputType="text"
+                android:padding="16dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/editText_ClientName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:hint="First Name"
+                android:inputType="text"
+                android:padding="16dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/editText_ClientLastName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:hint="Last Name"
+                android:inputType="text"
+                android:padding="16dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/editTextEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:hint="example@uottawa.ca"
+                android:inputType="textEmailAddress"
+                android:padding="16dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/editText_ClientPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="16dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="top"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editText_ClientNumber"
+                    android:layout_width="55dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="10"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="No."
+                    android:inputType="number"
+                    android:padding="16dp"
+                    android:textColor="#8e8e8e"
+                    android:textColorHint="#8e8e8e"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:id="@+id/editText_ClientStreet"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="10"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="Street                "
+                    android:padding="16dp"
+                    android:textColor="#8e8e8e"
+                    android:textColorHint="#8e8e8e"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/editText_ClientApt"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:hint="Apt/Suite (Optional)"
+                android:padding="16dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/editText_ClientCity"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:hint="City"
+                android:padding="16dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/editText_ClientPostal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:hint="Postal Code"
+                android:padding="16dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_Continue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="260dp"
+                    android:height="55dp"
+                    android:backgroundTint="#273238"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:gravity="center"
+                    android:onClick="onContinue"
+                    android:text="Continue"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
