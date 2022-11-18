@@ -6,56 +6,86 @@
     android:layout_height="match_parent"
     tools:context="com.example.Mealer_App.MainActivity">
 
-    <ImageView
-        android:id="@+id/Logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="236dp"
-        android:layout_marginEnd="140dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background"
-        tools:srcCompat="@tools:sample/avatars" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/half_white_background">
 
-    <Button
-        android:id="@+id/SignUpButton"
-        android:layout_width="127dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="408dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        android:layout_marginEnd="132dp"
-        android:background="@color/teal_200"
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bienvenue! Willkommen! Benvenuto! Witaj! ¡Bienvenido! Welcome! Selamat datang! Välkommen! Bienvenue! Willkommen! Benvenuto! Witaj! ¡Bienvenido! Welcome! Selamat datang! Välkommen! Bienvenue! Willkommen! Benvenuto! Witaj! ¡Bienvenido! Welcome! Selamat datang! Välkommen! Bienvenue! Willkommen! Benvenuto! Witaj! ¡Bienvenido! Welcome! Selamat datang! Välkommen! Bienvenue! Willkommen! Benvenuto! Witaj! ¡Bienvenido! Welcome! Selamat datang! Välkommen! Bienvenue! Willkommen! Benvenuto!"
+                android:textColor="#82CD96"
+                android:fontFamily="cursive"
+                android:gravity="center"
+                android:textSize="16dp"/>
 
-        android:onClick="OnSignUp"
-        android:text="Get Started"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="425dp"
+                app:srcCompat="@drawable/burger" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="187dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="576dp"
-        android:layout_marginEnd="124dp"
-        android:text="Already a user?"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/SignUpButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp"
+            android:layout_marginBottom="125dp"
+            android:text="Get Started"
+            android:textColor="@color/white"
+            android:backgroundTint="#82CD96"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:onClick="OnSignUp"/>
 
-    <Button
-        android:id="@+id/SignInButton"
-        android:layout_width="97dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="92dp"
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="185dp"
+            android:layout_height="35dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp"
+            android:layout_marginBottom="35dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:text="Already a user?"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        android:layout_marginBottom="144dp"
-        android:background="@null"
-        android:onClick="OnLogIn"
-        android:text="@string/sign"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <Button
+            android:id="@+id/SignInButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp"
+            android:layout_marginBottom="65dp"
+            android:text="Sign In"
+            android:textColor="@color/white"
+            android:backgroundTint="#82CD96"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:onClick="OnLogIn" />
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
