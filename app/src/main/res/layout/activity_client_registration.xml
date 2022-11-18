@@ -44,7 +44,7 @@
                 android:ems="10"
                 android:fontFamily="sans-serif-light"
                 android:hint="Username"
-                android:inputType="text"
+                android:inputType="textPersonName"
                 android:padding="16dp"
                 android:textColor="#8e8e8e"
                 android:textColorHint="#8e8e8e"
@@ -59,7 +59,7 @@
                 android:ems="10"
                 android:fontFamily="sans-serif-light"
                 android:hint="First Name"
-                android:inputType="text"
+                android:inputType="textPersonName"
                 android:padding="16dp"
                 android:textColor="#8e8e8e"
                 android:textColorHint="#8e8e8e"
@@ -74,7 +74,7 @@
                 android:ems="10"
                 android:fontFamily="sans-serif-light"
                 android:hint="Last Name"
-                android:inputType="text"
+                android:inputType="textPersonName"
                 android:padding="16dp"
                 android:textColor="#8e8e8e"
                 android:textColorHint="#8e8e8e"
@@ -142,7 +142,8 @@
                     android:background="@drawable/edittext_background"
                     android:ems="10"
                     android:fontFamily="sans-serif-light"
-                    android:hint="Street                "
+                    android:hint="Street"
+                    android:inputType="textPersonName"
                     android:padding="16dp"
                     android:textColor="#8e8e8e"
                     android:textColorHint="#8e8e8e"
@@ -159,6 +160,7 @@
                 android:ems="10"
                 android:fontFamily="sans-serif-light"
                 android:hint="Apt/Suite (Optional)"
+                android:inputType="number"
                 android:padding="16dp"
                 android:textColor="#8e8e8e"
                 android:textColorHint="#8e8e8e"
@@ -173,6 +175,7 @@
                 android:ems="10"
                 android:fontFamily="sans-serif-light"
                 android:hint="City"
+                android:inputType="textPersonName"
                 android:padding="16dp"
                 android:textColor="#8e8e8e"
                 android:textColorHint="#8e8e8e"
@@ -187,6 +190,7 @@
                 android:ems="10"
                 android:fontFamily="sans-serif-light"
                 android:hint="Postal Code"
+                android:inputType="textPersonName"
                 android:padding="16dp"
                 android:textColor="#8e8e8e"
                 android:textColorHint="#8e8e8e"
@@ -213,8 +217,6 @@
                     android:textSize="20sp" />
 
             </LinearLayout>
-
         </LinearLayout>
-
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

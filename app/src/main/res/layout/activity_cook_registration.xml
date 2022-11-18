@@ -8,223 +8,231 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/half_white_background">
 
         <Button
             android:id="@+id/btn_GoBack"
-            android:layout_width="115dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="-3dp"
-            android:layout_marginEnd="146dp"
-            android:layout_marginBottom="686dp"
+            android:layout_width="65dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="320dp"
+            android:background="@null"
+            android:fontFamily="sans-serif-smallcaps"
             android:onClick="GoBack"
-            android:text="GO BACK" />
+            android:text="Back"
+            android:textColor="#273238"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/editTextCookUsername"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="49dp"
-            android:layout_marginBottom="644dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Username"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/half_white_background"
+            android:orientation="vertical"
+            android:padding="32sp">
 
-        <EditText
-            android:id="@+id/editTextCookFirstName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="51dp"
-            android:layout_marginEnd="48dp"
-            android:layout_marginBottom="601dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="First Name"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
-
-        <EditText
-            android:id="@+id/editTextCookLastName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextCookFirstName"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="49dp"
-            android:layout_marginBottom="-47dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Last Name"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
-
-        <EditText
-            android:id="@+id/editTextCookEmailAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextCookLastName"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="-50dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Email Address"
-            android:inputType="textEmailAddress"
-            android:minHeight="48dp"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <EditText
-            android:id="@+id/editTextCookPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextCookEmailAddress"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="-50dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:minHeight="48dp" />
-
-        <EditText
-            android:id="@+id/editTextCookStreetNo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextCookPassword"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="275dp"
-            android:layout_marginBottom="-50dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="No."
-            android:inputType="number"
-            android:minHeight="48dp" />
-
-        <EditText
-            android:id="@+id/editTextStreetCook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextCookPassword"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="-50dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Street"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
-
-        <EditText
-            android:id="@+id/editTextCookApt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextStreetCook"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="-50dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Apt/Suite (Optional)"
-            android:inputType="number"
-            android:minHeight="48dp" />
-
-        <EditText
-            android:id="@+id/editTextCookCity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextCookApt"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="-50dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="City"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
-
-        <EditText
-            android:id="@+id/editTextCookPostal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextCookCity"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="-50dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Postal Code"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
-
-        <Button
-            android:id="@+id/button7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="100dp"
-            android:layout_marginBottom="30dp"
-            android:onClick="onAddCheque"
-            android:text="Add Cheque" />
-
-        <ScrollView
-            android:layout_width="295dp"
-            android:layout_height="200dp"
-            android:layout_below="@+id/editTextCookPostal"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="50dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <EditText
+                android:id="@+id/editTextCookUsername"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="50dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:hint="Username"
+                android:inputType="textPersonName"
+                android:padding="16dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/editTextCookFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:hint="First Name"
+                android:inputType="textPersonName"
+                android:padding="16dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/editTextCookLastName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:hint="Last Name"
+                android:inputType="textPersonName"
+                android:padding="16dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/editTextCookEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:hint="Email Address"
+                android:inputType="textEmailAddress"
+                android:padding="16dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/editTextCookPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="16dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="top"
+                android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/editTextCookBio"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextCookStreetNo"
+                    android:layout_width="55dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="9dp"
+                    android:background="@drawable/edittext_background"
                     android:ems="10"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="No."
+                    android:inputType="number"
+                    android:padding="16dp"
+                    android:textColor="#8e8e8e"
+                    android:textColorHint="#8e8e8e"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:id="@+id/editTextStreetCook"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="9dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="10"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="Street"
+                    android:inputType="textPersonName"
+                    android:padding="16dp"
+                    android:textColor="#8e8e8e"
+                    android:textColorHint="#8e8e8e"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/editTextCookApt"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:hint="Apt/Suite (Optional)"
+                android:inputType="number"
+                android:padding="16dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/editTextCookCity"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:hint="City"
+                android:inputType="textPersonName"
+                android:padding="16dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/editTextCookPostal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:hint="Postal Code"
+                android:inputType="textPersonName"
+                android:padding="16dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/editTextCookBio"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:hint="Bio"
+                android:inputType="textPersonName"
+                android:maxLength="35"
+                android:padding="16dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="5dp"
+                android:gravity="bottom|center"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/button7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="260dp"
+                    android:height="55dp"
+                    android:backgroundTint="#273238"
+                    android:fontFamily="sans-serif-smallcaps"
                     android:gravity="center"
-                    android:hint="Bio"
-                    android:inputType="textMultiLine"
-                    tools:ignore="MissingConstraints,TouchTargetSizeCheck"
-                    tools:layout_editor_absoluteX="0dp"
-                    tools:layout_editor_absoluteY="340dp" />
+                    android:onClick="onAddCheque"
+                    android:text="Add Cheque"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
-
+            </LinearLayout>
+        </LinearLayout>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
