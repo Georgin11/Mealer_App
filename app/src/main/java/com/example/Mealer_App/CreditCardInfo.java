@@ -1,4 +1,3 @@
-/*
 package com.example.Mealer_App;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,4 +61,4 @@ public class CreditCardInfo extends AppCompatActivity {
 
         super.finish();
     }
-}*/
+}
