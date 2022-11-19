@@ -1,14 +1,13 @@
 package com.example.Mealer_App.structure;
 
 
-import com.example.Mealer_App.CookLandingPage;
 import com.example.Mealer_App.Database;
 
 import java.util.List;
 
 public class Meal {
 
-    private String mealName, ListOfIngredients, ListOfAllergens, mealDescription, associatedCook, mealCourse, mealCuisine;
+    private String mealName, mealIngredients, mealAllergens, mealDescription, associatedCook, mealCourse, mealCuisine;
     private float mealPrice;
     private boolean isFeatured;
     private int DB_id;
@@ -17,8 +16,8 @@ public class Meal {
         mealName = name;
         mealCourse = course;
         mealCuisine = cuisine;
-        ListOfIngredients = ingredients;
-        ListOfAllergens = allergens;
+        mealIngredients = ingredients;
+        mealAllergens = allergens;
         mealPrice = price;
         mealDescription = description;
         associatedCook = cook;
@@ -33,20 +32,20 @@ public class Meal {
         this.mealName = mealName;
     }
 
-    public String getListOfIngredients() {
-        return ListOfIngredients;
+    public String getMealIngredients() {
+        return mealIngredients;
     }
 
-    public void setListOfIngredients(String listOfIngredients) {
-        ListOfIngredients = listOfIngredients;
+    public void setMealIngredients(String mealIngredients) {
+        this.mealIngredients = mealIngredients;
     }
 
-    public String getListOfAllergens() {
-        return ListOfAllergens;
+    public String getMealAllergens() {
+        return mealAllergens;
     }
 
-    public void setListOfAllergens(String listOfAllergens) {
-        ListOfAllergens = listOfAllergens;
+    public void setMealAllergens(String mealAllergens) {
+        this.mealAllergens = mealAllergens;
     }
 
     public String getMealDescription() {
@@ -109,28 +108,22 @@ public class Meal {
         return (mealName.equals(meal.getMealName()) &&
                 mealCourse.equals(meal.getMealCourse()) &&
                 mealCuisine.equals(meal.mealCuisine) &&
-                ListOfIngredients.equals(meal.getListOfIngredients()) &&
-                ListOfAllergens.equals(meal.getListOfAllergens()) &&
+                mealIngredients.equals(meal.getMealIngredients()) &&
+                mealAllergens.equals(meal.getMealAllergens()) &&
                 mealPrice == meal.getMealPrice() &&
                 mealDescription.equals(meal.getMealDescription()) &&
                 associatedCook.equals(meal.getAssociatedCook()));
     }
 
-    public String toString(Database db) {
+    public String toString() {
         String s = "";
-        List<Cook> cooks = db.getCooks();
-        Cook currentCook = null;
-        for(Cook cook: cooks) {
-            if(cook.getUsername().equals(associatedCook)) {
-                currentCook = cook;
-            }
-        }
+
         if(!isFeatured) {
             s += "**" + mealName + "**\t" + mealPrice;
         } else {
             s += mealName;
         }
-        s += "\n\t" + mealDescription + "\nBy: " + currentCook.getfName() + " " + currentCook.getlName();
+        s += "\n\t" + mealDescription + "\nBy: " + associatedCook;
 
         return s;
     }

@@ -11,6 +11,8 @@ public class RemoveMeals extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.remove_meal);
+
+
     }
     public void GoBack1(View view) {
         finish();

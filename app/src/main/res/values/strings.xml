@@ -9,6 +9,11 @@
         <item>Breakfast</item>
         <item>Lunch</item>
         <item>Dinner</item>
+        <item>Appetizer</item>
+        <item>Main Dish</item>
+        <item>Dessert</item>
+        <item>Soup</item>
+        <item>Entrees</item>
     </string-array>
 
     <string-array name="Cuisines">

@@ -15,17 +15,17 @@ public class AddMeals extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_meal);
 
-        Spinner mySpinner = (Spinner) findViewById(R.id.MealTypeSpinner);
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<>(AddMeals.this,
+        Spinner spinnerMealType = (Spinner) findViewById(R.id.MealTypeSpinner);
+        ArrayAdapter<String> mealTypeAdapter = new ArrayAdapter<>(AddMeals.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Typeofmeals));
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mySpinner.setAdapter(myAdapter);
+        mealTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerMealType.setAdapter(mealTypeAdapter);
 
-        Spinner mySpinner2 = (Spinner) findViewById(R.id.CuisineSpinner);
-        ArrayAdapter<String> myAdapter2 = new ArrayAdapter<>(AddMeals.this,
+        Spinner spinnerCuisineType = (Spinner) findViewById(R.id.CuisineSpinner);
+        ArrayAdapter<String> cuisineTypeAdapter = new ArrayAdapter<>(AddMeals.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Cuisines));
-        myAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mySpinner2.setAdapter(myAdapter2);
+        cuisineTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCuisineType.setAdapter(cuisineTypeAdapter);
 
     }
     public void GoBack1(View view) {

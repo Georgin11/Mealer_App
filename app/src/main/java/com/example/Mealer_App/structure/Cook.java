@@ -6,7 +6,6 @@ public class Cook extends NonAdmin{
 
     private String bio;
     private boolean voidCheque;
-    private UserType typeOfUser = COOK;
     private int suspensionLength;
 
     public Cook(String bio, boolean voidCheque, String fName, String lName, String email, Address address, String username, String password) {
@@ -31,9 +30,5 @@ public class Cook extends NonAdmin{
 
     public int getSuspensionLength() {
         return suspensionLength;
-    }
-
-    public UserType getTypeOfUser() {
-        return typeOfUser;
     }
 }

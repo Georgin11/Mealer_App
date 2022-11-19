@@ -32,19 +32,19 @@ public class CookLandingPage extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_cook_landing_page);
 
         Database dbHelper = new Database(this);
         lv_Menu = findViewById(R.id.list_Menu);
 
-         Database db = new Database(this);
+        Database db = new Database(this);
 
-         List<Meal> menuList = db.getMealsOfCook(username);
+        List<Meal> menuList = db.getMealsOfCook(username);
 
-         ArrayAdapter<Complaint> complaintArrayAdapter = new ArrayAdapter(CookLandingPage.this,
-                android.R.layout.simple_list_item_1, menuList);
+        ArrayAdapter<Complaint> complaintArrayAdapter = new ArrayAdapter(CookLandingPage.this,
+            android.R.layout.simple_list_item_1, menuList);
 
-         lv_Menu.setAdapter(complaintArrayAdapter);
+        lv_Menu.setAdapter(complaintArrayAdapter);
 
 
         List<Cook> cooks = dbHelper.getCooks();
