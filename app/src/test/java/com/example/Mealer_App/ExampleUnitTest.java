@@ -13,7 +13,7 @@ import java.text.BreakIterator;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class ValidatorsTest {
+public class ExampleUnitTest {
 
     @Test
     public void validateNumber() {
