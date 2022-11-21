@@ -5,6 +5,7 @@ import static com.example.Mealer_App.LogInActivity.username;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -87,6 +88,11 @@ public class CookLandingPage extends AppCompatActivity {
     public void RemoveMealC(View View) {
         Intent intent = new Intent(getApplicationContext(), RemoveMeals.class);
         startActivityForResult(intent, 0);
+    }
+
+    public void onInstagramClick(View view){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivity(intent);
     }
 
 }
