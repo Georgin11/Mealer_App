@@ -1,6 +1,8 @@
 package com.example.Mealer_App;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,11 @@ public class ClientLandingPage extends AppCompatActivity {
 
     public void LogOut(View view) {
         finish();
+    }
+
+    public void onInstagramClick(View view){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivity(intent);
     }
 
 }
