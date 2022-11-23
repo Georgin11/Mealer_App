@@ -43,13 +43,13 @@
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp"
             android:layout_marginBottom="125dp"
-            android:backgroundTint="#273238"
-            android:fontFamily="sans-serif-smallcaps"
-            android:gravity="center"
-            android:onClick="OnSignUp"
             android:text="Get Started"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:backgroundTint="#82CD96"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:onClick="OnSignUp"/>
 
         <TextView
             android:id="@+id/textView6"
@@ -78,13 +78,13 @@
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp"
             android:layout_marginBottom="65dp"
-            android:backgroundTint="#273238"
-            android:fontFamily="sans-serif-smallcaps"
-            android:gravity="center"
-            android:onClick="OnLogIn"
             android:text="Sign In"
             android:textColor="@color/white"
-            android:textSize="20dp" />
+            android:backgroundTint="#82CD96"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:onClick="OnLogIn" />
 
     </RelativeLayout>
 
