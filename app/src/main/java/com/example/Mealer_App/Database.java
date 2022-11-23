@@ -325,8 +325,8 @@ public class Database extends SQLiteOpenHelper {
         cv.put(COLUMN_MEAL_NAME, meal.getMealName());
         cv.put(COLUMN_MEAL_COURSE, meal.getMealCourse().toString());
         cv.put(COLUMN_MEAL_CUISINE, meal.getMealCuisine().toString());
-        cv.put(COLUMN_MEAL_INGREDIENTS, meal.getMealIngredients());
-        cv.put(COLUMN_MEAL_ALLERGENS, meal.getMealAllergens());
+        cv.put(COLUMN_MEAL_INGREDIENTS, meal.getListOfIngredients());
+        cv.put(COLUMN_MEAL_ALLERGENS, meal.getListOfAllergens());
         cv.put(COLUMN_MEAL_PRICE, meal.getMealPrice());
         cv.put(COLUMN_MEAL_DESCRIPTION, meal.getMealDescription());
         cv.put(COLUMN_MEAL_IS_FEATURED, meal.isFeatured());
@@ -383,8 +383,8 @@ public class Database extends SQLiteOpenHelper {
         cv.put(COLUMN_MEAL_NAME, meal.getMealName());
         cv.put(COLUMN_MEAL_COURSE, meal.getMealCourse());
         cv.put(COLUMN_MEAL_CUISINE, meal.getMealCuisine());
-        cv.put(COLUMN_MEAL_INGREDIENTS, meal.getMealIngredients());
-        cv.put(COLUMN_MEAL_ALLERGENS, meal.getMealAllergens());
+        cv.put(COLUMN_MEAL_INGREDIENTS, meal.getListOfIngredients());
+        cv.put(COLUMN_MEAL_ALLERGENS, meal.getListOfAllergens());
         cv.put(COLUMN_MEAL_PRICE, meal.getMealPrice());
         cv.put(COLUMN_MEAL_DESCRIPTION, meal.getMealDescription());
         cv.put(COLUMN_MEAL_IS_FEATURED, featured);

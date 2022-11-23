@@ -5,59 +5,116 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/Menu"
-        android:layout_width="248dp"
-        android:layout_height="271dp"
-        android:layout_marginTop="136dp"
-        android:layout_marginEnd="76dp"
-        android:background="@drawable/text_view_border"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/half_white_background">
 
-    <Button
-        android:id="@+id/addMealButton"
-        android:layout_width="257dp"
-        android:layout_height="119dp"
-        android:layout_marginTop="560dp"
-        android:layout_marginEnd="76dp"
-        android:onClick="RemoveMealC"
-        android:text="remove meal"
-        android:textSize="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/cookWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:text="Welcome back"
+            android:textColor="#273238"
+            android:textSize="40sp" />
 
-    <Button
-        android:id="@+id/removeMealButton"
-        android:layout_width="253dp"
-        android:layout_height="103dp"
-        android:layout_marginTop="424dp"
-        android:layout_marginEnd="76dp"
-        android:onClick="AddMealC"
-        android:text="ADD Meal"
-        android:textSize="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_below="@+id/cookWelcome"
+            android:layout_marginTop="0dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="253dp"
-        android:layout_height="84dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="28dp"
-        android:text="Add a Meal"
-        android:textSize="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="380dp"
+                android:layout_height="380dp"
+                app:srcCompat="@drawable/cook_display" />
 
-    <ListView
-        android:layout_width="240dp"
-        android:layout_height="259dp"
-        android:layout_marginTop="140dp"
-        android:layout_marginEnd="84dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/list_Menu"
-        />
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="25dp" />
 
+            <Button
+                android:id="@+id/cook_button"
+                android:layout_width="260dp"
+                android:layout_height="55dp"
+                android:backgroundTint="#273238"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Fire"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/review_icon2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/star_icon" />
+
+            <ImageView
+                android:id="@+id/mail_icon2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/mail_icon" />
+
+            <ImageView
+                android:id="@+id/instagram_icon2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onInstagramClick"
+                app:srcCompat="@drawable/instagram"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageView
+                android:id="@+id/receipt_icon2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/receipt_icon" />
+
+            <ImageView
+                android:id="@+id/settings_icon2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/setting_icon" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/clientLogOut"
+            android:layout_width="65dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="320dp"
+            android:background="@null"
+            android:fontFamily="sans-serif-smallcaps"
+            android:onClick="LogOut"
+            android:text="Sign Out"
+            android:textColor="#273238" />
+
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

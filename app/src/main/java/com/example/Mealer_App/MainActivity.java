@@ -11,13 +11,9 @@ import com.example.Mealer_App.structure.Admin;
 import com.example.Mealer_App.structure.Client;
 import com.example.Mealer_App.structure.Complaint;
 import com.example.Mealer_App.structure.Cook;
-import com.example.Mealer_App.structure.CuisineType;
-import com.example.Mealer_App.structure.FoodCourse;
 import com.example.Mealer_App.structure.PaymentInfo;
-import com.example.Mealer_App.structure.Meal;
 
 import java.math.BigInteger;
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -85,14 +81,6 @@ public class MainActivity extends AppCompatActivity {
             "GeorginMeals",
             4);
 
-    public Meal meal1 = new Meal("Mac's Mac-n-Cheese",
-            FoodCourse.LUNCH.toString(),
-            CuisineType.FRENCH.toString(),
-            "Macaroni, cheese, milk, salt",
-            "Dairy products", (float) 12.99,
-            "The best Mac-n-Cheese you'll ever taste",
-            cook2.getUsername());
-
     public Complaint[] complaints = new Complaint[3];
 
     @Override
@@ -108,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
             dbHelper.addOne(cook1);
             dbHelper.addOne(cook2);
             dbHelper.addOne(cook3);
-            dbHelper.addOne(meal1);
 
             complaints[0] = complaint1;
             complaints[1] = complaint2;
@@ -117,14 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 dbHelper.addOne(complaint);
             }
         }
-        List<Meal> meals = dbHelper.getMealsOfCook(meal1.getAssociatedCook());
-        for(int i = 0; i < meals.toArray().length; i++) {
-            if(meals.get(i).equals(meal1)) {
-                meal1.setDB_id(i+1);
-                break;
-            }
-        }
-        dbHelper.featureMeal(meal1, true);
+
     }
     public void OnSignUp(View View) {
         //Application Context and Activity
