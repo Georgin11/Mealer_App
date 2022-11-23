@@ -138,5 +138,10 @@ public class ClientRegistration extends AppCompatActivity {
     public void GoBack() {
         finish();
     }
+
+    public void onInstagramClick(View view){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivity(intent);
+    }
 }
 
