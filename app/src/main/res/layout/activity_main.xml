@@ -14,77 +14,68 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bienvenue! Willkommen! Benvenuto! Witaj! ¡Bienvenido! Welcome! Selamat datang! Välkommen! Bienvenue! Willkommen! Benvenuto! Witaj! ¡Bienvenido! Welcome! Selamat datang! Välkommen! Bienvenue! Willkommen! Benvenuto! Witaj! ¡Bienvenido! Welcome! Selamat datang! Välkommen! Bienvenue! Willkommen! Benvenuto! Witaj! ¡Bienvenido! Welcome! Selamat datang! Välkommen! Bienvenue! Willkommen! Benvenuto! Witaj! ¡Bienvenido! Welcome! Selamat datang! Välkommen! Bienvenue! Willkommen! Benvenuto!"
-                android:textColor="#82CD96"
                 android:fontFamily="cursive"
                 android:gravity="center"
-                android:textSize="16dp"/>
+                android:text="Bienvenue! Willkommen! Benvenuto! Witaj! ¡Bienvenido! Welcome! Selamat datang! Välkommen! Bienvenue! Willkommen! Benvenuto! Witaj! ¡Bienvenido! Welcome! Selamat datang! Välkommen! Bienvenue! Willkommen! Benvenuto! Witaj! ¡Bienvenido! Welcome! Selamat datang! Välkommen! Bienvenue! Willkommen! Benvenuto! Witaj! ¡Bienvenido! Welcome! Selamat datang! Välkommen! Bienvenue! Willkommen! Benvenuto! Witaj! ¡Bienvenido! Welcome! Selamat datang! Välkommen! Bienvenue! Willkommen! Benvenuto!"
+                android:textColor="#82CD96"
+                android:textSize="16dp" />
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="425dp"
+                android:layout_height="400dp"
                 app:srcCompat="@drawable/burger" />
+
+            <Button
+                android:id="@+id/SignUpButton"
+                android:layout_width="260dp"
+                android:layout_height="55dp"
+                android:backgroundTint="#273238"
+                android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center"
+                android:onClick="OnSignUp"
+                android:text="Get Started"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <View
+                android:id="@+id/view8"
+                android:layout_width="match_parent"
+                android:layout_height="15dp" />
+
+            <Button
+                android:id="@+id/SignInButton"
+                android:layout_width="260dp"
+                android:layout_height="55dp"
+                android:backgroundTint="#273238"
+                android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center"
+                android:onClick="OnLogIn"
+                android:text="Sign In"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="185dp"
+                android:layout_height="35dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="Already a user?"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </LinearLayout>
-
-        <Button
-            android:id="@+id/SignUpButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="80dp"
-            android:layout_marginEnd="80dp"
-            android:layout_marginBottom="125dp"
-            android:backgroundTint="#273238"
-            android:fontFamily="sans-serif-smallcaps"
-            android:gravity="center"
-            android:onClick="OnSignUp"
-            android:text="Get Started"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="185dp"
-            android:layout_height="35dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="80dp"
-            android:layout_marginEnd="80dp"
-            android:layout_marginBottom="35dp"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center"
-            android:text="Already a user?"
-            android:textSize="18dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/SignInButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="80dp"
-            android:layout_marginEnd="80dp"
-            android:layout_marginBottom="65dp"
-            android:backgroundTint="#273238"
-            android:fontFamily="sans-serif-smallcaps"
-            android:gravity="center"
-            android:onClick="OnLogIn"
-            android:text="Sign In"
-            android:textColor="@color/white"
-            android:textSize="20dp" />
 
     </RelativeLayout>
 
