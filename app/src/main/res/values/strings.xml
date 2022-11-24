@@ -5,6 +5,25 @@
     <string name="sign">
         <br><br><u>Sign In</u></br></br>
     </string>
+    <string-array name="Typeofmeals">
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+    </string-array>
+    <string-array name="Cuisines">
+        <item>Italian</item>
+        <item>Chinese</item>
+        <item>Japanese</item>
+        <item>Indian</item>
+        <item>Mexican</item>
+        <item>Spanish</item>
+        <item>Greek</item>
+        <item>American</item>
+        <item>Thai</item>
+        <item>French</item>
+        <item>Middle Eastern</item>
+        <item>Mediterranean</item>
+    </string-array>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>

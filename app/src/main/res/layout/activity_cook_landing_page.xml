@@ -51,7 +51,8 @@
                 android:layout_height="55dp"
                 android:backgroundTint="#273238"
                 android:fontFamily="sans-serif-smallcaps"
-                android:text="Fire"
+                android:text="Meals"
+                android:onClick="OnMealClick"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 

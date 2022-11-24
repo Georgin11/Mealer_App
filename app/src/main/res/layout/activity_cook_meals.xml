@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CookMeals">
+
+    <TextView
+    android:id="@+id/Menu"
+    android:layout_width="248dp"
+    android:layout_height="271dp"
+    android:layout_marginTop="136dp"
+    android:layout_marginEnd="76dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+    android:id="@+id/addMealButton"
+    android:layout_width="257dp"
+    android:layout_height="119dp"
+    android:layout_marginTop="560dp"
+    android:layout_marginEnd="76dp"
+    android:onClick="RemoveMealC"
+    android:text="remove meal"
+    android:textSize="40dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+    android:id="@+id/removeMealButton"
+    android:layout_width="253dp"
+    android:layout_height="103dp"
+    android:layout_marginTop="424dp"
+    android:layout_marginEnd="76dp"
+    android:onClick="AddMealC"
+    android:text="ADD Meal"
+    android:textSize="40dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+    android:id="@+id/textView8"
+    android:layout_width="253dp"
+    android:layout_height="84dp"
+    android:layout_marginTop="56dp"
+    android:layout_marginEnd="28dp"
+    android:text="Add a Meal"
+    android:textSize="30dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+    android:layout_width="240dp"
+    android:layout_height="259dp"
+    android:layout_marginTop="140dp"
+    android:layout_marginEnd="84dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:id="@+id/list_Menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
