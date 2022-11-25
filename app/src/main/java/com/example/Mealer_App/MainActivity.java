@@ -9,7 +9,7 @@ import android.view.View;
 import com.example.Mealer_App.structure.Address;
 import com.example.Mealer_App.structure.Admin;
 import com.example.Mealer_App.structure.Client;
-import com.example.Mealer_App.structure.Complaint;
+import com.example.Mealer_App.structure.Review;
 import com.example.Mealer_App.structure.Cook;
 import com.example.Mealer_App.structure.PaymentInfo;
 
@@ -63,25 +63,25 @@ public class MainActivity extends AppCompatActivity {
             "GeorginMeals",
             "YummyFood1@");
 
-    public Complaint complaint1 = new Complaint("Worst Meal I've had in a long time",
+    public Review review1 = new Review("Worst Meal I've had in a long time",
             "I found tons of hair in my ravioli and it is completely unacceptable. The chef simply called me a moron",
             "fuadthabet",
             "GordonRamsay1",
             2);
 
-    public Complaint complaint2 = new Complaint("I could not recommend this any less",
+    public Review review2 = new Review("I could not recommend this any less",
             "We received our food cold and raw. The chef accused us of lying for a free meal",
             "fuadthabet",
             "Mac-n-Cheese",
             1);
 
-    public Complaint complaint3 = new Complaint("Nothing to complain about here!",
+    public Review review3 = new Review("Nothing to complain about here!",
             "I loved the food and this complaint is just to test dismissing complaints",
             "fuadthabet",
             "GeorginMeals",
             4);
 
-    public Complaint[] complaints = new Complaint[3];
+    public Review[] reviews = new Review[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,11 +97,11 @@ public class MainActivity extends AppCompatActivity {
             dbHelper.addOne(cook2);
             dbHelper.addOne(cook3);
 
-            complaints[0] = complaint1;
-            complaints[1] = complaint2;
-            complaints[2] = complaint3;
-            for (Complaint complaint : complaints) {
-                dbHelper.addOne(complaint);
+            reviews[0] = review1;
+            reviews[1] = review2;
+            reviews[2] = review3;
+            for (Review review : reviews) {
+                dbHelper.addOne(review);
             }
         }
 

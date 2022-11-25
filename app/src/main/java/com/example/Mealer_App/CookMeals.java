@@ -15,7 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.Mealer_App.structure.Complaint;
+import com.example.Mealer_App.structure.Review;
 import com.example.Mealer_App.structure.Cook;
 import com.example.Mealer_App.structure.Meal;
 

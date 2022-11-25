@@ -1,6 +1,6 @@
 package com.example.Mealer_App.structure;
 
-public class Complaint {
+public class Review {
 
     private String title;
     private String message;
@@ -10,7 +10,7 @@ public class Complaint {
     private int rating;
     private int DB_id;
 
-    public Complaint(String title, String message, String clientUsername, String cookUsername, int rating) {
+    public Review(String title, String message, String clientUsername, String cookUsername, int rating) {
         this.title = title;
         this.message = message;
         this.clientUsername = clientUsername;

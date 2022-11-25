@@ -13,7 +13,8 @@ import androidx.annotation.Nullable;
 import com.example.Mealer_App.structure.Address;
 import com.example.Mealer_App.structure.Admin;
 import com.example.Mealer_App.structure.Client;
-import com.example.Mealer_App.structure.Complaint;
+import com.example.Mealer_App.structure.Purchase;
+import com.example.Mealer_App.structure.Review;
 import com.example.Mealer_App.structure.Cook;
 import com.example.Mealer_App.structure.Meal;
 
@@ -60,14 +61,14 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_COOK_USERNAME = "COLUMN_COOK_USERNAME";
     public static final String COLUMN_COOK_ADDRESS_ID = "COLUMN_COOK_ADDRESS";
 
-    public static final String COMPLAINT_TABLE = "COMPLAINT_TABLE";
-    public static final String COLUMN_COMPLAINT_ID = "COLUMN_COMPLAINT_ID";
-    public static final String COLUMN_COMPLAINT_TITLE = "COLUMN_COMPLAINT_TITLE";
-    public static final String COLUMN_COMPLAINT_TEXT = "COLUMN_COMPLAINT_TEXT";
-    public static final String COLUMN_COMPLAINT_RATING = "COLUMN_COMPLAINT_RATING";
-    public static final String COLUMN_COMPLAINT_DAYS_SUSPENDED = "COLUMN_COMPLAINT_DAYS_SUSPENDED";
-    public static final String COLUMN_COMPLAINT_CLIENT = "COLUMN_COMPLAINT_CLIENT";
-    public static final String COLUMN_COMPLAINT_COOK = "COLUMN_COMPLAINT_COOK";
+    public static final String REVIEW_TABLE = "REVIEW_TABLE";
+    public static final String COLUMN_REVIEW_ID = "COLUMN_REVIEW_ID";
+    public static final String COLUMN_REVIEW_TITLE = "COLUMN_REVIEW_TITLE";
+    public static final String COLUMN_REVIEW_TEXT = "COLUMN_REVIEW_TEXT";
+    public static final String COLUMN_REVIEW_RATING = "COLUMN_REVIEW_RATING";
+    public static final String COLUMN_REVIEW_DAYS_SUSPENDED = "COLUMN_REVIEW_DAYS_SUSPENDED";
+    public static final String COLUMN_REVIEW_CLIENT = "COLUMN_REVIEW_CLIENT";
+    public static final String COLUMN_REVIEW_COOK = "COLUMN_REVIEW_COOK";
 
     public static final String MEAL_TABLE = "MEAL_TABLE";
     public static final String COLUMN_MEAL_ID = "COLUMN_MEAL_ID";
@@ -81,8 +82,17 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_MEAL_IS_FEATURED = "COLUMN_MEAL_IS_FEATURED";
     public static final String COLUMN_MEAL_COOK = "COLUMN_MEAL_COOK";
 
+    public static final String PURCHASE_TABLE = "PURCHASE_TABLE";
+    public static final String COLUMN_PURCHASE_ID = "COLUMN_PURCHASE_ID";
+    public static final String COLUMN_PURCHASE_COOK = "COLUMN_PURCHASE_COOK";
+    public static final String COLUMN_PURCHASE_CLIENT = "COLUMN_PURCHASE_CLIENT";
+    public static final String COLUMN_PURCHASE_MEAL = "COLUMN_PURCHASE_MEAL";
+    public static final String COLUMN_PURCHASE_STATUS = "COLUMN_PURCHASE_STATUS";
+    public static final String COLUMN_PURCHASE_QUANTITY = "COLUMN_PURCHASE_QUANTITY";
+    public static final String COLUMN_PURCHASE_SUBTOTAL = "COLUMN_PURCHASE_SUBTOTAL";
+
     public Database(@Nullable Context context) {
-        super(context, "mealer.db", null, 1);
+        super(context, "mealer.db", null, 3);
     }
 
     @Override
@@ -145,17 +155,17 @@ public class Database extends SQLiteOpenHelper {
 
         db.execSQL(createTableStatement);
 
-        createTableStatement = "CREATE TABLE " + COMPLAINT_TABLE + " (" +
-                COLUMN_COMPLAINT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_COMPLAINT_TITLE + " TEXT, " +
-                COLUMN_COMPLAINT_TEXT + " TEXT, " +
-                COLUMN_COMPLAINT_RATING + " INTEGER, " +
-                COLUMN_COMPLAINT_DAYS_SUSPENDED + " INTEGER, " +
-                COLUMN_COMPLAINT_CLIENT + " TEXT, " +
-                COLUMN_COMPLAINT_COOK + " TEXT, " +
-                "FOREIGN KEY (" + COLUMN_COMPLAINT_CLIENT + ") " +
+        createTableStatement = "CREATE TABLE " + REVIEW_TABLE + " (" +
+                COLUMN_REVIEW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_REVIEW_TITLE + " TEXT, " +
+                COLUMN_REVIEW_TEXT + " TEXT, " +
+                COLUMN_REVIEW_RATING + " INTEGER, " +
+                COLUMN_REVIEW_DAYS_SUSPENDED + " INTEGER, " +
+                COLUMN_REVIEW_CLIENT + " TEXT, " +
+                COLUMN_REVIEW_COOK + " TEXT, " +
+                "FOREIGN KEY (" + COLUMN_REVIEW_CLIENT + ") " +
                     "REFERENCES " + CLIENT_TABLE + " (" + COLUMN_CLIENT_USERNAME + "), " +
-                "FOREIGN KEY (" + COLUMN_COMPLAINT_COOK + ")" +
+                "FOREIGN KEY (" + COLUMN_REVIEW_COOK + ")" +
                     "REFERENCES " + COOK_TABLE + "(" + COLUMN_COOK_USERNAME + "))";
 
         db.execSQL(createTableStatement);
@@ -172,14 +182,49 @@ public class Database extends SQLiteOpenHelper {
                 COLUMN_MEAL_IS_FEATURED + " BOOL," +
                 COLUMN_MEAL_COOK + " TEXT, " +
                 "FOREIGN KEY (" + COLUMN_MEAL_COOK + ") " +
-                "REFERENCES " + COOK_TABLE + " (" + COLUMN_COOK_USERNAME + "))";
+                    "REFERENCES " + COOK_TABLE + " (" + COLUMN_COOK_USERNAME + "))";
 
         db.execSQL(createTableStatement);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        for (int version = oldVersion + 1; version <= newVersion; version++) {
+            switch (version) {
+                case 2:
+                    String alterTableStatement = "ALTER TABLE COMPLAINT_TABLE RENAME COLUMN COLUMN_COMPLAINT_ID to " + COLUMN_REVIEW_ID;
+                    db.execSQL(alterTableStatement);
+                    alterTableStatement = "ALTER TABLE COMPLAINT_TABLE RENAME COLUMN COLUMN_COMPLAINT_TITLE to " + COLUMN_REVIEW_TITLE;
+                    db.execSQL(alterTableStatement);
+                    alterTableStatement = "ALTER TABLE COMPLAINT_TABLE RENAME COLUMN COLUMN_COMPLAINT_TEXT to " + COLUMN_REVIEW_TEXT;
+                    db.execSQL(alterTableStatement);
+                    alterTableStatement = "ALTER TABLE COMPLAINT_TABLE RENAME COLUMN COLUMN_COMPLAINT_RATING to " + COLUMN_REVIEW_RATING;
+                    db.execSQL(alterTableStatement);
+                    alterTableStatement = "ALTER TABLE COMPLAINT_TABLE RENAME COLUMN COLUMN_COMPLAINT_DAYS_SUSPENDED to " + COLUMN_REVIEW_DAYS_SUSPENDED;
+                    db.execSQL(alterTableStatement);
+                    alterTableStatement = "ALTER TABLE COMPLAINT_TABLE RENAME COLUMN COLUMN_COMPLAINT_CLIENT to " + COLUMN_REVIEW_CLIENT;
+                    db.execSQL(alterTableStatement);
+                    alterTableStatement = "ALTER TABLE COMPLAINT_TABLE RENAME COLUMN COLUMN_COMPLAINT_COOK to " + COLUMN_REVIEW_COOK;
+                    db.execSQL(alterTableStatement);
+                    alterTableStatement = "ALTER TABLE COMPLAINT_TABLE RENAME TO " + REVIEW_TABLE;
+                    db.execSQL(alterTableStatement);
+                    break;
+                case 3:
+                    String createTableStatement = "CREATE TABLE " + PURCHASE_TABLE + " ( " +
+                            COLUMN_PURCHASE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                            COLUMN_PURCHASE_COOK + " TEXT, " +
+                            COLUMN_PURCHASE_CLIENT + " TEXT, " +
+                            COLUMN_PURCHASE_MEAL + " TEXT, " +
+                            COLUMN_PURCHASE_STATUS + " INT, " +
+                            COLUMN_PURCHASE_QUANTITY + " INT, " +
+                            COLUMN_PURCHASE_SUBTOTAL + " FLOAT, " +
+                            "FOREIGN KEY (" + COLUMN_PURCHASE_COOK + ") " +
+                                "REFERENCES " + COOK_TABLE + " (" + COLUMN_COOK_USERNAME + "), " +
+                            "FOREIGN KEY (" + COLUMN_PURCHASE_CLIENT + ") " +
+                                "REFERENCES " + CLIENT_TABLE + " (" + COLUMN_CLIENT_USERNAME + "))";
+                    db.execSQL(createTableStatement);
+            }
+        }
     }
 
     public boolean addOne(Admin admin) {
@@ -297,18 +342,18 @@ public class Database extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean addOne(Complaint complaint) {
+    public boolean addOne(Review review) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COLUMN_COMPLAINT_TITLE, complaint.getTitle());
-        cv.put(COLUMN_COMPLAINT_TEXT, complaint.getMessage());
-        cv.put(COLUMN_COMPLAINT_RATING, complaint.getRating());
-        cv.put(COLUMN_COMPLAINT_DAYS_SUSPENDED, complaint.getDaysSuspended());
-        cv.put(COLUMN_COMPLAINT_CLIENT, complaint.getClientUsername());
-        cv.put(COLUMN_COMPLAINT_COOK, complaint.getCookUsername());
-        long insert = db.insert(COMPLAINT_TABLE, null, cv);
+        cv.put(COLUMN_REVIEW_TITLE, review.getTitle());
+        cv.put(COLUMN_REVIEW_TEXT, review.getMessage());
+        cv.put(COLUMN_REVIEW_RATING, review.getRating());
+        cv.put(COLUMN_REVIEW_DAYS_SUSPENDED, review.getDaysSuspended());
+        cv.put(COLUMN_REVIEW_CLIENT, review.getClientUsername());
+        cv.put(COLUMN_REVIEW_COOK, review.getCookUsername());
+        long insert = db.insert(REVIEW_TABLE, null, cv);
         if(insert == -1) {
             return false;
         }
@@ -333,6 +378,26 @@ public class Database extends SQLiteOpenHelper {
         cv.put(COLUMN_MEAL_COOK, meal.getAssociatedCook());
 
         long insert = db.insert(MEAL_TABLE, null, cv);
+        if(insert == -1) {
+            return false;
+        }
+
+        cv.clear();
+        return true;
+    }
+
+    public boolean addOne(Purchase p) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_PURCHASE_COOK, p.getChef());
+        cv.put(COLUMN_PURCHASE_CLIENT, p.getCustomer());
+        cv.put(COLUMN_PURCHASE_MEAL, p.getFood());
+        cv.put(COLUMN_PURCHASE_STATUS, 1);
+        cv.put(COLUMN_PURCHASE_QUANTITY, p.getQuantity());
+        cv.put(COLUMN_PURCHASE_SUBTOTAL, p.getSubtotal());
+
+        long insert = db.insert(PURCHASE_TABLE, null, cv);
         if(insert == -1) {
             return false;
         }
@@ -374,6 +439,233 @@ public class Database extends SQLiteOpenHelper {
 
         cursor.close();
         return meals;
+    }
+
+    public List<Review> getReviews() {
+        List<Review> reviews = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + REVIEW_TABLE;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                int complaintRating = cursor.getInt(3);
+                if(complaintRating >= 3) {
+                    int complaintId = cursor.getInt(0);
+                    String complaintTitle = cursor.getString(1);
+                    String complaintText = cursor.getString(2);
+
+                    int complaintSuspension = cursor.getInt(4);
+                    String complaintClient = cursor.getString(5);
+                    String complaintCook = cursor.getString(6);
+
+                    Review review = new Review(complaintTitle, complaintText, complaintClient, complaintCook, complaintRating);
+                    if(complaintSuspension != -1) {
+                        review.setDaysSuspended(complaintSuspension);
+                    }
+                    review.setDB_id(complaintId);
+                    reviews.add(review);
+                }
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return reviews;
+    }
+
+    public List<Review> getComplaints() {
+
+        List<Review> complaints = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + REVIEW_TABLE;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                int complaintRating = cursor.getInt(3);
+                if(complaintRating < 3) {
+                    int complaintId = cursor.getInt(0);
+                    String complaintTitle = cursor.getString(1);
+                    String complaintText = cursor.getString(2);
+
+                    int complaintSuspension = cursor.getInt(4);
+                    String complaintClient = cursor.getString(5);
+                    String complaintCook = cursor.getString(6);
+
+                    Review complaint = new Review(complaintTitle, complaintText, complaintClient, complaintCook, complaintRating);
+                    if(complaintSuspension != -1) {
+                        complaint.setDaysSuspended(complaintSuspension);
+                    }
+                    complaint.setDB_id(complaintId);
+                    complaints.add(complaint);
+                }
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return complaints;
+    }
+
+    public List<Address> getAddresses() {
+        List<Address> addresses = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + ADDRESS_TABLE;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                int addressId = cursor.getInt(0);
+                String addressStreet = cursor.getString(1);
+                int addressNumber = cursor.getInt(2);
+                String addressPostal = cursor.getString(3);
+                String addressCity = cursor.getString(4);
+
+                Address address = new Address(addressStreet, addressNumber, addressPostal, addressCity);
+                address.setDB_id(addressId);
+                addresses.add(address);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return addresses;
+    }
+
+    public List<Cook> getCooks() {
+
+        List<Cook> cooks = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + COOK_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        List<Address> addresses = getAddresses();
+
+        if(cursor.moveToFirst()) {
+            do {
+                String cookUsername = cursor.getString(0);
+                String cookPassword = cursor.getString(1);
+                String cookFname = cursor.getString(2);
+                String cookLname = cursor.getString(3);
+                String cookEmail = cursor.getString(4);
+                String cookBio = cursor.getString(5);
+                int cookSuspension = cursor.getInt(7);
+                Address cookAddress = addresses.get(cursor.getInt(8)-1);
+
+                Cook cook = new Cook(cookBio, true, cookFname, cookLname, cookEmail, cookAddress, cookUsername, cookPassword);
+                cook.setSuspension(cookSuspension);
+                cooks.add(cook);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return cooks;
+    }
+
+    public List<Purchase> getSales(String cookUsername) {
+        List<Purchase> sales = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + PURCHASE_TABLE;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+
+                String cook = cursor.getString(1);
+
+                if(cook.equals(cookUsername)) {
+                    int saleID = cursor.getInt(0);
+                    String client = cursor.getString(2);
+                    String meal = cursor.getString(3);
+                    int status = cursor.getInt(4);
+                    int quantity = cursor.getInt(5);
+                    float subtotal = cursor.getFloat(6);
+
+                    Purchase sale = new Purchase(cook, client, meal, quantity, subtotal);
+                    sale.setId(saleID);
+                    switch(status) {
+                        case -1:
+                            sale.rejectPurchase();
+                        case 1:
+                            sale.approvePurchase();
+                    }
+                    sales.add(sale);
+                }
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return sales;
+    }
+
+    public List<Purchase> getPurchases(String clientUsername) {
+        List<Purchase> purchases = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + PURCHASE_TABLE;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+
+                String cook = cursor.getString(1);
+
+                if(cook.equals(clientUsername)) {
+                    int saleID = cursor.getInt(0);
+                    String client = cursor.getString(2);
+                    String meal = cursor.getString(3);
+                    int status = cursor.getInt(4);
+                    int quantity = cursor.getInt(5);
+                    float subtotal = cursor.getFloat(6);
+
+                    Purchase purchase = new Purchase(cook, client, meal, quantity, subtotal);
+                    purchase.setId(saleID);
+                    switch(status) {
+                        case -1:
+                            purchase.rejectPurchase();
+                        case 1:
+                            purchase.approvePurchase();
+                    }
+                    purchases.add(purchase);
+                }
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return purchases;
+    }
+
+    public boolean approvePurchase(Purchase p) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_PURCHASE_COOK, p.getChef());
+        cv.put(COLUMN_PURCHASE_CLIENT, p.getCustomer());
+        cv.put(COLUMN_PURCHASE_MEAL, p.getFood());
+        cv.put(COLUMN_PURCHASE_STATUS, 1);
+        cv.put(COLUMN_PURCHASE_QUANTITY, p.getQuantity());
+        cv.put(COLUMN_PURCHASE_SUBTOTAL, p.getSubtotal());
+
+
+        long insert = db.update(PURCHASE_TABLE, cv, COLUMN_PURCHASE_ID + "=" + p.getId(), null);
+        if(insert == -1) {
+            return false;
+        }
+
+        cv.clear();
+        return true;
     }
 
     public boolean featureMeal(Meal meal, boolean featured) {
@@ -466,12 +758,12 @@ public class Database extends SQLiteOpenHelper {
         return true;
     }
 
-    public long getAddressCount() {
+    private long getAddressCount() {
         SQLiteDatabase db = this.getReadableDatabase();
         return DatabaseUtils.queryNumEntries(db, ADDRESS_TABLE);
     }
 
-    public long getPaymentInfoCount() {
+    private long getPaymentInfoCount() {
         SQLiteDatabase db = this.getReadableDatabase();
         return DatabaseUtils.queryNumEntries(db, PAYMENT_INFO_TABLE);
     }
@@ -527,118 +819,26 @@ public class Database extends SQLiteOpenHelper {
     public int getNumComplaints() {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String query = " Select * from " + COMPLAINT_TABLE;
+        String query = " Select * from " + REVIEW_TABLE;
 
         Cursor cursor = db.rawQuery(query, null);
 
         return cursor.getCount();
     }
 
-    public List<Complaint> getComplaints() {
-
-        List<Complaint> complaints = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String query = "SELECT * FROM " + COMPLAINT_TABLE;
-
-        Cursor cursor = db.rawQuery(query, null);
-
-        if(cursor.moveToFirst()) {
-             do {
-                 int complaintId = cursor.getInt(0);
-                 String complaintTitle = cursor.getString(1);
-                 String complaintText = cursor.getString(2);
-                 int complaintRating = cursor.getInt(3);
-                 int complaintSuspension = cursor.getInt(4);
-                 String complaintClient = cursor.getString(5);
-                 String complaintCook = cursor.getString(6);
-
-                 Complaint complaint = new Complaint(complaintTitle, complaintText, complaintClient, complaintCook, complaintRating);
-                 if(complaintSuspension != -1) {
-                     complaint.setDaysSuspended(complaintSuspension);
-                 }
-                 complaint.setDB_id(complaintId);
-                 complaints.add(complaint);
-
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        return complaints;
-    }
-
-    public List<Address> getAddresses() {
-        List<Address> addresses = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String query = "SELECT * FROM " + ADDRESS_TABLE;
-
-        Cursor cursor = db.rawQuery(query, null);
-
-        if(cursor.moveToFirst()) {
-            do {
-                int addressId = cursor.getInt(0);
-                String addressStreet = cursor.getString(1);
-                int addressNumber = cursor.getInt(2);
-                String addressPostal = cursor.getString(3);
-                String addressCity = cursor.getString(4);
-
-                Address address = new Address(addressStreet, addressNumber, addressPostal, addressCity);
-                address.setDB_id(addressId);
-                addresses.add(address);
-
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        return addresses;
-    }
-
-    public List<Cook> getCooks() {
-
-        List<Cook> cooks = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String query = "SELECT * FROM " + COOK_TABLE;
-        Cursor cursor = db.rawQuery(query, null);
-
-        List<Address> addresses = getAddresses();
-
-        if(cursor.moveToFirst()) {
-            do {
-                String cookUsername = cursor.getString(0);
-                String cookPassword = cursor.getString(1);
-                String cookFname = cursor.getString(2);
-                String cookLname = cursor.getString(3);
-                String cookEmail = cursor.getString(4);
-                String cookBio = cursor.getString(5);
-                int cookSuspension = cursor.getInt(7);
-                Address cookAddress = addresses.get(cursor.getInt(8)-1);
-
-                Cook cook = new Cook(cookBio, true, cookFname, cookLname, cookEmail, cookAddress, cookUsername, cookPassword);
-                cook.setSuspension(cookSuspension);
-                cooks.add(cook);
-
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        return cooks;
-    }
-
-    public boolean updateSuspension(Complaint complaint, int id) {
+    public boolean updateSuspension(Review review, int id) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COLUMN_COMPLAINT_TITLE, complaint.getTitle());
-        cv.put(COLUMN_COMPLAINT_TEXT, complaint.getMessage());
-        cv.put(COLUMN_COMPLAINT_RATING, complaint.getRating());
-        cv.put(COLUMN_COMPLAINT_DAYS_SUSPENDED, complaint.getDaysSuspended());
-        cv.put(COLUMN_COMPLAINT_CLIENT, complaint.getClientUsername());
-        cv.put(COLUMN_COMPLAINT_COOK, complaint.getCookUsername());
+        cv.put(COLUMN_REVIEW_TITLE, review.getTitle());
+        cv.put(COLUMN_REVIEW_TEXT, review.getMessage());
+        cv.put(COLUMN_REVIEW_RATING, review.getRating());
+        cv.put(COLUMN_REVIEW_DAYS_SUSPENDED, review.getDaysSuspended());
+        cv.put(COLUMN_REVIEW_CLIENT, review.getClientUsername());
+        cv.put(COLUMN_REVIEW_COOK, review.getCookUsername());
 
-        long insert = db.update(COMPLAINT_TABLE, cv, COLUMN_COMPLAINT_ID + "=" + id, null);
+        long insert = db.update(REVIEW_TABLE, cv, COLUMN_REVIEW_ID + "=" + id, null);
         if(insert == -1) {
             return false;
         }
@@ -648,7 +848,7 @@ public class Database extends SQLiteOpenHelper {
         List<Cook> cooks = getCooks();
         boolean found = false;
         for(Cook cook : cooks) {
-            if(cook.getUsername().equals(complaint.getCookUsername())) {
+            if(cook.getUsername().equals(review.getCookUsername())) {
                 found = true;
                 cv.put(COLUMN_COOK_USERNAME, cook.getUsername());
                 cv.put(COLUMN_COOK_PASSWORD, cook.getPassword());
@@ -657,7 +857,7 @@ public class Database extends SQLiteOpenHelper {
                 cv.put(COLUMN_COOK_EMAIL, cook.getEmail());
                 cv.put(COLUMN_COOK_BIO, cook.getBio());
                 cv.put(COLUMN_COOK_CHEQUE, true);
-                cv.put(COLUMN_COOK_SUSPENSION_LENGTH, complaint.getDaysSuspended());
+                cv.put(COLUMN_COOK_SUSPENSION_LENGTH, review.getDaysSuspended());
                 cv.put(COLUMN_COOK_ADDRESS_ID, cook.getAddress().getDB_id());
 
                 insert = db.update(COOK_TABLE, cv, COLUMN_COOK_USERNAME + "='" + cook.getUsername() + "'", null);
@@ -669,6 +869,13 @@ public class Database extends SQLiteOpenHelper {
             }
         }
         return found;
+    }
+
+    public double getCookRating(String username) {
+        double rating = 0.0;
+
+
+        return rating;
     }
 
 }
