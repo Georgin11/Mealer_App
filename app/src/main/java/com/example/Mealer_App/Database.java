@@ -668,6 +668,27 @@ public class Database extends SQLiteOpenHelper {
         return true;
     }
 
+    public boolean rejectPurchase(Purchase p) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_PURCHASE_COOK, p.getChef());
+        cv.put(COLUMN_PURCHASE_CLIENT, p.getCustomer());
+        cv.put(COLUMN_PURCHASE_MEAL, p.getFood());
+        cv.put(COLUMN_PURCHASE_STATUS, -1);
+        cv.put(COLUMN_PURCHASE_QUANTITY, p.getQuantity());
+        cv.put(COLUMN_PURCHASE_SUBTOTAL, p.getSubtotal());
+
+
+        long insert = db.update(PURCHASE_TABLE, cv, COLUMN_PURCHASE_ID + "=" + p.getId(), null);
+        if(insert == -1) {
+            return false;
+        }
+
+        cv.clear();
+        return true;
+    }
+
     public boolean featureMeal(Meal meal, boolean featured) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
