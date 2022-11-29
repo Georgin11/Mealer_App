@@ -6,57 +6,95 @@
     android:layout_height="match_parent"
     tools:context=".CookMeals">
 
-    <TextView
-    android:id="@+id/Menu"
-    android:layout_width="248dp"
-    android:layout_height="271dp"
-    android:layout_marginTop="136dp"
-    android:layout_marginEnd="76dp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-    android:id="@+id/addMealButton"
-    android:layout_width="257dp"
-    android:layout_height="119dp"
-    android:layout_marginTop="560dp"
-    android:layout_marginEnd="76dp"
-    android:onClick="RemoveMealC"
-    android:text="remove meal"
-    android:textSize="40dp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <Button
-    android:id="@+id/removeMealButton"
-    android:layout_width="253dp"
-    android:layout_height="103dp"
-    android:layout_marginTop="424dp"
-    android:layout_marginEnd="76dp"
-    android:onClick="AddMealC"
-    android:text="ADD Meal"
-    android:textSize="40dp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="Meals"
+                android:textColor="#273238"
+                android:textSize="40sp" />
+        </LinearLayout>
 
-    <TextView
-    android:id="@+id/textView8"
-    android:layout_width="253dp"
-    android:layout_height="84dp"
-    android:layout_marginTop="56dp"
-    android:layout_marginEnd="28dp"
-    android:text="Add a Meal"
-    android:textSize="30dp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="65dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="320dp"
+            android:background="@null"
+            android:fontFamily="sans-serif-smallcaps"
+            android:onClick="GoBack1"
+            android:text="Back"
+            android:textColor="#273238"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-    android:layout_width="240dp"
-    android:layout_height="259dp"
-    android:layout_marginTop="140dp"
-    android:layout_marginEnd="84dp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    android:id="@+id/list_Menu" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/list_Menu"
+                android:layout_width="250dp"
+                android:layout_height="275dp" />
+
+            <View
+                android:id="@+id/view13"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+            <Button
+                android:id="@+id/removeMealButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="260dp"
+                android:height="55dp"
+                android:backgroundTint="#273238"
+                android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center"
+                android:onClick="AddMealC"
+                android:text="Add Meal"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <View
+                android:id="@+id/view14"
+                android:layout_width="match_parent"
+                android:layout_height="25dp" />
+
+            <Button
+                android:id="@+id/addMealButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:width="260dp"
+                android:height="55dp"
+                android:backgroundTint="#273238"
+                android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center"
+                android:onClick="RemoveMealC"
+                android:text="Remove Meal"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
