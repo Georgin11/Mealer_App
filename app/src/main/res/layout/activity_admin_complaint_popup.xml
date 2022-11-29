@@ -6,130 +6,169 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text_complaintTitle"
-        android:layout_width="267dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="40dp"
-        android:text="Complaint Title"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_associatedClient" />
+    <RelativeLayout
+        android:id="@+id/relativeLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text_associatedClient"
-        android:layout_width="275dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="56dp"
-        android:text="Associated Client"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/text_associatedCook"
-        android:layout_width="275dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="12dp"
-        android:text="Associated Cook"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_associatedClient" />
-
-    <TextView
-        android:id="@+id/text_suspensionLengthSetter"
-        android:layout_width="172dp"
-        android:layout_height="21dp"
-        android:text="Set Suspension (Days)"
-        android:textAlignment="center"
-        tools:layout_editor_absoluteX="118dp"
-        tools:layout_editor_absoluteY="367dp" />
-
-    <EditText
-        android:id="@+id/editText_suspensionLength"
-        android:layout_width="157dp"
-        android:layout_height="44dp"
-        android:ems="10"
-        android:hint="Number of days"
-        android:inputType="number"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:layout_constraintVertical_bias="0.155" />
-
-    <Button
-        android:id="@+id/btn_actionComplaint"
-        android:layout_width="131dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="32dp"
-        android:onClick="actionComplaintOnClick"
-        android:text="Action Complaint"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_suspensionLength"
-        app:layout_constraintVertical_bias="0.078" />
-
-    <Button
-        android:id="@+id/btn_dismissComplaint"
-        android:layout_width="124dp"
-        android:layout_height="48dp"
-        android:onClick="dismissComplaintOnClick"
-        android:text="Dismiss Complaint"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_actionComplaint"
-        app:layout_constraintHorizontal_bias="0.79"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_suspensionLength"
-        app:layout_constraintVertical_bias="0.078" />
-
-    <Button
-        android:id="@+id/btn_permaBan"
-        android:layout_width="124dp"
-        android:layout_height="48dp"
-        android:onClick="permanentBan"
-        android:text="Permanent Ban"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_actionComplaint"
-        app:layout_constraintVertical_bias="0.054" />
-
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="266dp"
-        android:layout_height="155dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_complaintTitle"
-        app:layout_constraintVertical_bias="0.059">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_complaintMessage"
-                android:layout_width="265dp"
-                android:layout_height="248dp"
-                android:layout_marginTop="4dp"
-                android:text="Complaint Message"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.333"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/text_complaintTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+                android:text="Complaint Title"
+                android:textAlignment="center"
+                android:textColor="#273238"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/text_associatedClient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+
+                android:fontFamily="sans-serif-light"
+                android:text="Associated Client"
+                android:textAlignment="center"
+
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/text_associatedCook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+
+                android:fontFamily="sans-serif-light"
+                android:text="Associated Cook"
+                android:textAlignment="center"
+
+                android:textSize="16sp" />
+
+            <ScrollView
+                android:id="@+id/scrollView2"
+                android:layout_width="265dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="12dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:id="@+id/text_complaintMessage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="center"
+
+                        android:text="Complaint Message"
+                        android:textAlignment="center"
+                        android:textSize="16sp"
+
+                        tools:ignore="MissingConstraints" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+
+            <TextView
+                android:id="@+id/text_suspensionLengthSetter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="25dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="Set Suspension (Days)"
+                android:textAlignment="center"
+                android:textColor="#000000"
+
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editText_suspensionLength"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:hint="Number of days"
+                android:inputType="number"
+                android:padding="16dp"
+                android:textAlignment="center"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
+
+            <Button
+                android:id="@+id/btn_dismissComplaint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="25dp"
+                android:width="260dp"
+                android:height="55dp"
+                android:backgroundTint="#273238"
+                android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center"
+                android:onClick="dismissComplaintOnClick"
+                android:text="Dismiss Complaint"
+                android:textColor="@color/white"
+
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_actionComplaint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="12dp"
+                android:width="260dp"
+                android:height="55dp"
+                android:backgroundTint="#273238"
+                android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center"
+                android:onClick="actionComplaintOnClick"
+                android:text="Action Complaint"
+                android:textColor="@color/white"
+
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_permaBan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="12dp"
+                android:width="260dp"
+                android:height="55dp"
+                android:backgroundTint="#273238"
+                android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center"
+                android:onClick="permanentBan"
+                android:text="Permanent Ban"
+                android:textColor="@color/white"
+
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

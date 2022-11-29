@@ -41,24 +41,23 @@
 
             <ImageView
                 android:id="@+id/cook"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
+                android:layout_width="280dp"
+                android:layout_height="280dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
                 android:onClick="onCook"
                 app:srcCompat="@drawable/cooking"
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/client"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
+                android:layout_width="280dp"
+                android:layout_height="280dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="25dp"
                 android:onClick="onClient"
                 app:srcCompat="@drawable/eating"
                 tools:ignore="SpeakableTextPresentCheck" />
-
-            <View
-                android:id="@+id/view3"
-                android:layout_width="match_parent"
-                android:layout_height="24dp" />
 
         </LinearLayout>
 
