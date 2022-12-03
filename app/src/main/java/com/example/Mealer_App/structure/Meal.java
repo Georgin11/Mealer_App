@@ -8,12 +8,13 @@ import java.util.List;
 
 public class Meal {
 
-    private String mealName, ListOfIngredients, ListOfAllergens, mealDescription, associatedCook, mealCourse, mealCuisine;
+    private String mealName, ListOfIngredients, ListOfAllergens, mealDescription, mealCourse, mealCuisine;
+    private Cook associatedCook;
     private float mealPrice;
     private boolean isFeatured;
     private int DB_id;
 
-    public Meal(String name, String course, String cuisine, String ingredients, String allergens, float price, String description, String cook) {
+    public Meal(String name, String course, String cuisine, String ingredients, String allergens, float price, String description, Cook cook) {
         mealName = name;
         mealCourse = course;
         mealCuisine = cuisine;
@@ -57,11 +58,11 @@ public class Meal {
         this.mealDescription = mealDescription;
     }
 
-    public String getAssociatedCook() {
+    public Cook getAssociatedCook() {
         return associatedCook;
     }
 
-    public void setAssociatedCook(String associatedCook) {
+    public void setAssociatedCook(Cook associatedCook) {
         this.associatedCook = associatedCook;
     }
 
@@ -116,21 +117,15 @@ public class Meal {
                 associatedCook.equals(meal.getAssociatedCook()));
     }
 
-    public String toString(Database db) {
+    public String toString() {
         String s = "";
-        List<Cook> cooks = db.getCooks();
-        Cook currentCook = null;
-        for(Cook cook: cooks) {
-            if(cook.getUsername().equals(associatedCook)) {
-                currentCook = cook;
-            }
-        }
         if(!isFeatured) {
             s += "**" + mealName + "**\t" + mealPrice;
         } else {
             s += mealName;
         }
-        s += "\n\t" + mealDescription + "\nBy: " + currentCook.getfName() + " " + currentCook.getlName();
+
+        s += "\n\nBy: " + associatedCook.getfName() + " " + associatedCook.getlName() + "         Rating: " + associatedCook.getRating() + "/5\n";
 
         return s;
     }

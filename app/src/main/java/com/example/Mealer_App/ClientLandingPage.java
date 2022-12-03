@@ -18,6 +18,11 @@ public class ClientLandingPage extends AppCompatActivity {
         finish();
     }
 
+    public void order(View view) {
+        Intent intent = new Intent(getApplicationContext(), TestClientFunctionality.class);
+        startActivityForResult(intent, 0);
+    }
+
     public void onInstagramClick(View view){
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivity(intent);
