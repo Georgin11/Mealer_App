@@ -64,7 +64,8 @@
                     android:gravity="center"
                     android:text="$1"
                     android:textColor="@color/white"
-                    android:textSize="30dp" />
+                    android:textSize="30dp"
+                    android:onClick="onTipClick1"/>
 
                 <TextView
                     android:id="@+id/Tip2"
@@ -76,7 +77,8 @@
                     android:gravity="center"
                     android:text="$5"
                     android:textColor="@color/white"
-                    android:textSize="30dp" />
+                    android:textSize="30dp"
+                    android:onClick="onTipClick2"/>
 
                 <TextView
                     android:id="@+id/Tip3"
@@ -88,7 +90,8 @@
                     android:gravity="center"
                     android:text="$10"
                     android:textColor="@color/white"
-                    android:textSize="30dp" />
+                    android:textSize="30dp"
+                    android:onClick="onTipClick3"/>
             </LinearLayout>
 
             <LinearLayout
