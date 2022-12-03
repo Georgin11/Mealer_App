@@ -126,5 +126,19 @@
                 android:textSize="20sp" />
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/ReviewBack"
+            android:layout_width="65dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="320dp"
+            android:background="@null"
+            android:fontFamily="sans-serif-smallcaps"
+            android:onClick="GoBack"
+            android:text="Back"
+            android:textColor="#273238" />
+
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
