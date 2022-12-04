@@ -5,105 +5,124 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txtMealType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.662"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.164" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txtMealName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCuisineType"
-        app:layout_constraintVertical_bias="0.053" />
+        <Button
+            android:id="@+id/btnReturnToMeals"
+            android:onClick="returnToMeals"
+            android:text="meals"
 
-    <TextView
-        android:id="@+id/txtMealDescription"
-        android:layout_width="287dp"
-        android:layout_height="90dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMealName"
-        app:layout_constraintVertical_bias="0.054" />
+            android:layout_width="65dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="320dp"
+            android:background="@null"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textColor="#273238"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/textMealCookLink"
-        android:layout_width="276dp"
-        android:layout_height="66dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textColor="#275FC1"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMealDescription"
-        app:layout_constraintVertical_bias="0.036" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txtCuisineType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.334"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.165" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/txtMealPrice"
-        android:layout_width="119dp"
-        android:layout_height="16dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textMealCookLink"
-        app:layout_constraintVertical_bias="0.058" />
+                <TextView
+                    android:id="@+id/txtCuisineType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="#273238"
+                    android:textSize="20sp"/>
 
-    <TextView
-        android:id="@+id/txtAllergens"
-        android:layout_width="162dp"
-        android:layout_height="88dp"
-        android:text="TextView"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMealPrice"
-        app:layout_constraintVertical_bias="0.17" />
+                <TextView
+                    android:id="@+id/txtMealType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:text="TextView"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="#273238"
+                    android:textSize="20sp"/>
+            </LinearLayout>
 
-    <Button
-        android:id="@+id/btnReturnToMeals"
-        android:layout_width="138dp"
-        android:layout_height="49dp"
-        android:onClick="returnToMeals"
-        android:text="meals"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.111"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.042" />
+            <TextView
+                android:id="@+id/txtMealName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:fontFamily="sans-serif-light"
+                android:textColor="#273238"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/txtMealDescription"
+                android:layout_width="280dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:text="TextView"
+                android:fontFamily="sans-serif-light"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/textMealCookLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="#275FC1"
+                android:fontFamily="sans-serif-light"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/ChefClickInstructions"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="Click chef's name to see more"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtMealPrice"
+                android:layout_marginTop="20dp"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:textColor="#273238"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/txtAllergens"
+                android:layout_width="280dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="sans-serif-black"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
