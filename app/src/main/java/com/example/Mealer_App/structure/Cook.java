@@ -1,13 +1,12 @@
 package com.example.Mealer_App.structure;
 
-import static com.example.Mealer_App.structure.UserType.COOK;
 
-public class Cook extends NonAdmin{
+public class Cook extends NonAdmin {
 
     private String bio;
     private boolean voidCheque;
-    private UserType typeOfUser = COOK;
     private int suspensionLength;
+    private double rating;
 
     public Cook(String bio, boolean voidCheque, String fName, String lName, String email, Address address, String username, String password) {
         super(fName, lName, email, address, username, password);
@@ -33,7 +32,15 @@ public class Cook extends NonAdmin{
         return suspensionLength;
     }
 
-    public UserType getTypeOfUser() {
-        return typeOfUser;
+    public double getRating() {
+        return rating;
+    }
+
+    public boolean equals(Cook c) {
+        return (username.equals(c.username));
+    }
+
+    public void setRating(double newRating) {
+        rating = newRating;
     }
 }

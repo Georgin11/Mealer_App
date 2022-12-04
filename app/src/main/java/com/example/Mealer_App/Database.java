@@ -18,6 +18,8 @@ import com.example.Mealer_App.structure.Review;
 import com.example.Mealer_App.structure.Cook;
 import com.example.Mealer_App.structure.Meal;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -375,7 +377,7 @@ public class Database extends SQLiteOpenHelper {
         cv.put(COLUMN_MEAL_PRICE, meal.getMealPrice());
         cv.put(COLUMN_MEAL_DESCRIPTION, meal.getMealDescription());
         cv.put(COLUMN_MEAL_IS_FEATURED, meal.isFeatured());
-        cv.put(COLUMN_MEAL_COOK, meal.getAssociatedCook());
+        cv.put(COLUMN_MEAL_COOK, meal.getAssociatedCook().getUsername());
 
         long insert = db.insert(MEAL_TABLE, null, cv);
         if(insert == -1) {
@@ -408,6 +410,7 @@ public class Database extends SQLiteOpenHelper {
 
     public List<Meal> getMealsOfCook(String cookUsername) {
         List<Meal> meals = new ArrayList<>();
+        List<Cook> cooks = getCooks();
         SQLiteDatabase db = this.getReadableDatabase();
 
         String query = "SELECT * FROM " + MEAL_TABLE;
@@ -427,11 +430,15 @@ public class Database extends SQLiteOpenHelper {
                     String mealDescription = cursor.getString(7);
                     boolean isFeatured = (cursor.getInt(8) == 1);
 
-                    Meal meal = new Meal(mealName, mealCourse, mealCuisine, mealIngredients, mealAllergens, mealPrice, mealDescription, cookUsername);
+                    for(Cook cook: cooks) {
+                        if(cook.getUsername().equals(cookUsername)) {
+                            Meal meal = new Meal(mealName, mealCourse, mealCuisine, mealIngredients, mealAllergens, mealPrice, mealDescription, cook);
 
-                    meal.setFeatured(isFeatured);
-                    meal.setDB_id(mealID);
-                    meals.add(meal);
+                            meal.setFeatured(isFeatured);
+                            meal.setDB_id(mealID);
+                            meals.add(meal);
+                        }
+                    }
                 }
 
             } while (cursor.moveToNext());
@@ -441,7 +448,46 @@ public class Database extends SQLiteOpenHelper {
         return meals;
     }
 
-    public List<Review> getReviews() {
+    public List<Meal> getAllMeals() {
+        List<Meal> meals = new ArrayList<>();
+        List<Cook> cooks = getCooks();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + MEAL_TABLE;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                int mealID = cursor.getInt(0);
+                String mealName = cursor.getString(1);
+                String mealCourse = cursor.getString(2);
+                String mealCuisine = cursor.getString(3);
+                String mealIngredients = cursor.getString(4);
+                String mealAllergens = cursor.getString(5);
+                float mealPrice = cursor.getFloat(6);
+                String mealDescription = cursor.getString(7);
+                boolean isFeatured = (cursor.getInt(8) == 1);
+                String cookUsername = cursor.getString(9);
+
+                for(Cook cook: cooks) {
+                    if(cook.getUsername().equals(cookUsername)) {
+                        Meal meal = new Meal(mealName, mealCourse, mealCuisine, mealIngredients, mealAllergens, mealPrice, mealDescription, cook);
+
+                        meal.setFeatured(isFeatured);
+                        meal.setDB_id(mealID);
+                        meals.add(meal);
+                    }
+                }
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return meals;
+    }
+
+    public List<Review> getPositiveReviews() {
         List<Review> reviews = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -451,21 +497,18 @@ public class Database extends SQLiteOpenHelper {
 
         if(cursor.moveToFirst()) {
             do {
-                int complaintRating = cursor.getInt(3);
-                if(complaintRating >= 3) {
-                    int complaintId = cursor.getInt(0);
-                    String complaintTitle = cursor.getString(1);
-                    String complaintText = cursor.getString(2);
+                int reviewRating = cursor.getInt(3);
+                String reviewCook = cursor.getString(6);
+                if(reviewRating >= 3) {
+                    int reviewID = cursor.getInt(0);
+                    String reviewTitle = cursor.getString(1);
+                    String reviewText = cursor.getString(2);
 
-                    int complaintSuspension = cursor.getInt(4);
-                    String complaintClient = cursor.getString(5);
-                    String complaintCook = cursor.getString(6);
+                    String reviewClient = cursor.getString(5);
 
-                    Review review = new Review(complaintTitle, complaintText, complaintClient, complaintCook, complaintRating);
-                    if(complaintSuspension != -1) {
-                        review.setDaysSuspended(complaintSuspension);
-                    }
-                    review.setDB_id(complaintId);
+
+                    Review review = new Review(reviewTitle, reviewText, reviewClient, reviewCook, reviewRating);
+                    review.setDB_id(reviewID);
                     reviews.add(review);
                 }
             } while (cursor.moveToNext());
@@ -495,6 +538,40 @@ public class Database extends SQLiteOpenHelper {
                     int complaintSuspension = cursor.getInt(4);
                     String complaintClient = cursor.getString(5);
                     String complaintCook = cursor.getString(6);
+
+                    Review complaint = new Review(complaintTitle, complaintText, complaintClient, complaintCook, complaintRating);
+                    if(complaintSuspension != -1) {
+                        complaint.setDaysSuspended(complaintSuspension);
+                    }
+                    complaint.setDB_id(complaintId);
+                    complaints.add(complaint);
+                }
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return complaints;
+    }
+
+    public List<Review> getCookReviews(String cookUsername) {
+        List<Review> complaints = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + REVIEW_TABLE;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                String complaintCook = cursor.getString(6);
+                if(cookUsername.equals(complaintCook)) {
+                    int complaintId = cursor.getInt(0);
+                    String complaintTitle = cursor.getString(1);
+                    String complaintText = cursor.getString(2);
+                    int complaintRating = cursor.getInt(3);
+                    int complaintSuspension = cursor.getInt(4);
+                    String complaintClient = cursor.getString(5);
+
 
                     Review complaint = new Review(complaintTitle, complaintText, complaintClient, complaintCook, complaintRating);
                     if(complaintSuspension != -1) {
@@ -558,8 +635,11 @@ public class Database extends SQLiteOpenHelper {
                 int cookSuspension = cursor.getInt(7);
                 Address cookAddress = addresses.get(cursor.getInt(8)-1);
 
+                double rating = getCookRating(cookUsername);
+
                 Cook cook = new Cook(cookBio, true, cookFname, cookLname, cookEmail, cookAddress, cookUsername, cookPassword);
                 cook.setSuspension(cookSuspension);
+                cook.setRating(rating);
                 cooks.add(cook);
 
             } while (cursor.moveToNext());
@@ -701,7 +781,7 @@ public class Database extends SQLiteOpenHelper {
         cv.put(COLUMN_MEAL_PRICE, meal.getMealPrice());
         cv.put(COLUMN_MEAL_DESCRIPTION, meal.getMealDescription());
         cv.put(COLUMN_MEAL_IS_FEATURED, featured);
-        cv.put(COLUMN_MEAL_COOK, meal.getAssociatedCook());
+        cv.put(COLUMN_MEAL_COOK, meal.getAssociatedCook().getUsername());
 
         long insert = db.update(MEAL_TABLE, cv, COLUMN_MEAL_ID + "=" + meal.getDB_id(), null);
         if(insert == -1) {
@@ -720,7 +800,7 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        List<Meal> meals = getMealsOfCook(meal.getAssociatedCook());
+        List<Meal> meals = getMealsOfCook(meal.getAssociatedCook().getUsername());
         int id = -1;
         for(int i = 0; i < meals.toArray().length; i++) {
             if(meal.equals(meals.get(i))) {
@@ -892,9 +972,19 @@ public class Database extends SQLiteOpenHelper {
         return found;
     }
 
-    public double getCookRating(String username) {
+    public double getCookRating(String cookUsername) {
         double rating = 0.0;
 
+        List<Review> reviews = getCookReviews(cookUsername);
+
+        for(Review review : reviews) {
+            rating += review.getRating();
+        }
+
+        rating /= reviews.size();
+
+        BigDecimal bd = BigDecimal.valueOf(rating);
+        rating = bd.setScale(2, RoundingMode.HALF_UP).doubleValue();
 
         return rating;
     }

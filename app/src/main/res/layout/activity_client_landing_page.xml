@@ -51,6 +51,7 @@
                 android:layout_height="55dp"
                 android:backgroundTint="#273238"
                 android:fontFamily="sans-serif-smallcaps"
+                android:onClick="order"
                 android:text="Order now"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
