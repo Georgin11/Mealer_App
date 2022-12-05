@@ -9,23 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/InfoText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
-                android:gravity="center"
-                android:text="Add a meal"
-                android:textColor="#273238"
-                android:textSize="40sp" />
-        </LinearLayout>
-
         <Button
             android:id="@+id/button"
             android:layout_width="65dp"
@@ -39,11 +22,11 @@
             android:text="Back"
             android:textColor="#273238"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="600dp"
+            android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="0dp"
             android:gravity="center"
@@ -51,9 +34,20 @@
             android:padding="32sp">
 
             <TextView
+                android:id="@+id/InfoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="Add a meal"
+                android:textColor="#273238"
+                android:textSize="40sp" />
+
+            <TextView
                 android:id="@+id/textView12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:fontFamily="sans-serif-light"
                 android:gravity="center"
                 android:text="Select type of cuisine"
@@ -64,16 +58,11 @@
                 android:id="@+id/CuisineSpinner"
                 android:layout_width="335dp"
                 android:layout_height="50dp"
-                tools:ignore="SpeakableTextPresentCheck"
-
                 android:fontFamily="sans-serif-light"
-                android:textColor="#000000"
-                android:textSize="20sp" />
 
-            <View
-                android:id="@+id/view7"
-                android:layout_width="match_parent"
-                android:layout_height="25dp" />
+                android:textColor="#000000"
+                android:textSize="20sp"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -89,36 +78,31 @@
                 android:id="@+id/MealTypeSpinner"
                 android:layout_width="335dp"
                 android:layout_height="50dp"
-                tools:ignore="SpeakableTextPresentCheck"
-
                 android:fontFamily="sans-serif-light"
-                android:textColor="#000000"
-                android:textSize="20sp" />
 
-            <View
-                android:id="@+id/view9"
-                android:layout_width="match_parent"
-                android:layout_height="25dp" />
+                android:textColor="#000000"
+                android:textSize="20sp"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <EditText
                 android:id="@+id/editText_MealName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_background"
+
                 android:ems="10"
+                android:fontFamily="sans-serif-light"
                 android:gravity="center"
                 android:hint="Name of meal"
                 android:inputType="textPersonName"
-
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="25dp"
-                android:background="@drawable/edittext_background"
-                android:fontFamily="sans-serif-light"
                 android:padding="16dp"
                 android:textColor="#8e8e8e"
                 android:textColorHint="#8e8e8e"
-                android:textSize="18dp"/>
+                android:textSize="18dp" />
 
             <Switch
                 android:id="@+id/FeaturedMealCheck"
@@ -129,25 +113,98 @@
                 android:textSize="18dp"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-            <View
-                android:id="@+id/view10"
+            <EditText
+                android:id="@+id/MealDescription"
+                android:layout_width="340dp"
+                android:layout_height="80dp"
+                android:background="@drawable/comment_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:gravity="start"
+                android:hint="Meal description"
+                android:inputType="textMultiLine"
+                android:maxLength="60"
+                android:maxLines="2"
+                android:padding="26dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="60dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editTextNumberDecimal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+
+                    android:layout_marginTop="9dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittext_background"
+                    android:ems="10"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="Price"
+                    android:inputType="numberDecimal"
+                    android:padding="16dp"
+                    android:textColor="#8e8e8e"
+                    android:textColorHint="#8e8e8e"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:id="@+id/editTextTextPersonName4"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+
+                    android:layout_marginTop="9dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittext_background"
+                    android:ems="10"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="Allergens"
+                    android:inputType="textPersonName"
+                    android:padding="16dp"
+                    android:textColor="#8e8e8e"
+                    android:textColorHint="#8e8e8e"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/Ingredients"
+                android:layout_width="340dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/comment_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:gravity="start"
+                android:hint="Ingredients"
+                android:inputType="textMultiLine"
+                android:maxLength="60"
+                android:maxLines="2"
+                android:padding="26dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
 
             <Button
                 android:id="@+id/REMOVEMEAL"
-                android:onClick="GoBack1"
-                android:text="Add meal"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
+                android:layout_marginTop="20dp"
                 android:width="260dp"
                 android:height="55dp"
                 android:backgroundTint="#273238"
                 android:fontFamily="sans-serif-smallcaps"
                 android:gravity="center"
+                android:onClick="GoBack1"
+                android:text="Add meal"
                 android:textColor="@color/white"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
         </LinearLayout>
     </RelativeLayout>
 

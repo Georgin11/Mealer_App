@@ -74,7 +74,7 @@ public class TestClientFunctionality extends AppCompatActivity {
         }
         finalMeals = new ArrayList<>();
         for(Meal meal: meals) {
-            if(meal.isFeatured()) {
+            if(meal.isFeatured() && meal.getAssociatedCook().getSuspensionLength() == 0) {
                 finalMeals.add(meal);
             }
         }
