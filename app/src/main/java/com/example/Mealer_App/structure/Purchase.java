@@ -4,20 +4,23 @@ public class Purchase {
 
     private String chef;
     private String customer;
-    private String food;
+    private String mealName;
     private int id;
     private int status;
     private int quantity;
-    private float subtotal;
+    private double subtotal;
+    private int tip;
+    private double unitPrice;
 
     //status of zero means that the purchase is currently pending. 1 means approved and -1 is rejected.
-    public Purchase(String cook, String client, String meal, int numItems, float amtPaid) {
+    public Purchase(String cook, String client, String meal, int numItems, double mealPrice) {
         chef = cook;
         customer = client;
-        food = meal;
+        mealName = meal;
         status = 0;
         quantity = numItems;
-        subtotal = amtPaid;
+        unitPrice = mealPrice;
+        subtotal = (mealPrice * numItems);
     }
 
     public String getChef() {
@@ -36,12 +39,12 @@ public class Purchase {
         this.customer = customer;
     }
 
-    public String getFood() {
-        return food;
+    public String getMealName() {
+        return mealName;
     }
 
-    public void setFood(String food) {
-        this.food = food;
+    public void setMealName(String mealName) {
+        this.mealName = mealName;
     }
 
     public int getId() {
@@ -72,12 +75,28 @@ public class Purchase {
         this.quantity = quantity;
     }
 
-    public float getSubtotal() {
+    public double getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(float subtotal) {
+    public void setSubtotal(double subtotal) {
         this.subtotal = subtotal;
     }
 
+    public int getTip() {
+        return tip;
+    }
+
+    public void setTip(int tip) {
+        this.tip = tip;
+        subtotal += tip;
+    }
+
+    public double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public double getPostTaxTotal() {
+        return (subtotal * 1.13);
+    }
 }

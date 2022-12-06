@@ -196,4 +196,19 @@ public class Validators {
         }
     }
 
+    public boolean validateOrderQuantity(EditText textQuantity) {
+        String strEquiv = textQuantity.getText().toString().trim();
+        if(strEquiv.isEmpty()) {
+            textQuantity.setError("Quantity cannot be empty");
+            return false;
+        }
+
+        int quantity = Integer.parseInt(strEquiv);
+        if(quantity < 1 || quantity > 10) {
+            textQuantity.setError("Quantity must be between 1-10");
+            return false;
+        }
+        return true;
+    }
+
 }

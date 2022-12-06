@@ -13,12 +13,14 @@ import androidx.annotation.Nullable;
 import com.example.Mealer_App.structure.Address;
 import com.example.Mealer_App.structure.Admin;
 import com.example.Mealer_App.structure.Client;
+import com.example.Mealer_App.structure.PaymentInfo;
 import com.example.Mealer_App.structure.Purchase;
 import com.example.Mealer_App.structure.Review;
 import com.example.Mealer_App.structure.Cook;
 import com.example.Mealer_App.structure.Meal;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,9 +94,10 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_PURCHASE_STATUS = "COLUMN_PURCHASE_STATUS";
     public static final String COLUMN_PURCHASE_QUANTITY = "COLUMN_PURCHASE_QUANTITY";
     public static final String COLUMN_PURCHASE_SUBTOTAL = "COLUMN_PURCHASE_SUBTOTAL";
+    public static final String COLUMN_PURCHASE_UNIT_PRICE = "COLUMN_PURCHASE_UNIT_PRICE";
 
     public Database(@Nullable Context context) {
-        super(context, "mealer.db", null, 3);
+        super(context, "mealer.db", null, 4);
     }
 
     @Override
@@ -192,9 +195,10 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         for (int version = oldVersion + 1; version <= newVersion; version++) {
+            String alterTableStatement, createTableStatement;
             switch (version) {
                 case 2:
-                    String alterTableStatement = "ALTER TABLE COMPLAINT_TABLE RENAME COLUMN COLUMN_COMPLAINT_ID to " + COLUMN_REVIEW_ID;
+                    alterTableStatement = "ALTER TABLE COMPLAINT_TABLE RENAME COLUMN COLUMN_COMPLAINT_ID to " + COLUMN_REVIEW_ID;
                     db.execSQL(alterTableStatement);
                     alterTableStatement = "ALTER TABLE COMPLAINT_TABLE RENAME COLUMN COLUMN_COMPLAINT_TITLE to " + COLUMN_REVIEW_TITLE;
                     db.execSQL(alterTableStatement);
@@ -210,21 +214,24 @@ public class Database extends SQLiteOpenHelper {
                     db.execSQL(alterTableStatement);
                     alterTableStatement = "ALTER TABLE COMPLAINT_TABLE RENAME TO " + REVIEW_TABLE;
                     db.execSQL(alterTableStatement);
-                    break;
                 case 3:
-                    String createTableStatement = "CREATE TABLE " + PURCHASE_TABLE + " ( " +
+                    createTableStatement = "CREATE TABLE " + PURCHASE_TABLE + " ( " +
                             COLUMN_PURCHASE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                             COLUMN_PURCHASE_COOK + " TEXT, " +
                             COLUMN_PURCHASE_CLIENT + " TEXT, " +
                             COLUMN_PURCHASE_MEAL + " TEXT, " +
-                            COLUMN_PURCHASE_STATUS + " INT, " +
-                            COLUMN_PURCHASE_QUANTITY + " INT, " +
+                            COLUMN_PURCHASE_STATUS + " INTEGER, " +
+                            COLUMN_PURCHASE_QUANTITY + " INTEGER, " +
                             COLUMN_PURCHASE_SUBTOTAL + " FLOAT, " +
                             "FOREIGN KEY (" + COLUMN_PURCHASE_COOK + ") " +
                                 "REFERENCES " + COOK_TABLE + " (" + COLUMN_COOK_USERNAME + "), " +
                             "FOREIGN KEY (" + COLUMN_PURCHASE_CLIENT + ") " +
                                 "REFERENCES " + CLIENT_TABLE + " (" + COLUMN_CLIENT_USERNAME + "))";
                     db.execSQL(createTableStatement);
+                case 4:
+                    alterTableStatement = "ALTER TABLE " + PURCHASE_TABLE + " ADD COLUMN " +
+                            COLUMN_PURCHASE_UNIT_PRICE + " INTEGER";
+                    db.execSQL(alterTableStatement);
             }
         }
     }
@@ -394,8 +401,8 @@ public class Database extends SQLiteOpenHelper {
 
         cv.put(COLUMN_PURCHASE_COOK, p.getChef());
         cv.put(COLUMN_PURCHASE_CLIENT, p.getCustomer());
-        cv.put(COLUMN_PURCHASE_MEAL, p.getFood());
-        cv.put(COLUMN_PURCHASE_STATUS, 1);
+        cv.put(COLUMN_PURCHASE_MEAL, p.getMealName());
+        cv.put(COLUMN_PURCHASE_STATUS, 0);
         cv.put(COLUMN_PURCHASE_QUANTITY, p.getQuantity());
         cv.put(COLUMN_PURCHASE_SUBTOTAL, p.getSubtotal());
 
@@ -614,6 +621,67 @@ public class Database extends SQLiteOpenHelper {
         return addresses;
     }
 
+    public List<PaymentInfo> getAllPaymentInfo() {
+        List<PaymentInfo> rows = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + PAYMENT_INFO_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        List<Address> addresses = getAddresses();
+
+        if(cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String cardholderName = cursor.getString(1);
+                BigInteger cardNumber = BigInteger.valueOf(cursor.getLong(2));
+                int cvv = cursor.getInt(3);
+                int addressPosition = cursor.getInt(4);
+
+                Address address = addresses.get(addressPosition);
+                PaymentInfo p = new PaymentInfo(cardholderName, cardNumber, cvv, address);
+                p.setDB_id(id);
+
+                rows.add(p);
+            } while(cursor.moveToNext());
+        }
+
+        cursor.close();
+        return rows;
+    }
+
+    public List<Client> getClients() {
+        List<Client> clients = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + CLIENT_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        List<Address> addresses = getAddresses();
+        List<PaymentInfo> paymentInfoRows = getAllPaymentInfo();
+
+        if(cursor.moveToFirst()) {
+            do {
+                String username = cursor.getString(0);
+                String password = cursor.getString(1);
+                String fname = cursor.getString(2);
+                String lname = cursor.getString(3);
+                String email = cursor.getString(4);
+                int addressPosition = cursor.getInt(5);
+                int paymentInfoPosition = cursor.getInt(6);
+
+                Address address = addresses.get(addressPosition-1);
+                PaymentInfo paymentInfo = paymentInfoRows.get(paymentInfoPosition-1);
+
+                Client client = new Client(paymentInfo, fname, lname, email, address, username, password);
+                clients.add(client);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return clients;
+    }
+
     public List<Cook> getCooks() {
 
         List<Cook> cooks = new ArrayList<>();
@@ -668,9 +736,11 @@ public class Database extends SQLiteOpenHelper {
                     String meal = cursor.getString(3);
                     int status = cursor.getInt(4);
                     int quantity = cursor.getInt(5);
-                    float subtotal = cursor.getFloat(6);
+                    double subtotal = cursor.getDouble(6);
+                    double unitPrice = cursor.getDouble(7);
 
-                    Purchase sale = new Purchase(cook, client, meal, quantity, subtotal);
+                    Purchase sale = new Purchase(cook, client, meal, quantity, unitPrice);
+                    sale.setSubtotal(subtotal);
                     sale.setId(saleID);
                     switch(status) {
                         case -1:
@@ -707,9 +777,11 @@ public class Database extends SQLiteOpenHelper {
                     String meal = cursor.getString(3);
                     int status = cursor.getInt(4);
                     int quantity = cursor.getInt(5);
-                    float subtotal = cursor.getFloat(6);
+                    double subtotal = cursor.getDouble(6);
+                    double unitPrice = cursor.getDouble(7);
 
-                    Purchase purchase = new Purchase(cook, client, meal, quantity, subtotal);
+                    Purchase purchase = new Purchase(cook, client, meal, quantity, unitPrice);
+                    purchase.setSubtotal(subtotal);
                     purchase.setId(saleID);
                     switch(status) {
                         case -1:
@@ -733,7 +805,7 @@ public class Database extends SQLiteOpenHelper {
 
         cv.put(COLUMN_PURCHASE_COOK, p.getChef());
         cv.put(COLUMN_PURCHASE_CLIENT, p.getCustomer());
-        cv.put(COLUMN_PURCHASE_MEAL, p.getFood());
+        cv.put(COLUMN_PURCHASE_MEAL, p.getMealName());
         cv.put(COLUMN_PURCHASE_STATUS, 1);
         cv.put(COLUMN_PURCHASE_QUANTITY, p.getQuantity());
         cv.put(COLUMN_PURCHASE_SUBTOTAL, p.getSubtotal());
@@ -754,7 +826,7 @@ public class Database extends SQLiteOpenHelper {
 
         cv.put(COLUMN_PURCHASE_COOK, p.getChef());
         cv.put(COLUMN_PURCHASE_CLIENT, p.getCustomer());
-        cv.put(COLUMN_PURCHASE_MEAL, p.getFood());
+        cv.put(COLUMN_PURCHASE_MEAL, p.getMealName());
         cv.put(COLUMN_PURCHASE_STATUS, -1);
         cv.put(COLUMN_PURCHASE_QUANTITY, p.getQuantity());
         cv.put(COLUMN_PURCHASE_SUBTOTAL, p.getSubtotal());
@@ -976,6 +1048,9 @@ public class Database extends SQLiteOpenHelper {
         double rating = 0.0;
 
         List<Review> reviews = getCookReviews(cookUsername);
+        if(reviews.isEmpty()) {
+            return rating;
+        }
 
         for(Review review : reviews) {
             rating += review.getRating();

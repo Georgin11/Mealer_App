@@ -8,6 +8,7 @@ public class PaymentInfo {
     private BigInteger cardNumber;
     private int cvv;
     private Address billingAddress;
+    private int DB_id;
 
     public PaymentInfo(String cardHolderName, BigInteger cardNumber, int cvv, Address billingAddress) {
         this.cardHolderName = cardHolderName;
@@ -31,4 +32,13 @@ public class PaymentInfo {
     public Address getBillingAddress() {
         return billingAddress;
     }
+
+    public int getDB_id() {
+        return DB_id;
+    }
+
+    public void setDB_id(int DB_id) {
+        this.DB_id = DB_id;
+    }
+
 }

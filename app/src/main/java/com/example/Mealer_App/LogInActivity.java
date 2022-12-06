@@ -9,9 +9,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.Mealer_App.structure.Client;
+import com.example.Mealer_App.structure.Cook;
+import com.example.Mealer_App.structure.User;
+
+import java.util.List;
+
 public class LogInActivity extends AppCompatActivity {
 
-
+    public static User loggedInUser;
     EditText textUsername, textPassword;
     public static String username, password;
 
@@ -45,13 +51,26 @@ public class LogInActivity extends AppCompatActivity {
         password = textPassword.getText().toString();
         Intent intent = null;
 
+
         if(dbHelper.checkAdminExists(username) && dbHelper.matchPassword(username, password)) {
             intent = new Intent(getApplicationContext(), AdminLandingPage.class);
             startActivityForResult(intent, 0);
         } else if(dbHelper.checkCookExists(username) && dbHelper.matchPassword(username, password)) {
+            List<Cook> cooks = dbHelper.getCooks();
+            for(Cook cook: cooks) {
+                if(cook.getUsername().equals(username)) {
+                    loggedInUser = cook;
+                }
+            }
             intent = new Intent(getApplicationContext(), CookLandingPage.class);
             startActivityForResult(intent, 0);
         } else if(dbHelper.checkClientExists(username) && dbHelper.matchPassword(username, password)) {
+            List<Client> clients = dbHelper.getClients();
+            for(Client client: clients) {
+                if(client.getUsername().equals(username)) {
+                    loggedInUser = client;
+                }
+            }
             intent = new Intent(getApplicationContext(), ClientLandingPage.class);
             startActivityForResult(intent, 0);
         } else {

@@ -1,9 +1,11 @@
 package com.example.Mealer_App;
 
+import static com.example.Mealer_App.LogInActivity.loggedInUser;
+
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,38 +14,32 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.Mealer_App.R.id;
+import com.example.Mealer_App.R.layout;
 import com.example.Mealer_App.structure.Cook;
 import com.example.Mealer_App.structure.Meal;
+import com.example.Mealer_App.structure.Purchase;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestClientFunctionality extends AppCompatActivity {
+public class ClientFunctionality extends AppCompatActivity {
 
-    private AlertDialog.Builder dialogBuilder;
-    private AlertDialog dialog;
-    Button returnToList;
     private Meal selectedMeal;
     private List<Meal> finalMeals;
 
-    // ****
-    private SearchView searchView;
-    private ListView listView;
-    private ArrayList arrayList;
     private ArrayAdapter arrayAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dummy_list_meals);
+        setContentView(layout.activity_list_meals);
         ListView lv_meals = findViewById(R.id.lv_Meals);
 
 
@@ -101,19 +97,17 @@ public class TestClientFunctionality extends AppCompatActivity {
             @SuppressLint("MissingInflatedId")
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedMeal = finalMeals.get(position);
-                selectMeal(selectedMeal);
+                selectMeal();
             }
         });
 
-        searchView = findViewById(R.id.searchBar);
-        listView = findViewById(R.id.lv_Meals);
-        arrayList = new ArrayList<>();
+        // ****
+        SearchView searchView = findViewById(id.searchBar);
+        ListView listView = findViewById(id.lv_Meals);
 
-        for(Meal meal : finalMeals){
-            arrayList.add(meal);
-        }
+        ArrayList<Meal> arrayList = new ArrayList<>(finalMeals);
 
-        arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1,arrayList);
+        arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, arrayList);
 
         listView.setAdapter(arrayAdapter);
 
@@ -132,16 +126,18 @@ public class TestClientFunctionality extends AppCompatActivity {
         });
     }
 
-    public void selectMeal(Meal selectedMeal) {
-        setContentView(R.layout.dummy_meal_screen);
+    public void selectMeal() {
+        setContentView(layout.activity_meal_screen);
 
-        TextView mealTitle = findViewById(R.id.txtMealName);
-        TextView mealDescription = findViewById(R.id.txtMealDescription);
-        TextView mealType = findViewById(R.id.txtMealType);
-        TextView mealCuisineType = findViewById(R.id.txtCuisineType);
-        TextView mealAllergens = findViewById(R.id.txtAllergens);
-        TextView mealPrice = findViewById(R.id.txtMealPrice);
-        TextView mealCook = findViewById(R.id.textMealCookLink);
+        Button placeOrder = findViewById(id.btnOrder);
+        TextView mealTitle = findViewById(id.txtMealName);
+        TextView mealDescription = findViewById(id.txtMealDescription);
+        TextView mealType = findViewById(id.txtMealType);
+        TextView mealCuisineType = findViewById(id.txtCuisineType);
+        TextView mealAllergens = findViewById(id.txtAllergens);
+        TextView mealPrice = findViewById(id.txtMealPrice);
+        TextView mealCook = findViewById(id.textMealCookLink);
+
 
         String cookName = selectedMeal.getAssociatedCook().getfName() + " " + selectedMeal.getAssociatedCook().getlName();
         String allergens = "";
@@ -165,11 +161,100 @@ public class TestClientFunctionality extends AppCompatActivity {
             }
         });
 
+        placeOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                placeOrder();
+            }
+        });
+
+
+
+    }
+
+    public void placeOrder() {
+        setContentView(layout.dummy_place_order);
+
+
+        Button checkout = findViewById(id.btnCheckout);
+        Button backToMeal = findViewById(id.btnGoBackToMeal);
+        EditText quantity = findViewById(id.txt_quantity);
+        TextView title = findViewById(id.txt_title);
+
+        String s = "Order of: " + selectedMeal.getMealName();
+        title.setText(s);
+
+        backToMeal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectMeal();
+            }
+        });
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Validators validate = new Validators();
+                if(!validate.validateOrderQuantity(quantity)) {
+                    return;
+                }
+                int amount = Integer.parseInt(quantity.getText().toString().trim());
+                goToCheckout(amount);
+            }
+        });
+    }
+
+    public void goToCheckout(int quantity) {
+        setContentView(layout.dummy_checkout);
+        Database db = new Database(this);
+        Button backToCart = findViewById(id.btnBackToCart);
+        Button completePurchase = findViewById(id.btnCompletePurchase);
+        TextView orderInfo = findViewById(id.txtPurchaseRecap);
+
+        String confirmationText = "Are you sure you would like to purchase " +
+                quantity + " orders of " +
+                selectedMeal.getAssociatedCook().getUsername() + "'s " +
+                selectedMeal.getMealName() + "?";
+
+        orderInfo.setText(confirmationText);
+
+        backToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                placeOrder();
+            }
+        });
+
+        completePurchase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Purchase newPurchase = new Purchase(selectedMeal.getAssociatedCook().getUsername(),
+                        loggedInUser.getUsername(),
+                        selectedMeal.getMealName(),
+                        quantity,
+                        selectedMeal.getMealPrice());
+                db.addOne(newPurchase);
+                orderConfirmation();
+            }
+        });
+    }
+
+    public void orderConfirmation() {
+        setContentView(layout.dummy_order_confirmation);
+
+        Button homePage = findViewById(id.btnConfirmationExit);
+
+        homePage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ClientLandingPage.class);
+                startActivityForResult(intent, 0);
+            }
+        });
     }
 
     @SuppressLint("MissingInflatedId")
     public void viewCookProfile(Cook cook) {
-        setContentView(R.layout.dummy_cook_profile);
+        setContentView(layout.activity_cook_profile);
         Database db = new Database(this);
 
         List<Meal> cookMeals = new ArrayList<>();
@@ -178,10 +263,10 @@ public class TestClientFunctionality extends AppCompatActivity {
                 cookMeals.add(meal);
             }
         }
-        ListView lvMeals = findViewById(R.id.lv_CookMeals);
-        TextView cookName = findViewById(R.id.txtCookName);
-        TextView rating = findViewById(R.id.txtRating);
-        TextView bio = findViewById(R.id.txtCookBio);
+        ListView lvMeals = findViewById(id.lv_CookMeals);
+        TextView cookName = findViewById(id.txtCookName);
+        TextView rating = findViewById(id.txtRating);
+        TextView bio = findViewById(id.txtCookBio);
 
         ArrayAdapter<Meal> mealArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, cookMeals);
@@ -193,7 +278,7 @@ public class TestClientFunctionality extends AppCompatActivity {
             @SuppressLint("MissingInflatedId")
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedMeal = cookMeals.get(position);
-                selectMeal(selectedMeal);
+                selectMeal();
             }
         });
         String cookRating = String.valueOf(db.getCookRating(cook.getUsername()));
@@ -210,7 +295,7 @@ public class TestClientFunctionality extends AppCompatActivity {
     }
 
     public void leaveCookProfile(View view) {
-        selectMeal(selectedMeal);
+        selectMeal();
     }
 
     public void backToLandingPage(View view) {

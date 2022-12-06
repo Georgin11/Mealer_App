@@ -15,7 +15,8 @@ public class ClientLandingPage extends AppCompatActivity {
     }
 
     public void LogOut(View view) {
-        finish();
+        Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
+        startActivityForResult(intent, 0);
     }
 
     public void onReviewClick(View view){
@@ -24,7 +25,7 @@ public class ClientLandingPage extends AppCompatActivity {
     }
 
     public void order(View view) {
-        Intent intent = new Intent(getApplicationContext(), TestClientFunctionality.class);
+        Intent intent = new Intent(getApplicationContext(), ClientFunctionality.class);
         startActivityForResult(intent, 0);
     }
 

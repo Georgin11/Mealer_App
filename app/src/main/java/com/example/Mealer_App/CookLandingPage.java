@@ -29,21 +29,20 @@ public class CookLandingPage extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cook_meals);
-        Database dbHelper = new Database(this);
-        lv_Menu = findViewById(R.id.list_Menu);
-
+        setContentView(R.layout.activity_cook_landing_page);
+//        lv_Menu = findViewById(R.id.list_Menu);
+//
         Database db = new Database(this);
+//
+//        List<Meal> menuList = db.getMealsOfCook(username);
+//
+//        ArrayAdapter<Review> complaintArrayAdapter = new ArrayAdapter(CookLandingPage.this,
+//            android.R.layout.simple_list_item_1, menuList);
+//
+//        lv_Menu.setAdapter(complaintArrayAdapter);
 
-        List<Meal> menuList = db.getMealsOfCook(username);
 
-        ArrayAdapter<Review> complaintArrayAdapter = new ArrayAdapter(CookLandingPage.this,
-            android.R.layout.simple_list_item_1, menuList);
-
-        lv_Menu.setAdapter(complaintArrayAdapter);
-
-
-        List<Cook> cooks = dbHelper.getCooks();
+        List<Cook> cooks = db.getCooks();
         Cook currentCook = null;
         for(Cook cook : cooks) {
             if(username.equals(cook.getUsername())) {
