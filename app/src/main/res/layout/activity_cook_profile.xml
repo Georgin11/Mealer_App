@@ -7,12 +7,11 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/half_white_background">
 
         <Button
             android:id="@+id/returnToMeal"
-            android:onClick="leaveCookProfile"
-            android:text="Back"
             android:layout_width="65dp"
             android:layout_height="50dp"
             android:layout_marginStart="5dp"
@@ -20,9 +19,11 @@
             android:layout_marginEnd="320dp"
             android:background="@null"
             android:fontFamily="sans-serif-smallcaps"
+            android:onClick="leaveCookProfile"
+            android:text="Back"
             android:textColor="#273238"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:layout_width="match_parent"

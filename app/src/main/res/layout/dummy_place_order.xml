@@ -3,69 +3,85 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/half_white_background">
 
-    <TextView
-        android:id="@+id/txt_LimitOfOrderPrompt"
-        android:layout_width="112dp"
-        android:layout_height="63dp"
-        android:text="How many would you like to order? (Limit of 10)"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.22"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.387" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/half_white_background">
 
-    <Button
-        android:id="@+id/btnCheckout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Checkout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.544" />
+        <Button
+            android:id="@+id/btnGoBackToMeal"
+            android:layout_width="65dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="320dp"
+            android:background="@null"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="Back"
+            android:textColor="#273238"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnGoBackToMeal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/txt_quantity"
-        android:layout_width="118dp"
-        android:layout_height="52dp"
-        android:ems="10"
-        android:hint="Quantity"
-        android:inputType="numberSigned"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.788"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.381" />
+            <TextView
+                android:id="@+id/txt_title"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="Order of: "
+                android:textAlignment="center"
+                android:textColor="#273238"
+                android:textSize="40sp" />
 
-    <TextView
-        android:id="@+id/txt_title"
-        android:layout_width="194dp"
-        android:layout_height="43dp"
-        android:text="Order of: "
-        android:textAlignment="center"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.223" />
+            <EditText
+                android:id="@+id/txt_quantity"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:hint="Quantity"
+                android:inputType="numberSigned"
+                android:padding="26dp"
+                android:textColor="#8e8e8e"
+                android:textColorHint="#8e8e8e"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/txt_LimitOfOrderPrompt"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif-light"
+
+                android:gravity="center"
+                android:text="How many would you like to order?\n(Limit of 10)"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btnCheckout"
+                android:layout_width="260dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="60dp"
+                android:backgroundTint="#273238"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Checkout"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
