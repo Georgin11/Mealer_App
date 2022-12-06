@@ -27,27 +27,34 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="600dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="100dp"
             android:gravity="center"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/editTextSearchBar"
-                android:layout_width="340dp"
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+
+            <SearchView
+                android:id="@+id/searchBar"
+                android:layout_width="280dp"
                 android:layout_height="50dp"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/edittext_background"
                 android:ems="10"
-                android:hint="Search"
-                android:inputType="textPersonName"
                 android:fontFamily="sans-serif-light"
-                android:padding="16dp"
+                android:queryHint="Search"
+                android:inputType="textPersonName"
                 android:textColor="#8e8e8e"
                 android:textColorHint="#8e8e8e"
-                android:textSize="18dp"/>
+                android:textSize="18dp" />
 
             <ListView
                 android:id="@+id/lv_Meals"
-                android:layout_width="340dp"
+                android:layout_width="300dp"
                 android:layout_height="460dp"
                 android:layout_marginTop="20dp" />
         </LinearLayout>

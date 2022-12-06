@@ -2,11 +2,15 @@ package com.example.Mealer_App;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,11 +33,19 @@ public class TestClientFunctionality extends AppCompatActivity {
     private Meal selectedMeal;
     private List<Meal> finalMeals;
 
+    // ****
+    private SearchView searchView;
+    private ListView listView;
+    private ArrayList arrayList;
+    private ArrayAdapter arrayAdapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dummy_list_meals);
         ListView lv_meals = findViewById(R.id.lv_Meals);
+
 
         Database dbHelper = new Database(this);
         List<Meal> meals = dbHelper.getAllMeals();
@@ -90,6 +102,32 @@ public class TestClientFunctionality extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedMeal = finalMeals.get(position);
                 selectMeal(selectedMeal);
+            }
+        });
+
+        searchView = findViewById(R.id.searchBar);
+        listView = findViewById(R.id.lv_Meals);
+        arrayList = new ArrayList<>();
+
+        for(Meal meal : finalMeals){
+            arrayList.add(meal);
+        }
+
+        arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1,arrayList);
+
+        listView.setAdapter(arrayAdapter);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                arrayAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                arrayAdapter.getFilter().filter(newText);
+                return false;
             }
         });
     }
