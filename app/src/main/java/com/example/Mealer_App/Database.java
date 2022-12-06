@@ -190,6 +190,20 @@ public class Database extends SQLiteOpenHelper {
                     "REFERENCES " + COOK_TABLE + " (" + COLUMN_COOK_USERNAME + "))";
 
         db.execSQL(createTableStatement);
+
+        createTableStatement = "CREATE TABLE " + PURCHASE_TABLE + " ( " +
+                COLUMN_PURCHASE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_PURCHASE_COOK + " TEXT, " +
+                COLUMN_PURCHASE_CLIENT + " TEXT, " +
+                COLUMN_PURCHASE_MEAL + " INT, " +
+                COLUMN_PURCHASE_STATUS + " INTEGER, " +
+                COLUMN_PURCHASE_QUANTITY + " INTEGER, " +
+                COLUMN_PURCHASE_SUBTOTAL + " FLOAT, " +
+                "FOREIGN KEY (" + COLUMN_PURCHASE_COOK + ") " +
+                "REFERENCES " + COOK_TABLE + " (" + COLUMN_COOK_USERNAME + "), " +
+                "FOREIGN KEY (" + COLUMN_PURCHASE_CLIENT + ") " +
+                "REFERENCES " + CLIENT_TABLE + " (" + COLUMN_CLIENT_USERNAME + "))";
+        db.execSQL(createTableStatement);
     }
 
     @Override
@@ -214,24 +228,15 @@ public class Database extends SQLiteOpenHelper {
                     db.execSQL(alterTableStatement);
                     alterTableStatement = "ALTER TABLE COMPLAINT_TABLE RENAME TO " + REVIEW_TABLE;
                     db.execSQL(alterTableStatement);
+                    break;
                 case 3:
-                    createTableStatement = "CREATE TABLE " + PURCHASE_TABLE + " ( " +
-                            COLUMN_PURCHASE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                            COLUMN_PURCHASE_COOK + " TEXT, " +
-                            COLUMN_PURCHASE_CLIENT + " TEXT, " +
-                            COLUMN_PURCHASE_MEAL + " TEXT, " +
-                            COLUMN_PURCHASE_STATUS + " INTEGER, " +
-                            COLUMN_PURCHASE_QUANTITY + " INTEGER, " +
-                            COLUMN_PURCHASE_SUBTOTAL + " FLOAT, " +
-                            "FOREIGN KEY (" + COLUMN_PURCHASE_COOK + ") " +
-                                "REFERENCES " + COOK_TABLE + " (" + COLUMN_COOK_USERNAME + "), " +
-                            "FOREIGN KEY (" + COLUMN_PURCHASE_CLIENT + ") " +
-                                "REFERENCES " + CLIENT_TABLE + " (" + COLUMN_CLIENT_USERNAME + "))";
-                    db.execSQL(createTableStatement);
+
+                    break;
                 case 4:
                     alterTableStatement = "ALTER TABLE " + PURCHASE_TABLE + " ADD COLUMN " +
                             COLUMN_PURCHASE_UNIT_PRICE + " INTEGER";
                     db.execSQL(alterTableStatement);
+                    break;
             }
         }
     }
@@ -398,10 +403,17 @@ public class Database extends SQLiteOpenHelper {
     public boolean addOne(Purchase p) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-
+        List<Meal> meals = getMealsOfCook(p.getChef());
+        Meal currentMeal = null;
+        for(Meal meal: meals) {
+            if(meal.getMealName().equals(p.getMealName())) {
+                currentMeal = meal;
+            }
+        }
+        assert currentMeal != null;
         cv.put(COLUMN_PURCHASE_COOK, p.getChef());
         cv.put(COLUMN_PURCHASE_CLIENT, p.getCustomer());
-        cv.put(COLUMN_PURCHASE_MEAL, p.getMealName());
+        cv.put(COLUMN_PURCHASE_MEAL, currentMeal.getDB_id());
         cv.put(COLUMN_PURCHASE_STATUS, 0);
         cv.put(COLUMN_PURCHASE_QUANTITY, p.getQuantity());
         cv.put(COLUMN_PURCHASE_SUBTOTAL, p.getSubtotal());
@@ -719,6 +731,7 @@ public class Database extends SQLiteOpenHelper {
 
     public List<Purchase> getSales(String cookUsername) {
         List<Purchase> sales = new ArrayList<>();
+        List<Meal> meals = getAllMeals();
         SQLiteDatabase db = this.getReadableDatabase();
 
         String query = "SELECT * FROM " + PURCHASE_TABLE;
@@ -733,12 +746,13 @@ public class Database extends SQLiteOpenHelper {
                 if(cook.equals(cookUsername)) {
                     int saleID = cursor.getInt(0);
                     String client = cursor.getString(2);
-                    String meal = cursor.getString(3);
+                    int mealID = (cursor.getInt(3))-1;
                     int status = cursor.getInt(4);
                     int quantity = cursor.getInt(5);
                     double subtotal = cursor.getDouble(6);
                     double unitPrice = cursor.getDouble(7);
 
+                    String meal = meals.get(mealID).getMealName();
                     Purchase sale = new Purchase(cook, client, meal, quantity, unitPrice);
                     sale.setSubtotal(subtotal);
                     sale.setId(saleID);
@@ -760,8 +774,9 @@ public class Database extends SQLiteOpenHelper {
 
     public List<Purchase> getPurchases(String clientUsername) {
         List<Purchase> purchases = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
+        List<Meal> meals = getAllMeals();
 
+        SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + PURCHASE_TABLE;
 
         Cursor cursor = db.rawQuery(query, null);
@@ -769,17 +784,18 @@ public class Database extends SQLiteOpenHelper {
         if(cursor.moveToFirst()) {
             do {
 
-                String cook = cursor.getString(1);
+                String client = cursor.getString(2);
 
-                if(cook.equals(clientUsername)) {
+                if(client.equals(clientUsername)) {
                     int saleID = cursor.getInt(0);
-                    String client = cursor.getString(2);
-                    String meal = cursor.getString(3);
+                    String cook = cursor.getString(1);
+                    int mealID = (cursor.getInt(3)) - 1;
                     int status = cursor.getInt(4);
                     int quantity = cursor.getInt(5);
                     double subtotal = cursor.getDouble(6);
                     double unitPrice = cursor.getDouble(7);
 
+                    String meal = meals.get(mealID).getMealName();
                     Purchase purchase = new Purchase(cook, client, meal, quantity, unitPrice);
                     purchase.setSubtotal(subtotal);
                     purchase.setId(saleID);

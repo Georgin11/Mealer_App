@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -232,7 +233,10 @@ public class ClientFunctionality extends AppCompatActivity {
                         selectedMeal.getMealName(),
                         quantity,
                         selectedMeal.getMealPrice());
-                db.addOne(newPurchase);
+                boolean success = db.addOne(newPurchase);
+                if(!success) {
+                    Toast.makeText(ClientFunctionality.this, "error making pruchase request", Toast.LENGTH_SHORT).show();
+                }
                 orderConfirmation();
             }
         });
