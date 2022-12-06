@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
                 dbHelper.addOne(review);
             }
         }
-
     }
     public void OnSignUp(View View) {
         //Application Context and Activity

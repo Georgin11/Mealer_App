@@ -68,7 +68,6 @@ public class AdminLandingPage extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //add code for popup for complaint
                 complaintPosition = position;
-                //Toast.makeText(AdminLandingPage.this, complaintList.get(position).toString(), Toast.LENGTH_LONG).show();
                 dialogBuilder = new AlertDialog.Builder(AdminLandingPage.this);
 
                 final View complaintPopupView = getLayoutInflater().inflate(R.layout.activity_admin_complaint_popup, null);
