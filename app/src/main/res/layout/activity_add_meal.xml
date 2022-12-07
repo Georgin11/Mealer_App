@@ -155,7 +155,7 @@
                     android:textSize="18dp" />
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName4"
+                    android:id="@+id/editTextAllergens"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginStart="10dp"
@@ -174,7 +174,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/Ingredients"
+                android:id="@+id/editTextIngredients"
                 android:layout_width="340dp"
                 android:layout_height="80dp"
                 android:layout_marginTop="10dp"
@@ -192,7 +192,7 @@
                 android:textSize="18dp" />
 
             <Button
-                android:id="@+id/REMOVEMEAL"
+                android:id="@+id/btnAddMeal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -202,7 +202,6 @@
                 android:backgroundTint="#273238"
                 android:fontFamily="sans-serif-smallcaps"
                 android:gravity="center"
-                android:onClick="GoBack1"
                 android:text="Add meal"
                 android:textColor="@color/white"
                 android:textSize="20sp" />

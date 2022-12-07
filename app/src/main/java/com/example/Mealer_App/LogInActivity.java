@@ -62,7 +62,7 @@ public class LogInActivity extends AppCompatActivity {
                     loggedInUser = cook;
                 }
             }
-            intent = new Intent(getApplicationContext(), CookLandingPage.class);
+            intent = new Intent(getApplicationContext(), CookFunctionality.class);
             startActivityForResult(intent, 0);
         } else if(dbHelper.checkClientExists(username) && dbHelper.matchPassword(username, password)) {
             List<Client> clients = dbHelper.getClients();

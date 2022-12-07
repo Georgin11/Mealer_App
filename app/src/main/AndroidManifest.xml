@@ -27,21 +27,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".RemoveMeal"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".AddMeal"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".CookMeals"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -75,7 +61,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".CookLandingPage"
+            android:name=".CookFunctionality"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

@@ -5,7 +5,6 @@ import static com.example.Mealer_App.LogInActivity.loggedInUser;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,8 +22,6 @@ import com.example.Mealer_App.R.layout;
 import com.example.Mealer_App.structure.Cook;
 import com.example.Mealer_App.structure.Meal;
 import com.example.Mealer_App.structure.Purchase;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -174,7 +171,7 @@ public class ClientFunctionality extends AppCompatActivity {
     }
 
     public void placeOrder() {
-        setContentView(layout.dummy_place_order);
+        setContentView(layout.activity_place_order);
 
 
         Button checkout = findViewById(id.btnCheckout);
@@ -205,7 +202,7 @@ public class ClientFunctionality extends AppCompatActivity {
     }
 
     public void goToCheckout(int quantity) {
-        setContentView(layout.dummy_checkout);
+        setContentView(layout.activity_checkout);
         Database db = new Database(this);
         Button backToCart = findViewById(id.btnBackToCart);
         Button completePurchase = findViewById(id.btnCompletePurchase);
@@ -243,7 +240,7 @@ public class ClientFunctionality extends AppCompatActivity {
     }
 
     public void orderConfirmation() {
-        setContentView(layout.dummy_order_confirmation);
+        setContentView(layout.activity_order_confirmation);
 
         Button homePage = findViewById(id.btnConfirmationExit);
 

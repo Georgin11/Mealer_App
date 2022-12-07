@@ -52,7 +52,7 @@
                 android:backgroundTint="#273238"
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="Meals"
-                android:onClick="OnMealClick"
+                android:onClick="ViewMeals"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 

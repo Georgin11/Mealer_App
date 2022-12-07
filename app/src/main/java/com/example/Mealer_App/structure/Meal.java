@@ -1,20 +1,15 @@
 package com.example.Mealer_App.structure;
 
 
-import com.example.Mealer_App.CookLandingPage;
-import com.example.Mealer_App.Database;
-
-import java.util.List;
-
 public class Meal {
 
     private String mealName, ListOfIngredients, ListOfAllergens, mealDescription, mealCourse, mealCuisine;
     private Cook associatedCook;
-    private float mealPrice;
+    private double mealPrice;
     private boolean isFeatured;
     private int DB_id;
 
-    public Meal(String name, String course, String cuisine, String ingredients, String allergens, float price, String description, Cook cook) {
+    public Meal(String name, String course, String cuisine, String ingredients, String allergens, double price, String description, Cook cook) {
         mealName = name;
         mealCourse = course;
         mealCuisine = cuisine;
@@ -82,11 +77,11 @@ public class Meal {
         this.mealCuisine = mealCuisine.toString();
     }
 
-    public float getMealPrice() {
+    public double getMealPrice() {
         return mealPrice;
     }
 
-    public void setMealPrice(float mealPrice) {
+    public void setMealPrice(double mealPrice) {
         this.mealPrice = mealPrice;
     }
 

@@ -62,7 +62,7 @@
                 android:layout_height="50dp" />
 
             <Button
-                android:id="@+id/removeMealButton"
+                android:id="@+id/buttonAddMeal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="260dp"
@@ -70,7 +70,7 @@
                 android:backgroundTint="#273238"
                 android:fontFamily="sans-serif-smallcaps"
                 android:gravity="center"
-                android:onClick="AddMealC"
+                android:onClick="AddMeal"
                 android:text="Add Meal"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
@@ -81,7 +81,7 @@
                 android:layout_height="25dp" />
 
             <Button
-                android:id="@+id/addMealButton"
+                android:id="@+id/buttonRemoveMeal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -90,7 +90,7 @@
                 android:backgroundTint="#273238"
                 android:fontFamily="sans-serif-smallcaps"
                 android:gravity="center"
-                android:onClick="RemoveMealC"
+                android:onClick="RemoveMeal"
                 android:text="Remove Meal"
                 android:textColor="@color/white"
                 android:textSize="20sp" />

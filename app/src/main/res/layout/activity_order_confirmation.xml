@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif-light"
-                android:text="We are waiting for the chef to approve the meal before delivering it to you. Please be patient as this can take some time"
+                android:text="We are waiting for the chef to approve the order before delivering it to you. Please be patient as this can take some time"
                 android:textAlignment="center"
                 android:textSize="20sp" />
         </LinearLayout>

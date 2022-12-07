@@ -211,4 +211,27 @@ public class Validators {
         return true;
     }
 
+    public boolean validateMealInfo(EditText text) {
+        String strEquiv = text.getText().toString().trim();
+        if(strEquiv.isEmpty()) {
+            text.setError("Field cannot be empty");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validateMealPrice(EditText txtPrice) {
+        String strEquiv = txtPrice.getText().toString().trim();
+        if(strEquiv.isEmpty()) {
+            txtPrice.setError("Field cannot be empty");
+            return false;
+        }
+        double price = Double.parseDouble(strEquiv);
+        if(price <= 0.00) {
+            txtPrice.setError("Price must be greater than $0.00");
+            return false;
+        }
+        return true;
+    }
+
 }
