@@ -69,7 +69,6 @@ public class CookFunctionality extends AppCompatActivity {
     }
 
     public void LogOut(View view) {
-
         finish();
     }
 
@@ -89,6 +88,7 @@ public class CookFunctionality extends AppCompatActivity {
             @SuppressLint("MissingInflatedId")
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedMeal = menuList.get(position);
+                mealPopup();
             }
         });
     }
@@ -97,6 +97,7 @@ public class CookFunctionality extends AppCompatActivity {
     public void AddMeal(View View) {
         setContentView(R.layout.activity_add_meal);
         Database db = new Database(this);
+        Button goBack = findViewById(R.id.button);
         Button addMeal = findViewById(R.id.btnAddMeal);
         Switch featured = findViewById(R.id.FeaturedMealCheck);
 
@@ -162,13 +163,82 @@ public class CookFunctionality extends AppCompatActivity {
                     newMeal.setFeatured(true);
                 }
                 db.addOne(newMeal);
+                ViewMeals(v);
+            }
+        });
+
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View v) {
+                ViewMeals(v);
             }
         });
         
     }
 
-    public void RemoveMeal(View View) {
-        setContentView(R.layout.activity_remove_meal);
+    public void mealPopup() {
+        setContentView(R.layout.dummy_meal_info);
+        Database db = new Database(this);
+
+        Button goBack = findViewById(R.id.btnReturn);
+        Button update = findViewById(R.id.btnUpdateMeal);
+        Button remove = findViewById(R.id.btnRemoveMeal);
+        @SuppressLint("UseSwitchCompatOrMaterialCode") Switch featured = findViewById(R.id.switchIsFeatured);
+        featured.setChecked(selectedMeal.isFeatured());
+
+        TextView name, description, cook, price, allergens;
+        name = findViewById(R.id.infoMealName);
+        description = findViewById(R.id.infoMealDescription);
+        cook = findViewById(R.id.infoMealCookLink);
+        price = findViewById(R.id.infoMealPrice);
+        allergens = findViewById(R.id.infoAllergens);
+
+        name.setText(selectedMeal.getMealName());
+        description.setText(selectedMeal.getMealDescription());
+        cook.setText(selectedMeal.getAssociatedCook().getUsername());
+        price.setText(String.valueOf(selectedMeal.getMealPrice()));
+        allergens.setText(selectedMeal.getListOfAllergens());
+
+
+
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewMeals(v);
+            }
+        });
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = featured.isChecked();
+                if(checked != selectedMeal.isFeatured()) {
+                    selectedMeal.setFeatured(checked);
+                    db.featureMeal(selectedMeal, checked);
+                    selectedMeal.setFeatured(checked);
+                    ViewMeals(v);
+                } else {
+                    featured.setError("No change was made");
+                }
+            }
+        });
+
+        remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = featured.isChecked();
+                if(checked) {
+                    remove.setError("");
+                    return;
+                }
+                db.deleteMeal(selectedMeal);
+                selectedMeal = null;
+                ViewMeals(v);
+            }
+        });
+
+
+
     }
 
 }

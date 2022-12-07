@@ -53,18 +53,14 @@
 
             <ListView
                 android:id="@+id/list_Menu"
-                android:layout_width="250dp"
-                android:layout_height="275dp" />
-
-            <View
-                android:id="@+id/view13"
-                android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_width="340dp"
+                android:layout_height="400dp" />
 
             <Button
                 android:id="@+id/buttonAddMeal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:width="260dp"
                 android:height="55dp"
                 android:backgroundTint="#273238"
@@ -80,20 +76,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="25dp" />
 
-            <Button
-                android:id="@+id/buttonRemoveMeal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:width="260dp"
-                android:height="55dp"
-                android:backgroundTint="#273238"
-                android:fontFamily="sans-serif-smallcaps"
-                android:gravity="center"
-                android:onClick="RemoveMeal"
-                android:text="Remove Meal"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
         </LinearLayout>
 
     </RelativeLayout>

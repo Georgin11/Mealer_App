@@ -115,7 +115,7 @@ public class Meal {
     public String toString() {
         String s = "";
         if(!isFeatured) {
-            s += "**" + mealName + "**\t" + mealPrice;
+            s += "**" + mealName + "**\t";
         } else {
             s += mealName;
         }
