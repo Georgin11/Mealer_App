@@ -7,23 +7,24 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/half_white_background">
 
         <Button
             android:id="@+id/btnReturnToMeals"
-            android:onClick="returnToMeals"
-            android:text="meals"
-
             android:layout_width="65dp"
             android:layout_height="50dp"
+
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="320dp"
             android:background="@null"
             android:fontFamily="sans-serif-smallcaps"
+            android:onClick="returnToMeals"
+            android:text="meals"
             android:textColor="#273238"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,52 +42,52 @@
                     android:id="@+id/txtCuisineType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
                     android:fontFamily="sans-serif-light"
+                    android:text="TextView"
                     android:textColor="#273238"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/txtMealType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="40dp"
-                    android:text="TextView"
                     android:fontFamily="sans-serif-light"
+                    android:text="TextView"
                     android:textColor="#273238"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/txtMealName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
                 android:fontFamily="sans-serif-light"
+                android:text="TextView"
                 android:textColor="#273238"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/txtMealDescription"
                 android:layout_width="280dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="20dp"
-                android:text="TextView"
                 android:fontFamily="sans-serif-light"
+                android:text="TextView"
                 android:textSize="18dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textMealCookLink"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:fontFamily="sans-serif-light"
                 android:text="TextView"
                 android:textAlignment="center"
                 android:textColor="#275FC1"
-                android:fontFamily="sans-serif-light"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/ChefClickInstructions"
@@ -101,14 +102,14 @@
 
             <TextView
                 android:id="@+id/txtMealPrice"
-                android:layout_marginTop="20dp"
-                android:text="TextView"
-                android:textAlignment="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:fontFamily="sans-serif-light"
+                android:text="TextView"
+                android:textAlignment="center"
                 android:textColor="#273238"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/txtAllergens"
@@ -124,9 +125,17 @@
 
             <Button
                 android:id="@+id/btnOrder"
-                android:layout_width="214dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Place an order" />
+                android:layout_marginTop="20dp"
+                android:width="260dp"
+                android:height="55dp"
+                android:backgroundTint="#273238"
+                android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center"
+                android:text="Place order"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
         </LinearLayout>
     </RelativeLayout>
