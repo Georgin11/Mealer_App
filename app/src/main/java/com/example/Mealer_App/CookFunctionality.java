@@ -218,7 +218,7 @@ public class CookFunctionality extends AppCompatActivity {
                     selectedMeal.setFeatured(checked);
                     ViewMeals(v);
                 } else {
-                    featured.setError("No change was made");
+                    update.setError("No change was made");
                 }
             }
         });
