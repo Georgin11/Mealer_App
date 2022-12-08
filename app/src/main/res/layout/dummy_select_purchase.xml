@@ -5,51 +5,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textPurchaseMealName"
-        android:layout_width="159dp"
-        android:layout_height="66dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.258" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/half_white_background">
 
-    <TextView
-        android:id="@+id/textPurchaseSubtotal"
-        android:layout_width="164dp"
-        android:layout_height="55dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.423" />
+        <Button
+            android:id="@+id/btnPurchases"
+            android:layout_width="85dp"
 
-    <Button
-        android:id="@+id/btnReview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Leave a review"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.756" />
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="320dp"
+            android:background="@null"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="Purchases"
+            android:textColor="#273238"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnPurchases"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Purchases"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textPurchaseMealName"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:text="TextView"
+                android:textColor="#273238"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textPurchaseSubtotal"
+                android:layout_width="280dp"
+
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="sans-serif-light"
+                android:text="TextView"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btnReview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:width="260dp"
+
+                android:height="55dp"
+                android:backgroundTint="#273238"
+                android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center"
+                android:text="Leave a review"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
