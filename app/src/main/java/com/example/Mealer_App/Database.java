@@ -73,6 +73,7 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_REVIEW_DAYS_SUSPENDED = "COLUMN_REVIEW_DAYS_SUSPENDED";
     public static final String COLUMN_REVIEW_CLIENT = "COLUMN_REVIEW_CLIENT";
     public static final String COLUMN_REVIEW_COOK = "COLUMN_REVIEW_COOK";
+    public static final String COLUMN_REVIEW_MEAL_ID = "COLUMN_REVIEW_MEAL_ID";
 
     public static final String MEAL_TABLE = "MEAL_TABLE";
     public static final String COLUMN_MEAL_ID = "COLUMN_MEAL_ID";
@@ -230,11 +231,10 @@ public class Database extends SQLiteOpenHelper {
                     db.execSQL(alterTableStatement);
                     break;
                 case 3:
-
                     break;
                 case 4:
                     alterTableStatement = "ALTER TABLE " + PURCHASE_TABLE + " ADD COLUMN " +
-                            COLUMN_PURCHASE_UNIT_PRICE + " INTEGER";
+                            COLUMN_PURCHASE_UNIT_PRICE + " FLOAT";
                     db.execSQL(alterTableStatement);
                     break;
             }
@@ -445,9 +445,13 @@ public class Database extends SQLiteOpenHelper {
                     String mealCuisine = cursor.getString(3);
                     String mealIngredients = cursor.getString(4);
                     String mealAllergens = cursor.getString(5);
-                    float mealPrice = cursor.getFloat(6);
+                    double mealPrice = cursor.getDouble(6);
                     String mealDescription = cursor.getString(7);
                     boolean isFeatured = (cursor.getInt(8) == 1);
+
+                    BigDecimal bd = BigDecimal.valueOf(mealPrice);
+                    bd = bd.setScale(2, RoundingMode.HALF_UP);
+                    mealPrice =  bd.doubleValue();
 
                     for(Cook cook: cooks) {
                         if(cook.getUsername().equals(cookUsername)) {
@@ -484,11 +488,14 @@ public class Database extends SQLiteOpenHelper {
                 String mealCuisine = cursor.getString(3);
                 String mealIngredients = cursor.getString(4);
                 String mealAllergens = cursor.getString(5);
-                float mealPrice = cursor.getFloat(6);
+                double mealPrice = cursor.getFloat(6);
                 String mealDescription = cursor.getString(7);
                 boolean isFeatured = (cursor.getInt(8) == 1);
                 String cookUsername = cursor.getString(9);
 
+                BigDecimal bd = BigDecimal.valueOf(mealPrice);
+                bd = bd.setScale(2, RoundingMode.HALF_UP);
+                mealPrice = bd.doubleValue();
                 for(Cook cook: cooks) {
                     if(cook.getUsername().equals(cookUsername)) {
                         Meal meal = new Meal(mealName, mealCourse, mealCuisine, mealIngredients, mealAllergens, mealPrice, mealDescription, cook);
@@ -517,14 +524,15 @@ public class Database extends SQLiteOpenHelper {
         if(cursor.moveToFirst()) {
             do {
                 int reviewRating = cursor.getInt(3);
-                String reviewCook = cursor.getString(6);
+
                 if(reviewRating >= 3) {
                     int reviewID = cursor.getInt(0);
                     String reviewTitle = cursor.getString(1);
                     String reviewText = cursor.getString(2);
 
                     String reviewClient = cursor.getString(5);
-
+                    String reviewCook = cursor.getString(6);
+                    int purchaseID = cursor.getInt(7);
 
                     Review review = new Review(reviewTitle, reviewText, reviewClient, reviewCook, reviewRating);
                     review.setDB_id(reviewID);
@@ -557,6 +565,7 @@ public class Database extends SQLiteOpenHelper {
                     int complaintSuspension = cursor.getInt(4);
                     String complaintClient = cursor.getString(5);
                     String complaintCook = cursor.getString(6);
+                    int purchaseID = cursor.getInt(7);
 
                     Review complaint = new Review(complaintTitle, complaintText, complaintClient, complaintCook, complaintRating);
                     if(complaintSuspension != -1) {
@@ -750,11 +759,16 @@ public class Database extends SQLiteOpenHelper {
                     int status = cursor.getInt(4);
                     int quantity = cursor.getInt(5);
                     double subtotal = cursor.getDouble(6);
-                    double unitPrice = cursor.getDouble(7);
+                    BigDecimal bd = BigDecimal.valueOf(subtotal);
+                    bd = bd.setScale(2, RoundingMode.HALF_UP);
+                    subtotal =  bd.doubleValue();
 
                     String meal = meals.get(mealID).getMealName();
-                    Purchase sale = new Purchase(cook, client, meal, quantity, unitPrice);
-                    sale.setSubtotal(subtotal);
+                    Purchase sale = new Purchase(cook, client, meal, quantity, meals.get(mealID).getMealPrice());
+                    if(sale.getSubtotal() != subtotal) {
+                        sale.setSubtotal(subtotal);
+                    }
+
                     sale.setId(saleID);
                     switch(status) {
                         case -1:
@@ -793,11 +807,18 @@ public class Database extends SQLiteOpenHelper {
                     int status = cursor.getInt(4);
                     int quantity = cursor.getInt(5);
                     double subtotal = cursor.getDouble(6);
-                    double unitPrice = cursor.getDouble(7);
+
+
+
+                    BigDecimal bd = BigDecimal.valueOf(subtotal);
+                    bd = bd.setScale(2, RoundingMode.HALF_UP);
+                    subtotal = bd.doubleValue();
 
                     String meal = meals.get(mealID).getMealName();
-                    Purchase purchase = new Purchase(cook, client, meal, quantity, unitPrice);
-                    purchase.setSubtotal(subtotal);
+                    Purchase purchase = new Purchase(cook, client, meal, quantity, meals.get(mealID).getMealPrice());
+                    if(purchase.getSubtotal() != subtotal) {
+                        purchase.setSubtotal(subtotal);
+                    }
                     purchase.setId(saleID);
                     switch(status) {
                         case -1:
@@ -886,17 +907,9 @@ public class Database extends SQLiteOpenHelper {
         }
 
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
 
-        List<Meal> meals = getMealsOfCook(meal.getAssociatedCook().getUsername());
-        int id = -1;
-        for(int i = 0; i < meals.toArray().length; i++) {
-            if(meal.equals(meals.get(i))) {
-                id = i + 1;
-            }
-        }
 
-        long delete = db.delete(MEAL_TABLE, COLUMN_MEAL_ID + "=" + id, null);
+        long delete = db.delete(MEAL_TABLE, COLUMN_MEAL_ID + "=" + meal.getDB_id(), null);
         return delete != -1;
     }
 

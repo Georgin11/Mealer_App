@@ -1,5 +1,8 @@
 package com.example.Mealer_App.structure;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Purchase {
 
     private String chef;
@@ -9,8 +12,7 @@ public class Purchase {
     private int status;
     private int quantity;
     private double subtotal;
-    private int tip;
-    private double unitPrice;
+    private final double unitPrice;
 
     //status of zero means that the purchase is currently pending. 1 means approved and -1 is rejected.
     public Purchase(String cook, String client, String meal, int numItems, double mealPrice) {
@@ -21,6 +23,9 @@ public class Purchase {
         quantity = numItems;
         unitPrice = mealPrice;
         subtotal = (mealPrice * numItems);
+        BigDecimal bd = BigDecimal.valueOf(subtotal);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        subtotal = bd.doubleValue();
     }
 
     public String getChef() {
@@ -83,14 +88,7 @@ public class Purchase {
         this.subtotal = subtotal;
     }
 
-    public int getTip() {
-        return tip;
-    }
 
-    public void setTip(int tip) {
-        this.tip = tip;
-        subtotal += tip;
-    }
 
     public double getUnitPrice() {
         return unitPrice;
@@ -98,5 +96,24 @@ public class Purchase {
 
     public double getPostTaxTotal() {
         return (subtotal * 1.13);
+    }
+
+    public String toString() {
+        String s = "\n";
+
+        s += mealName + "\nAmount of: " + quantity + "\n" + "Subtotal: " + subtotal + "\nStatus: ";
+        switch (status) {
+            case -1:
+                s += "Rejected";
+                break;
+            case 0:
+                s += "Pending";
+                break;
+            case 1:
+                s += "Approved";
+                break;
+        }
+        s += "\n";
+        return s;
     }
 }

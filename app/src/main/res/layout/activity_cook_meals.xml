@@ -37,7 +37,6 @@
             android:layout_marginEnd="320dp"
             android:background="@null"
             android:fontFamily="sans-serif-smallcaps"
-            android:onClick="GoBack1"
             android:text="Back"
             android:textColor="#273238"
             app:layout_constraintEnd_toEndOf="parent"

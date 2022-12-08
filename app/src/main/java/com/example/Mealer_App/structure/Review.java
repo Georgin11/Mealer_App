@@ -1,5 +1,8 @@
 package com.example.Mealer_App.structure;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Review {
 
     private String title;
@@ -7,16 +10,21 @@ public class Review {
     private String clientUsername;
     private String cookUsername;
     private int daysSuspended;
-    private int rating;
+    private double rating;
     private int DB_id;
 
-    public Review(String title, String message, String clientUsername, String cookUsername, int rating) {
+    public Review(String title, String message, String clientUsername, String cookUsername, double rating) {
         this.title = title;
         this.message = message;
         this.clientUsername = clientUsername;
         this.cookUsername = cookUsername;
         this.daysSuspended = -1;
+
         this.rating = rating;
+        BigDecimal bd = BigDecimal.valueOf(this.rating);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        this.rating = bd.doubleValue();
+
 
     }
 
@@ -34,7 +42,7 @@ public class Review {
 
     public int getDaysSuspended() { return daysSuspended; }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
@@ -43,6 +51,7 @@ public class Review {
     public void setDaysSuspended(int numDays) { daysSuspended = numDays; }
 
     public void setDB_id(int complaintId) { DB_id = complaintId; }
+
 
     public String toString() {
         String text = "";

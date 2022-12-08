@@ -78,10 +78,19 @@ public class CookFunctionality extends AppCompatActivity {
         Database db = new Database(this);
         List<Meal> menuList = db.getMealsOfCook(username);
 
-        ArrayAdapter<Review> complaintArrayAdapter = new ArrayAdapter(this,
+        Button landingPage = findViewById(R.id.button6);
+
+        ArrayAdapter<ClientReview> complaintArrayAdapter = new ArrayAdapter(this,
             android.R.layout.simple_list_item_1, menuList);
 
         lv_Menu.setAdapter(complaintArrayAdapter);
+
+        landingPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recreate();
+            }
+        });
 
         lv_Menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -173,7 +182,7 @@ public class CookFunctionality extends AppCompatActivity {
                 ViewMeals(v);
             }
         });
-        
+
     }
 
     public void mealPopup() {
@@ -218,7 +227,7 @@ public class CookFunctionality extends AppCompatActivity {
                     selectedMeal.setFeatured(checked);
                     ViewMeals(v);
                 } else {
-                    update.setError("No change was made");
+                    Toast.makeText(CookFunctionality.this, "Cannot update if no change was made", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -229,15 +238,17 @@ public class CookFunctionality extends AppCompatActivity {
                 boolean checked = featured.isChecked();
                 if(checked) {
                     remove.setError("");
+                    Toast.makeText(CookFunctionality.this, "Featured meals cannot be deleted", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                db.deleteMeal(selectedMeal);
+                boolean success = db.deleteMeal(selectedMeal);
+                if(!success) {
+                    Toast.makeText(CookFunctionality.this, "Could not delete meal", Toast.LENGTH_SHORT).show();
+                }
                 selectedMeal = null;
                 ViewMeals(v);
             }
         });
-
-
 
     }
 
