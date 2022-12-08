@@ -55,7 +55,7 @@ public class Review {
 
     public String toString() {
         String text = "";
-        text += clientUsername + " left a complaint about " + cookUsername + ".\n\n";
+        text += clientUsername + " left a review about " + cookUsername + " of " + rating + "/5.\n\n";
         text += "\"" + title + "\"\n";
         return text;
     }

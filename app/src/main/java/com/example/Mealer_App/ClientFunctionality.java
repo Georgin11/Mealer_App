@@ -51,7 +51,7 @@ public class ClientFunctionality extends AppCompatActivity {
                     "Italian",
                     "Cheese, dough, tomato sauce, basil, olive oil, mozzarella",
                     "Dairy",
-                    (float) 19.99,
+                    19.99,
                     "Its pizza. And its just that simple",
                     cooks.get(1));
             Meal meal2 = new Meal("Mac's Mac & Cheese",
@@ -59,7 +59,7 @@ public class ClientFunctionality extends AppCompatActivity {
                     "American",
                     "Macaroni, cheese",
                     "Dairy",
-                    (float) 500.01,
+                    500.01,
                     "Its mac & cheese. And its just that simple",
                     cooks.get(1));
             Meal meal3 = new Meal("Lamb sauce",
@@ -67,7 +67,7 @@ public class ClientFunctionality extends AppCompatActivity {
                     "Mediterranean",
                     "None",
                     "Dairy",
-                    (float) 0,
+                    0,
                     "Finally found the lamb sauce and im giving it away for free :)",
                     cooks.get(0));
             meal1.setFeatured(true);
@@ -232,7 +232,7 @@ public class ClientFunctionality extends AppCompatActivity {
                         selectedMeal.getMealPrice());
                 boolean success = db.addOne(newPurchase);
                 if(!success) {
-                    Toast.makeText(ClientFunctionality.this, "error making pruchase request", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ClientFunctionality.this, "error making purchase request", Toast.LENGTH_SHORT).show();
                 }
                 orderConfirmation();
             }

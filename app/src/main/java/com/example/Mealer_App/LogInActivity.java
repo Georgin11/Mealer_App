@@ -32,6 +32,8 @@ public class LogInActivity extends AppCompatActivity {
         textPassword.setText("");
     }
 
+
+
     public void GoBack(View view) {
         finish();
     }

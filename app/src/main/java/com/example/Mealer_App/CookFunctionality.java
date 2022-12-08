@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -19,7 +20,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.Mealer_App.structure.Cook;
 import com.example.Mealer_App.structure.Meal;
+import com.example.Mealer_App.structure.Purchase;
+import com.example.Mealer_App.structure.Review;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CookFunctionality extends AppCompatActivity {
@@ -29,6 +33,7 @@ public class CookFunctionality extends AppCompatActivity {
     private Meal selectedMeal;
     public static String mealType, cuisineType;
     public Cook currentCook;
+    public Purchase selectedPurchase;
 
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +42,7 @@ public class CookFunctionality extends AppCompatActivity {
 
         Database db = new Database(this);
 
-
+        ImageView mail = findViewById(R.id.mail_icon2);
 
         List<Cook> cooks = db.getCooks();
         currentCook = null;
@@ -66,10 +71,119 @@ public class CookFunctionality extends AppCompatActivity {
 
         }
 
+        mail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewCookMessages();
+            }
+        });
+
+    }
+
+    public void HomePage(View view) {
+        recreate();
+    }
+
+    public void viewCookMessages() {
+        setContentView(R.layout.dummy_cook_messages);
+        Database db = new Database(this);
+        Button seeReviews = findViewById(R.id.btnSeeReviews);
+
+        ListView viewMessages = findViewById(R.id.lv_Reviews);
+
+        List<Purchase> cookSales = db.getSales(currentCook.getUsername());
+        List<Purchase> pendingSales = new ArrayList<>();
+        for(Purchase sale : cookSales) {
+            if(sale.getStatus() == 0) {
+                pendingSales.add(sale);
+            }
+        }
+
+        ArrayAdapter<Purchase> saleArrayAdapter = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1, pendingSales);
+
+        viewMessages.setAdapter(saleArrayAdapter);
+
+        viewMessages.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedPurchase = pendingSales.get(position);
+                viewPurchaseRequest();
+            }
+        });
+
+        seeReviews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewReviews();
+            }
+        });
+
+
+    }
+
+    public void viewPurchaseRequest() {
+        setContentView(R.layout.dummy_purchase_request);
+        Database db = new Database(this);
+        TextView mealInfo;
+        Button backToRequests, approve, reject;
+
+        mealInfo = findViewById(R.id.txtPurchaseInfo);
+
+
+        String info = selectedPurchase.getCustomer() + " would like " +
+                selectedPurchase.getQuantity() + " orders of " +
+                selectedPurchase.getMealName() + ".\nThe subtotal would come to $" +
+                selectedPurchase.getSubtotal();
+        mealInfo.setText(info);
+
+
+        backToRequests = findViewById(R.id.btnBackToPurchaseRequests);
+        approve = findViewById(R.id.btnApprove);
+        reject = findViewById(R.id.btnReject);
+
+        backToRequests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewCookMessages();
+            }
+        });
+
+        approve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedPurchase.approvePurchase();
+                db.approvePurchase(selectedPurchase);
+                viewCookMessages();
+            }
+        });
+
+        reject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedPurchase.rejectPurchase();
+                db.rejectPurchase(selectedPurchase);
+                viewCookMessages();
+            }
+        });
+
     }
 
     public void LogOut(View view) {
         finish();
+    }
+
+    public void ViewReviews() {
+        setContentView(R.layout.dummy_cook_reviews);
+        Database db = new Database(this);
+
+        ListView viewReviews = findViewById(R.id.lv_Reviews);
+        List<Review> reviews = db.getCookReviews(currentCook.getUsername());
+        ArrayAdapter<Purchase> reviewArrayAdapter = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1, reviews);
+
+        viewReviews.setAdapter(reviewArrayAdapter);
+
     }
 
     public void ViewMeals(View view) {
@@ -80,7 +194,7 @@ public class CookFunctionality extends AppCompatActivity {
 
         Button landingPage = findViewById(R.id.button6);
 
-        ArrayAdapter<ClientReview> complaintArrayAdapter = new ArrayAdapter(this,
+        ArrayAdapter<Meal> complaintArrayAdapter = new ArrayAdapter(this,
             android.R.layout.simple_list_item_1, menuList);
 
         lv_Menu.setAdapter(complaintArrayAdapter);
@@ -251,5 +365,7 @@ public class CookFunctionality extends AppCompatActivity {
         });
 
     }
+
+
 
 }

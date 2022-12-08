@@ -108,7 +108,7 @@ public class ClientReview extends AppCompatActivity {
         reviewBody = findViewById(R.id.ReviewComment);
         reviewRating = findViewById(R.id.ratingBar);
 
-        double rating = reviewRating.getRating();
+
 
         backToSelectedPurchase.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +120,7 @@ public class ClientReview extends AppCompatActivity {
         submitReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                double rating = reviewRating.getRating();
                 String title = reviewTitle.getText().toString().trim();
                 String body = reviewBody.getText().toString().trim();
                 if(rating < 3) {

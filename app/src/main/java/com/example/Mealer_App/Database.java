@@ -196,7 +196,7 @@ public class Database extends SQLiteOpenHelper {
                 COLUMN_PURCHASE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_PURCHASE_COOK + " TEXT, " +
                 COLUMN_PURCHASE_CLIENT + " TEXT, " +
-                COLUMN_PURCHASE_MEAL + " INT, " +
+                COLUMN_PURCHASE_MEAL + " INTEGER, " +
                 COLUMN_PURCHASE_STATUS + " INTEGER, " +
                 COLUMN_PURCHASE_QUANTITY + " INTEGER, " +
                 COLUMN_PURCHASE_SUBTOTAL + " FLOAT, " +
@@ -404,27 +404,29 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         List<Meal> meals = getMealsOfCook(p.getChef());
-        Meal currentMeal = null;
         for(Meal meal: meals) {
             if(meal.getMealName().equals(p.getMealName())) {
-                currentMeal = meal;
+                cv.put(COLUMN_PURCHASE_COOK, p.getChef());
+                cv.put(COLUMN_PURCHASE_CLIENT, p.getCustomer());
+                cv.put(COLUMN_PURCHASE_MEAL, meal.getDB_id());
+                cv.put(COLUMN_PURCHASE_STATUS, 0);
+                cv.put(COLUMN_PURCHASE_QUANTITY, p.getQuantity());
+                cv.put(COLUMN_PURCHASE_SUBTOTAL, p.getSubtotal());
+
+                long insert = db.insert(PURCHASE_TABLE, null, cv);
+                if(insert == -1) {
+                    return false;
+                }
+
+                cv.clear();
+                return true;
             }
-        }
-        assert currentMeal != null;
-        cv.put(COLUMN_PURCHASE_COOK, p.getChef());
-        cv.put(COLUMN_PURCHASE_CLIENT, p.getCustomer());
-        cv.put(COLUMN_PURCHASE_MEAL, currentMeal.getDB_id());
-        cv.put(COLUMN_PURCHASE_STATUS, 0);
-        cv.put(COLUMN_PURCHASE_QUANTITY, p.getQuantity());
-        cv.put(COLUMN_PURCHASE_SUBTOTAL, p.getSubtotal());
 
-        long insert = db.insert(PURCHASE_TABLE, null, cv);
-        if(insert == -1) {
-            return false;
         }
-
         cv.clear();
-        return true;
+        return false;
+
+
     }
 
     public List<Meal> getMealsOfCook(String cookUsername) {
@@ -755,7 +757,7 @@ public class Database extends SQLiteOpenHelper {
                 if(cook.equals(cookUsername)) {
                     int saleID = cursor.getInt(0);
                     String client = cursor.getString(2);
-                    int mealID = (cursor.getInt(3))-1;
+                    int mealID = ((cursor.getInt(3)));
                     int status = cursor.getInt(4);
                     int quantity = cursor.getInt(5);
                     double subtotal = cursor.getDouble(6);
@@ -803,7 +805,7 @@ public class Database extends SQLiteOpenHelper {
                 if(client.equals(clientUsername)) {
                     int saleID = cursor.getInt(0);
                     String cook = cursor.getString(1);
-                    int mealID = (cursor.getInt(3)) - 1;
+                    int mealID = (cursor.getInt(3));
                     int status = cursor.getInt(4);
                     int quantity = cursor.getInt(5);
                     double subtotal = cursor.getDouble(6);
