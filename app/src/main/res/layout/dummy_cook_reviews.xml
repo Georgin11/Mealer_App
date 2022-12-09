@@ -7,12 +7,11 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/half_white_background">
 
         <Button
             android:id="@+id/backToHomePage2"
-            android:onClick="HomePage"
-            android:text="Home"
             android:layout_width="85dp"
             android:layout_height="50dp"
             android:layout_marginStart="5dp"
@@ -20,7 +19,9 @@
             android:layout_marginEnd="320dp"
             android:background="@null"
             android:fontFamily="sans-serif-smallcaps"
-            android:textColor="#273238"/>
+            android:onClick="HomePage"
+            android:text="Home"
+            android:textColor="#273238" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,12 +32,12 @@
             <TextView
                 android:id="@+id/txtReviewsHeader"
                 android:layout_width="wrap_content"
-                android:text="Reviews"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
                 android:gravity="center"
+                android:text="Reviews"
                 android:textColor="#273238"
-                android:textSize="40sp"/>
+                android:textSize="40sp" />
 
             <ListView
                 android:id="@+id/lv_Reviews"
