@@ -41,8 +41,8 @@
 
             <ListView
                 android:id="@+id/lv_Reviews"
-                android:layout_width="326dp"
-                android:layout_height="412dp"
+                android:layout_width="280dp"
+                android:layout_height="400dp"
                 android:layout_marginTop="20dp" />
         </LinearLayout>
     </RelativeLayout>
