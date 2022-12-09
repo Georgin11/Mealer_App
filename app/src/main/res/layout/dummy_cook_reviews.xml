@@ -5,42 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txtReviewsHeader"
-        android:layout_width="231dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="108dp"
-        android:text="Reviews:"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/backToHomePage2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="HomePage"
-        android:text="Home page"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.051"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        <Button
+            android:id="@+id/backToHomePage2"
+            android:onClick="HomePage"
+            android:text="Home"
+            android:layout_width="85dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="320dp"
+            android:background="@null"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textColor="#273238"/>
 
-    <ListView
-        android:id="@+id/lv_Reviews"
-        android:layout_width="326dp"
-        android:layout_height="412dp"
-        android:layout_marginBottom="128dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMessagesHeader"
-        app:layout_constraintVertical_bias="0.229" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtReviewsHeader"
+                android:layout_width="wrap_content"
+                android:text="Reviews"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:textColor="#273238"
+                android:textSize="40sp"/>
+
+            <ListView
+                android:id="@+id/lv_Reviews"
+                android:layout_width="326dp"
+                android:layout_height="412dp"
+                android:layout_marginTop="20dp" />
+        </LinearLayout>
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
