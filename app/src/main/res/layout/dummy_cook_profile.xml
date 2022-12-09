@@ -65,7 +65,7 @@
                 android:id="@+id/ratingCook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="60dp"
                 android:progressTint="#273238"
                 tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
