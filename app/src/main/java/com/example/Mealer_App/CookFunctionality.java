@@ -3,7 +3,9 @@ package com.example.Mealer_App;
 import static com.example.Mealer_App.LogInActivity.username;
 
 import android.annotation.SuppressLint;
+import android.media.Image;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -39,6 +42,8 @@ public class CookFunctionality extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cook_landing_page);
+
+        ImageView profileViewer = findViewById(R.id.settings_icon2);
 
         Database db = new Database(this);
 
@@ -77,6 +82,42 @@ public class CookFunctionality extends AppCompatActivity {
                 viewCookMessages();
             }
         });
+
+        profileViewer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewProfile();
+            }
+        });
+
+    }
+
+    public void viewProfile() {
+        setContentView(R.layout.dummy_cook_profile);
+        RatingBar ratingCook = findViewById(R.id.ratingCook);
+        TextView username, fullName, numSales;
+        Database db = new Database(this);
+
+        List<Purchase> sales = db.getSales(currentCook.getUsername());
+        int numCompletedSales = 0;
+        for(Purchase sale: sales) {
+            if(sale.getStatus() == 1) {
+                numCompletedSales++;
+            }
+        }
+
+        username = findViewById(R.id.txtUsername);
+        fullName = findViewById(R.id.txtFullName);
+        numSales = findViewById(R.id.txtAmtOfSales);
+
+        String usernameText = "Profile of: " + currentCook.getUsername();
+        String fullNameText = "Full Name: " + currentCook.getfName() + " " + currentCook.getlName();
+        String numSalesText = "Number of Completed Sales: " + numCompletedSales;
+        username.setText(usernameText);
+        fullName.setText(fullNameText);
+        numSales.setText(numSalesText);
+        ratingCook.setRating((float) currentCook.getRating());
+        ratingCook.setIsIndicator(true);
 
     }
 
