@@ -15,8 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.Mealer_App.structure.Client;
 import com.example.Mealer_App.structure.Purchase;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 public class ClientLandingPage extends AppCompatActivity {
@@ -49,7 +47,7 @@ public class ClientLandingPage extends AppCompatActivity {
     }
 
     public void viewProfile() {
-        setContentView(R.layout.dummy_client_profile);
+        setContentView(R.layout.activity_client_profile);
         Database db = new Database(this);
 
         List<Purchase> purchases = db.getPurchases(currentClient.getUsername());

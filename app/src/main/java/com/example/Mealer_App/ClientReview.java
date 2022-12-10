@@ -28,7 +28,7 @@ public class ClientReview extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dummy_list_purchases);
+        setContentView(R.layout.activity_list_purchases);
         ListView lvPurchases = findViewById(R.id.lv_Purchases);
         Button backToHomePage = findViewById(R.id.btnLandingPage);
 
@@ -64,7 +64,7 @@ public class ClientReview extends AppCompatActivity {
     }
 
     public void selectPurchase() {
-        setContentView(R.layout.dummy_select_purchase);
+        setContentView(R.layout.activity_select_purchase);
         TextView mealName, subtotal;
         Button review, backToPurchases;
 

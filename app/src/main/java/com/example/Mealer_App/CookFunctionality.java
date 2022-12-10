@@ -3,9 +3,7 @@ package com.example.Mealer_App;
 import static com.example.Mealer_App.LogInActivity.username;
 
 import android.annotation.SuppressLint;
-import android.media.Image;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -93,7 +91,7 @@ public class CookFunctionality extends AppCompatActivity {
     }
 
     public void viewProfile() {
-        setContentView(R.layout.dummy_cook_profile);
+        setContentView(R.layout.activity_cook_personal_profile);
         RatingBar ratingCook = findViewById(R.id.ratingCook);
         TextView username, fullName, numSales;
         Database db = new Database(this);
@@ -126,7 +124,7 @@ public class CookFunctionality extends AppCompatActivity {
     }
 
     public void viewCookMessages() {
-        setContentView(R.layout.dummy_cook_messages);
+        setContentView(R.layout.activity_cook_messages);
         Database db = new Database(this);
         Button seeReviews = findViewById(R.id.btnSeeReviews);
 
@@ -164,7 +162,7 @@ public class CookFunctionality extends AppCompatActivity {
     }
 
     public void viewPurchaseRequest() {
-        setContentView(R.layout.dummy_purchase_request);
+        setContentView(R.layout.activity_purchase_request);
         Database db = new Database(this);
         TextView mealInfo;
         Button backToRequests, approve, reject;
@@ -215,7 +213,7 @@ public class CookFunctionality extends AppCompatActivity {
     }
 
     public void ViewReviews() {
-        setContentView(R.layout.dummy_cook_reviews);
+        setContentView(R.layout.activity_cook_reviews);
         Database db = new Database(this);
 
         ListView viewReviews = findViewById(R.id.lv_Reviews);
@@ -225,6 +223,38 @@ public class CookFunctionality extends AppCompatActivity {
 
         viewReviews.setAdapter(reviewArrayAdapter);
 
+        viewReviews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                viewReview(reviews.get(position));
+            }
+        });
+
+    }
+
+    public void viewReview(Review r) {
+        setContentView(R.layout.activity_cook_review);
+
+        Button reviews = findViewById(R.id.btnReviews);
+        TextView title, client, cook, body;
+
+        title = findViewById(R.id.text_complaintTitle);
+        client = findViewById(R.id.text_associatedClient);
+        cook = findViewById(R.id.text_associatedCook);
+        body = findViewById(R.id.text_complaintMessage);
+
+
+        title.setText(r.getTitle());
+        client.setText(r.getClientUsername());
+        cook.setText(r.getCookUsername());
+        body.setText(r.getMessage());
+
+        reviews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewReviews();
+            }
+        });
     }
 
     public void ViewMeals(View view) {
@@ -341,7 +371,7 @@ public class CookFunctionality extends AppCompatActivity {
     }
 
     public void mealPopup() {
-        setContentView(R.layout.dummy_meal_info);
+        setContentView(R.layout.activity_meal_info);
         Database db = new Database(this);
 
         Button goBack = findViewById(R.id.btnReturn);
@@ -350,18 +380,23 @@ public class CookFunctionality extends AppCompatActivity {
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch featured = findViewById(R.id.switchIsFeatured);
         featured.setChecked(selectedMeal.isFeatured());
 
-        TextView name, description, cook, price, allergens;
+        TextView name, description, cook, price, allergens, cuisine, mealType;
         name = findViewById(R.id.infoMealName);
         description = findViewById(R.id.infoMealDescription);
         cook = findViewById(R.id.infoMealCookLink);
         price = findViewById(R.id.infoMealPrice);
         allergens = findViewById(R.id.infoAllergens);
+        cuisine = findViewById(R.id.infoCuisineType);
+        mealType = findViewById(R.id.infoMealType);
 
+        String mealPrice = "$" + String.valueOf(selectedMeal.getMealPrice());
         name.setText(selectedMeal.getMealName());
         description.setText(selectedMeal.getMealDescription());
         cook.setText(selectedMeal.getAssociatedCook().getUsername());
-        price.setText(String.valueOf(selectedMeal.getMealPrice()));
+        price.setText(mealPrice);
         allergens.setText(selectedMeal.getListOfAllergens());
+        cuisine.setText(selectedMeal.getMealCuisine());
+        mealType.setText(selectedMeal.getMealCourse());
 
 
 

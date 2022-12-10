@@ -37,20 +37,22 @@
 
                 <TextView
                     android:id="@+id/infoCuisineType"
-                    android:layout_width="wrap_content"
+                    android:layout_width="161dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:text="TextView"
+                    android:textAlignment="center"
                     android:textColor="#273238"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/infoMealType"
-                    android:layout_width="wrap_content"
+                    android:layout_width="151dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="40dp"
                     android:fontFamily="sans-serif-light"
                     android:text="TextView"
+                    android:textAlignment="center"
                     android:textColor="#273238"
                     android:textSize="20sp" />
             </LinearLayout>
