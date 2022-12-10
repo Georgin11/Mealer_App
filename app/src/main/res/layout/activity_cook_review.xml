@@ -6,19 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnReviews"
-        android:layout_width="192dp"
-        android:layout_height="wrap_content"
-        android:text="Reviews"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <RelativeLayout
         android:id="@+id/relativeLayout3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/half_white_background">
+
+        <Button
+            android:id="@+id/btnReviews"
+            android:layout_width="85dp"
+
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="320dp"
+            android:background="@null"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="Reviews"
+            android:textColor="#273238" />
 
         <LinearLayout
             android:layout_width="match_parent"
