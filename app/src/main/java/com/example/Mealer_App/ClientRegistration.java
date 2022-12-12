@@ -134,5 +134,6 @@ public class ClientRegistration extends AppCompatActivity {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivity(intent);
     }
+
 }
 

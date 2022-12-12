@@ -3,7 +3,9 @@ package com.example.Mealer_App;
 import static com.example.Mealer_App.LogInActivity.username;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -442,6 +444,10 @@ public class CookFunctionality extends AppCompatActivity {
 
     }
 
+    public void onInstagramClick(View view){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivity(intent);
+    }
 
 
 }

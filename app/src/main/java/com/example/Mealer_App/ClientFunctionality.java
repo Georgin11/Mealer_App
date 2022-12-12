@@ -5,6 +5,7 @@ import static com.example.Mealer_App.LogInActivity.loggedInUser;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -70,6 +71,10 @@ public class ClientFunctionality extends AppCompatActivity {
                     0,
                     "Finally found the lamb sauce and im giving it away for free :)",
                     cooks.get(0));
+            meal1.setDB_id(1);
+            meal2.setDB_id(2);
+            meal3.setDB_id(3);
+
             meal1.setFeatured(true);
             meal2.setFeatured(true);
             meal3.setFeatured(true);

@@ -35,13 +35,13 @@ public class LogInActivity extends AppCompatActivity {
 
 
     public void GoBack(View view) {
-        finish();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivityForResult(intent, 0);
     }
 
     public void NoAccount(View View) {
         //Application Context and Activity
-        Intent intent = new Intent(getApplicationContext(), Sign_Up.class);
-        startActivityForResult(intent, 0);
+
     }
 
 

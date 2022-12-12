@@ -49,7 +49,7 @@ public class ClientReview extends AppCompatActivity {
                     selectedPurchase = clientPurchases.get(position);
                     selectPurchase();
                 } else {
-                    Toast.makeText(ClientReview.this, "Purchase was is not currently approved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ClientReview.this, "Purchase is not currently approved", Toast.LENGTH_SHORT).show();
                 }
             }
         });

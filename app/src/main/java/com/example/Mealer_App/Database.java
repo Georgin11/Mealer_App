@@ -567,7 +567,6 @@ public class Database extends SQLiteOpenHelper {
                     int complaintSuspension = cursor.getInt(4);
                     String complaintClient = cursor.getString(5);
                     String complaintCook = cursor.getString(6);
-                    int purchaseID = cursor.getInt(7);
 
                     Review complaint = new Review(complaintTitle, complaintText, complaintClient, complaintCook, complaintRating);
                     if(complaintSuspension != -1) {
@@ -765,6 +764,9 @@ public class Database extends SQLiteOpenHelper {
                     bd = bd.setScale(2, RoundingMode.HALF_UP);
                     subtotal =  bd.doubleValue();
 
+                    if(mealID == meals.size()) {
+                        mealID--;
+                    }
                     String meal = meals.get(mealID).getMealName();
                     Purchase sale = new Purchase(cook, client, meal, quantity, meals.get(mealID).getMealPrice());
                     if(sale.getSubtotal() != subtotal) {
@@ -811,7 +813,9 @@ public class Database extends SQLiteOpenHelper {
                     double subtotal = cursor.getDouble(6);
 
 
-
+                    if(mealID == meals.size()) {
+                        mealID--;
+                    }
                     BigDecimal bd = BigDecimal.valueOf(subtotal);
                     bd = bd.setScale(2, RoundingMode.HALF_UP);
                     subtotal = bd.doubleValue();
@@ -822,11 +826,10 @@ public class Database extends SQLiteOpenHelper {
                         purchase.setSubtotal(subtotal);
                     }
                     purchase.setId(saleID);
-                    switch(status) {
-                        case -1:
-                            purchase.rejectPurchase();
-                        case 1:
-                            purchase.approvePurchase();
+                    if(status == 1) {
+                        purchase.approvePurchase();
+                    } else if(status == -1) {
+                        purchase.rejectPurchase();
                     }
                     purchases.add(purchase);
                 }
